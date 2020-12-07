@@ -1,0 +1,662 @@
+object frmPreviaFechamentoCaixa: TfrmPreviaFechamentoCaixa
+  Left = 724
+  Top = 108
+  BorderIcons = []
+  BorderStyle = bsNone
+  ClientHeight = 432
+  ClientWidth = 537
+  Color = 13828095
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object L_TEXTO: TLabel
+    Left = 33
+    Top = 2
+    Width = 469
+    Height = 45
+    Caption = 'Pr'#233'via do Fechamento de Caixa'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -32
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Panel1: TPanel
+    Left = -1
+    Top = 56
+    Width = 532
+    Height = 65
+    Color = 11195903
+    ParentBackground = False
+    TabOrder = 0
+    object Label2: TLabel
+      Left = 16
+      Top = 8
+      Width = 33
+      Height = 20
+      Caption = 'Data'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label3: TLabel
+      Left = 156
+      Top = 8
+      Width = 37
+      Height = 20
+      Caption = 'Caixa'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = 327
+      Top = 8
+      Width = 128
+      Height = 20
+      Caption = 'Operador de Caixa'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_OPERADOR: TLabel
+      Left = 356
+      Top = 29
+      Width = 37
+      Height = 20
+      Caption = 'Caixa'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clGreen
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_DATA: TLabel
+      Left = 13
+      Top = 29
+      Width = 40
+      Height = 20
+      Caption = 'dATA'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clGreen
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_CAIXA: TLabel
+      Left = 161
+      Top = 29
+      Width = 27
+      Height = 20
+      Caption = '000'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clGreen
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+  end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 121
+    Width = 531
+    Height = 171
+    Ctl3D = False
+    DataSource = dsResumoVendas
+    FixedColor = clBlue
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clNavy
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+    ParentCtl3D = False
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 1
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clGreen
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = [fsBold]
+    OnKeyDown = FormKeyDown
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'DT_MOV'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CAIXA'
+        Width = 34
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOME_USUARIO'
+        Width = 75
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'FORMA_PAGAMENTO'
+        Width = 115
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DESCRICAO_PAGAMENTO'
+        Width = 119
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VENDAS'
+        Width = 83
+        Visible = True
+      end>
+  end
+  object Panel2: TPanel
+    Left = -1
+    Top = 292
+    Width = 532
+    Height = 65
+    Color = 12902911
+    ParentBackground = False
+    TabOrder = 2
+    object Label5: TLabel
+      Left = 14
+      Top = 8
+      Width = 51
+      Height = 20
+      Caption = 'Vendas'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label6: TLabel
+      Left = 97
+      Top = 8
+      Width = 82
+      Height = 20
+      Caption = 'Suprimento'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 214
+      Top = 8
+      Width = 52
+      Height = 20
+      Caption = 'Sangria'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 459
+      Top = 8
+      Width = 36
+      Height = 20
+      Caption = 'Total'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_VENDAS: TLabel
+      Left = 14
+      Top = 31
+      Width = 31
+      Height = 20
+      Caption = '0,00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_SUPRIMENTO: TLabel
+      Left = 102
+      Top = 31
+      Width = 31
+      Height = 21
+      Caption = '0,00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clGreen
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_SANGRIA: TLabel
+      Left = 216
+      Top = 31
+      Width = 31
+      Height = 20
+      Caption = '0,00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_SALDO: TLabel
+      Left = 449
+      Top = 31
+      Width = 31
+      Height = 20
+      Caption = '0,00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label1: TLabel
+      Left = 289
+      Top = 8
+      Width = 127
+      Height = 20
+      Caption = 'Dinheiro em Caixa'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_DINHEIRO: TLabel
+      Left = 328
+      Top = 31
+      Width = 31
+      Height = 21
+      Caption = '0,00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+  end
+  object Memo1: TMemo
+    Left = 8
+    Top = 386
+    Width = 532
+    Height = 209
+    Lines.Strings = (
+      '')
+    TabOrder = 3
+    Visible = False
+  end
+  object BB_FECHAR: TBitBtn
+    Left = 127
+    Top = 368
+    Width = 108
+    Height = 57
+    Caption = '&Fechar Caixa'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGreen
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      2000000000000004000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000F0000000900000001000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000000205091A0B23
+      46960C2F5CB9060F1A7B0000001C000000000000000000000000000000000000
+      000000000000000000000000000000000003000000000204092110437FC70F8F
+      F6FF0992FEFF0F63B7FC0209135D000000030000000300000006000000000902
+      02001D0808001C08080619060684170100A5140204A0134D7BD513A5F8FF0994
+      FEFF0385FEFF0B8CF5FF15182CCD130000A2130000A10200003A000000000200
+      0000140606004C15150F6D3833FD744845FF2D5F8DFF1BBCF7FF1CCAFEFF0F9E
+      FEFF0896FEFF1C7BC1FF6C5359FF401511FF2E0101FF0A00005A000000000000
+      0000000000000F03030B6B4748F03981AEFF13ABFBFF16B8FEFF16B4FEFF11B1
+      FDFF1C8CCEFF797282FFA27A77FF532E24FF2D0403FE09000058000000000000
+      00000000001300000033523D46F21D8AD1FF0897FCFF0B95FEFF0998FBFF1C92
+      D6FF858696FFB58B86FFA18181FF5B362CFF310706FE09000058000000053123
+      2378725C5CCD776060DDA38684FB9BAEC1FF1883D6FF0183F2FF1C98DDFF959B
+      ADFFC9A29EFFB59797FFAD8F8EFF664137FF370B08FE080000584E3D3D7DD0BD
+      BDFFE8E0E0FFE2D8D8FFD7CECEFFCFB7B2FF8B9EB2FF2F99D5FFA5C2D5FFE4CC
+      C8FFD0BDBDFFC8B4B2FFBCA5A3FF714C41FF3B0E0CFE08000058BDABABE8E2D7
+      D7FFCCBDBDFFECE7E7FFE8E3E3FFD8D0D1FFB0958CFFB79E94FFBA998BFFA78A
+      7CFF99796BFF8C6A5EFF835F52FF724C3FFF421313FE08000058CCBBBBFF5C4F
+      4F984B3C3C5ED3C8C8EFF8F7F7FFEBE7E7FFBCA7A2FFCFB7AAFFC1A89DFFBA9F
+      91FFB29687FFA58678FF917164FF7E5A4DFF481816FE07000058645555690000
+      000500000000837272A1FCF9F9FFF5F2F3FFC8B6B2FFD7C9BFFFF3EEECFFFDFC
+      FCFFFDFCFCFFFDFDFCFFF6F2F1FF9D7E72FF4B1B19FE06000058403737000403
+      0301584F4F71E3DDDDFBFDFCFCFFDED7D8FFBDA599FF835741FFDBCCC3FFFEFE
+      FEFFFEFEFEFFFEFEFEFFFEFEFEFFBA9F90FF582723FF060000599F8C8C00A594
+      940DCABBBBB0DDD5D5DACEBEBEFFDED5D2FFD8CAC2FF987463FFD5C4BDFFF6F2
+      F2FFF5F1F1FFF3F0F0FFF2EDEDFFBA9F95FF4A1918F202000030A8959500B8A6
+      A600B8A8A801B09D9D0FA88D8D909F83829E9576769D8D6C6D9D7E595A9D7149
+      499D653A3A9D5C2E2E9D5122229E4714149D1801024900000000FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
+    ParentFont = False
+    TabOrder = 4
+    OnClick = BB_FECHARClick
+  end
+  object BitBtn1: TBitBtn
+    Left = 332
+    Top = 368
+    Width = 88
+    Height = 57
+    Caption = 'Sai&r'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      20000000000000040000C40E0000C40E00000000000000000000040404000404
+      0400040404000404040004040400040404000404040004040400040404000404
+      0400040404000404040004040400040404000404040004040400040404000404
+      0400000099FF0404040004040400040404000404040004040400040404000404
+      04000404040004040400040404000000FFFF0404040004040400040404003333
+      CCFF0000FFFF000099FF04040400040404000404040004040400040404000404
+      0400040404000404040004040400040404000404040004040400040404003333
+      CCFF3399FFFF0000FFFF000099FF040404000404040004040400040404000404
+      040004040400040404000000FFFF040404000404040004040400040404000404
+      04003333CCFF0066FFFF0000CCFF040404000404040004040400040404000404
+      0400040404000000FFFF04040400040404000404040004040400040404000404
+      0400040404000000CCFF0000FFFF000099FF0404040004040400040404000404
+      04000000FFFF000099FF04040400040404000404040004040400040404000404
+      040004040400040404000000CCFF0000FFFF000099FF04040400040404000000
+      FFFF000099FF0404040004040400040404000404040004040400040404000404
+      04000404040004040400040404000000CCFF0000FFFF000099FF0000FFFF0000
+      99FF040404000404040004040400040404000404040004040400040404000404
+      0400040404000404040004040400040404000000CCFF0000FFFF000099FF0404
+      0400040404000404040004040400040404000404040004040400040404000404
+      04000404040004040400040404000000CCFF0000FFFF000099FF0000CCFF0000
+      99FF040404000404040004040400040404000404040004040400040404000404
+      040004040400040404000000CCFF0000FFFF000099FF04040400040404000000
+      CCFF000099FF0404040004040400040404000404040004040400040404000404
+      04000000CCFF0000FFFF0000FFFF000099FF0404040004040400040404000404
+      04000000CCFF000099FF04040400040404000404040004040400040404000000
+      CCFF3399FFFF0000FFFF000099FF040404000404040004040400040404000404
+      0400040404000000CCFF000099FF040404000404040004040400040404006666
+      99FF0000CCFF666699FF04040400040404000404040004040400040404000404
+      04000404040004040400040404000000CCFF0404040004040400040404000404
+      0400040404000404040004040400040404000404040004040400040404000404
+      0400040404000404040004040400040404000404040004040400040404000404
+      0400040404000404040004040400040404000404040004040400040404000404
+      0400040404000404040004040400040404000404040004040400}
+    Layout = blGlyphTop
+    ParentFont = False
+    TabOrder = 5
+    OnClick = BitBtn1Click
+  end
+  object BB_OK: TBitBtn
+    Left = 34
+    Top = 368
+    Width = 89
+    Height = 57
+    Caption = '&OK'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    Glyph.Data = {
+      DE010000424DDE01000000000000760000002800000024000000120000000100
+      0400000000006801000000000000000000001000000000000000000000000000
+      80000080000000808000800000008000800080800000C0C0C000808080000000
+      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+      3333333333333333333333330000333333333333333333333333F33333333333
+      00003333344333333333333333388F3333333333000033334224333333333333
+      338338F3333333330000333422224333333333333833338F3333333300003342
+      222224333333333383333338F3333333000034222A22224333333338F338F333
+      8F33333300003222A3A2224333333338F3838F338F33333300003A2A333A2224
+      33333338F83338F338F33333000033A33333A222433333338333338F338F3333
+      0000333333333A222433333333333338F338F33300003333333333A222433333
+      333333338F338F33000033333333333A222433333333333338F338F300003333
+      33333333A222433333333333338F338F00003333333333333A22433333333333
+      3338F38F000033333333333333A223333333333333338F830000333333333333
+      333A333333333333333338330000333333333333333333333333333333333333
+      0000}
+    NumGlyphs = 2
+    ParentFont = False
+    TabOrder = 6
+    OnClick = BB_OKClick
+  end
+  object BB_IMPRIMIR: TBitBtn
+    Left = 240
+    Top = 368
+    Width = 89
+    Height = 57
+    Caption = 'Im&primir'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      20000000000000040000C40E0000C40E00000000000000000000000000000000
+      0000000000000000000000000000838383FF838383FF838383FF838383FF8383
+      83FF838383FF838383FF00000000000000000000000000000000000000000000
+      000000000000838383FF838383FF525252FF3E3D3DFF3E3D3DFF3E3D3DFF3E3D
+      3DFF3E3D3DFF3E3D3DFF7A7A7AFF7D7D7EFF0000000000000000000000000000
+      0000838383FF525252FF3E3D3DFFF1F1F1FFB2B2B2FF9D8685FFA88385FFB4B4
+      B4FFE4E4E4FFB0B0B0FF4E4E4EFF3E3D3DFF7D7D7EFF00000000000000003E3D
+      3DFF3E3D3DFFEFEFEFFFF1F1F1FFE9E9E9FFADADADFF929292FF5F5F5FFF6E6E
+      6EFF8E8E8EFFBABABAFFE9E9E9FFB0B0B0FF7A7A7AFF0000000000000000ADAD
+      ADFFFAFAFAFFF2F2F2FFD8D8D8FF959595FF7D7D7EFF999999FFB2B2B2FFA7A7
+      A7FF959595FF8E8E8EFF898989FF5F5F5FFF7D7D7EFF0000000000000000A5A5
+      A5FFD8D8D8FFA0A0A0FF999999FFC9C9C9FFAAAAAAFF8E8E8EFF818181FF8383
+      83FFA0A0A0FFBFBFBFFF73A383FF525252FF7D7D7EFF00000000000000007777
+      77FFA7A7A7FFDADADAFFD8D8D8FFD8D8D8FFD8D8D8FFE1E1E1FFCFCFCFFFBFBF
+      BFFF9E9E9EFF898989FF687B6EFF4E4E4EFF838383FF00000000000000009E9E
+      9EFFE1E1E1FFD8D8D8FFD3D3D3FFC9C9C9FFD6D6D6FFCFCFCFFFC2C2C2FFC0C0
+      C0FFCCCCCCFFD4D4D4FFCCCCCCFF6A6A6AFF0000000000000000000000008E8E
+      8EFFD6D6D6FFC2C2C2FFAAAAAAFFA5A5A5FFCFCFCFFFF1F1F1FFEDEDEDFFEAEA
+      EAFFDADADAFFBFBFBFFFBFBFBFFF737373FF0000000000000000000000000000
+      0000A0A0A0FFC9C9C9FFEDEDEDFFB2B2B2FFBABABAFFAEAEAEFFB6B6B6FFBDBD
+      BDFFBDBDBDFF737373FF737373FF000000000000000000000000000000000000
+      000000000000B3ACA5FFFFD4C6FFFFD4C6FFFDD7CDFFEEDBD4FFE6E3E1FFE7E7
+      E7FF6E6E6EFF0000000000000000000000000000000000000000000000000000
+      000000000000AB8E91FFFFDAB4FFFFDCB9FFFFDCB9FFFFD7B1FFFFD6ADFF665C
+      5AFF000000000000000000000000000000000000000000000000000000000000
+      000000000000B29E8DFFFFE5CAFFFFE5CAFFFFE5CAFFFFE5CAFFFFE0C2FF725F
+      5FFF000000000000000000000000000000000000000000000000000000000000
+      000000000000D9BFB7FFFFEEDDFFFFEEDDFFFFEEDDFFFFEBD8FF725F5FFF0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000A59A97FFFFF7EEFFFFF7EEFFFFF7EEFFFFF7EEFFFFF7EEFF725F5FFF0000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000AB8E91FFAB8E91FFAB8E91FFAB8E91FFAB8E91FFAB8E91FF000000000000
+      0000000000000000000000000000000000000000000000000000}
+    ParentFont = False
+    TabOrder = 7
+    OnClick = BB_IMPRIMIRClick
+  end
+  object qResumoVendas: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'CAIXA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DT_MOV'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'LOJA'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'SELECT'
+      'pv.DT_MOV,'
+      'pv.CAIXA,'
+      'PV.ID_USUARIO,'
+      'TP.descricao_pagamento,'
+      'FP.DESCRICAO_PAGAMENTO AS FORMA_PAGAMENTO,'
+      'U.NOME_USUARIO,'
+      'SUM(PV.VL_PAGAMENTO) AS Vendas'
+      'FROM tb_pagamento_pdv PV'
+      'LEFT OUTER JOIN tb_pdv P ON (P.id_pdv = PV.id_pdv)'
+      
+        'LEFT OUTER JOIN tb_plano_pagamento TP ON (TP.ID_PLANO_PAGAMENTO ' +
+        '= PV.ID_PLANO_PAGAMENTO)'
+      
+        'LEFT OUTER JOIN TB_FORMA_PAGAMENTO FP ON (FP.ID_FORMA_PAGAMENTO ' +
+        '= PV.ID_FORMA_PAGAMENTO)'
+      'LEFT OUTER JOIN TB_USUARIO U ON (U.ID_USUARIO = PV.ID_USUARIO)'
+      'where PV.CAIXA = :CAIXA'
+      'AND PV.DT_MOV = :DT_MOV'
+      'AND PV.ID_LOJA = :LOJA'
+      'GROUP BY'
+      'pv.DT_MOV,'
+      'pv.CAIXA,'
+      'PV.ID_USUARIO,'
+      'U.NOME_USUARIO,'
+      'TP.descricao_pagamento,'
+      'FP.DESCRICAO_PAGAMENTO'
+      'ORDER BY PV.ID_USUARIO, FP.DESCRICAO_PAGAMENTO ')
+    SQLConnection = DM.Conexao
+    Left = 283
+    Top = 192
+    object qResumoVendasDT_MOV: TDateField
+      FieldName = 'DT_MOV'
+    end
+    object qResumoVendasCAIXA: TIntegerField
+      FieldName = 'CAIXA'
+    end
+    object qResumoVendasDESCRICAO_PAGAMENTO: TStringField
+      FieldName = 'DESCRICAO_PAGAMENTO'
+      Size = 40
+    end
+    object qResumoVendasVENDAS: TFMTBCDField
+      FieldName = 'VENDAS'
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object qResumoVendasFORMA_PAGAMENTO: TStringField
+      FieldName = 'FORMA_PAGAMENTO'
+      Size = 40
+    end
+    object qResumoVendasID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+    end
+    object qResumoVendasNOME_USUARIO: TStringField
+      FieldName = 'NOME_USUARIO'
+      Size = 30
+    end
+  end
+  object dspResumoVendas: TDataSetProvider
+    DataSet = qResumoVendas
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 315
+    Top = 192
+  end
+  object cdsResumoVendas: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'CAIXA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DT_MOV'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'LOJA'
+        ParamType = ptInput
+      end>
+    ProviderName = 'dspResumoVendas'
+    Left = 347
+    Top = 192
+    object cdsResumoVendasDT_MOV: TDateField
+      DisplayLabel = 'Data'
+      FieldName = 'DT_MOV'
+      EditMask = '##/##/####'
+    end
+    object cdsResumoVendasCAIXA: TIntegerField
+      DisplayLabel = 'Caixa'
+      FieldName = 'CAIXA'
+    end
+    object cdsResumoVendasDESCRICAO_PAGAMENTO: TStringField
+      DisplayLabel = 'Forma Pagmento'
+      FieldName = 'DESCRICAO_PAGAMENTO'
+      Size = 40
+    end
+    object cdsResumoVendasVENDAS: TFMTBCDField
+      DisplayLabel = 'Vendas'
+      FieldName = 'VENDAS'
+      ReadOnly = True
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsResumoVendasFORMA_PAGAMENTO: TStringField
+      DisplayLabel = 'Plano Pagmento'
+      FieldName = 'FORMA_PAGAMENTO'
+      Size = 40
+    end
+    object cdsResumoVendasID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+    end
+    object cdsResumoVendasNOME_USUARIO: TStringField
+      DisplayLabel = 'Usu'#225'rio'
+      FieldName = 'NOME_USUARIO'
+      Size = 30
+    end
+  end
+  object dsResumoVendas: TDataSource
+    DataSet = cdsResumoVendas
+    Left = 379
+    Top = 192
+  end
+end

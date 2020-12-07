@@ -1,0 +1,118 @@
+object frmMenuCaixa: TfrmMenuCaixa
+  Left = 503
+  Top = 104
+  BorderIcons = []
+  BorderStyle = bsSingle
+  ClientHeight = 382
+  ClientWidth = 349
+  Color = clCream
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnKeyDown = FormKeyDown
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 48
+    Top = 16
+    Width = 165
+    Height = 30
+    Caption = 'Menu de Op'#231#245'es'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -21
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold, fsUnderline]
+    ParentFont = False
+  end
+  object L_SUPRIMENTO: TLabel
+    Left = 2
+    Top = 72
+    Width = 206
+    Height = 37
+    Caption = 'F1 - Suprimento'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = L_SUPRIMENTOClick
+  end
+  object L_RETIRADA: TLabel
+    Left = 2
+    Top = 117
+    Width = 274
+    Height = 37
+    Caption = 'F2 - Retirada/Sangria'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = L_RETIRADAClick
+  end
+  object L_PREVIA: TLabel
+    Left = 2
+    Top = 166
+    Width = 341
+    Height = 37
+    Caption = 'F3 - Previa do Fechamento'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = L_PREVIAClick
+  end
+  object L_INFORMAR_CLIENTE: TLabel
+    Left = 2
+    Top = 209
+    Width = 266
+    Height = 37
+    Caption = 'F4 - Informar Cliente'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = L_INFORMAR_CLIENTEClick
+  end
+  object L_SAIR: TLabel
+    Left = 2
+    Top = 288
+    Width = 113
+    Height = 37
+    Caption = 'Esc - Sair'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = L_SAIRClick
+  end
+  object Label2: TLabel
+    Left = 2
+    Top = 254
+    Width = 267
+    Height = 37
+    Caption = 'F11 - Reativar Venda'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Visible = False
+    OnClick = L_INFORMAR_CLIENTEClick
+  end
+end

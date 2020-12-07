@@ -1,0 +1,828 @@
+unit uVendaFiscal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Data.DBXFirebird, FMTBcd, DB, DBClient, Provider, SqlExpr, StdCtrls,
+  Grids, DBGrids, ComCtrls, Mask, Buttons, ExtCtrls, Gauges, DBCtrls,IniFiles;
+
+type
+  TfrmVendaFiscal = class(TForm)
+    qVendaDTO: TSQLQuery;
+    dspVendaDTO: TDataSetProvider;
+    cdsVendaDTO: TClientDataSet;
+    dsVendaDTO: TDataSource;
+    qItemVendaDTO: TSQLQuery;
+    dspItemVendaDTO: TDataSetProvider;
+    cdsItemVendaDTO: TClientDataSet;
+    dsItemVendaDTO: TDataSource;
+    Button1: TButton;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
+    qReducaoZ: TSQLQuery;
+    dspReducaoZ: TDataSetProvider;
+    cdsReducaoZ: TClientDataSet;
+    dsReducaoZ: TDataSource;
+    DBGrid3: TDBGrid;
+    GroupBox3: TGroupBox;
+    Label7: TLabel;
+    Label8: TLabel;
+    MaskEdit1: TMaskEdit;
+    MaskEdit2: TMaskEdit;
+    qTBvendaDTO: TSQLQuery;
+    dspTBvendaDTO: TDataSetProvider;
+    cdsTBvendaDTO: TClientDataSet;
+    dsTBvendaDTO: TDataSource;
+    qTBitemVendaDTO: TSQLQuery;
+    dspTBitemVendaDTO: TDataSetProvider;
+    cdsTBitemVendaDTO: TClientDataSet;
+    dsTBitemVendaDTO: TDataSource;
+    BitBtn1: TBitBtn;
+    sp_TBvendaDTO: TSQLStoredProc;
+    dsp_spTBvendaDTO: TDataSetProvider;
+    cds_spTBvendaDTO: TClientDataSet;
+    sp_ItemVendaDTO: TSQLStoredProc;
+    dsp_sp_ItemVendaDTO: TDataSetProvider;
+    cds_sp_ItemVendaDTO: TClientDataSet;
+    Timer1: TTimer;
+    DBGrid4: TDBGrid;
+    DBGrid5: TDBGrid;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    sp_DelCupomCancelado: TSQLStoredProc;
+    dspDelCupomCancelado: TDataSetProvider;
+    BitBtn3: TBitBtn;
+    cdsDelCupomCancelado: TClientDataSet;
+    Panel4: TPanel;
+    Gauge3: TGauge;
+    Label13: TLabel;
+    DBText1: TDBText;
+    Label4: TLabel;
+    Label5: TLabel;
+    ConexaoFiscal: TSQLConnection;
+    qVendaDTOVENDADTO_ID: TLargeintField;
+    qVendaDTOCANCELADA: TStringField;
+    qVendaDTOCFOP: TFloatField;
+    qVendaDTOCHV_NFE: TStringField;
+    qVendaDTOCLIENTE: TStringField;
+    qVendaDTOCODLOJA: TFloatField;
+    qVendaDTODATAMOVI: TStringField;
+    qVendaDTODT_MOVI: TDateField;
+    qVendaDTOFORMALAN: TStringField;
+    qVendaDTOID: TStringField;
+    qVendaDTOMENSAGEM: TStringField;
+    qVendaDTOMOD_NOTA: TFloatField;
+    qVendaDTONUMCUPOM: TFloatField;
+    qVendaDTONUMPRE: TFloatField;
+    qVendaDTONUMSERIE: TStringField;
+    qVendaDTONUM_NOTA: TFloatField;
+    qVendaDTOOPERADOR: TStringField;
+    qVendaDTOSER_NOTA: TStringField;
+    qVendaDTOSUB_NOTA: TStringField;
+    qVendaDTOTOTVENDA: TFloatField;
+    qVendaDTOTOT_ITEM: TFloatField;
+    qVendaDTOVALACRES: TFloatField;
+    qVendaDTOVALDESC: TFloatField;
+    qVendaDTOVENDEDOR: TStringField;
+    cdsVendaDTOVENDADTO_ID: TLargeintField;
+    cdsVendaDTOCANCELADA: TStringField;
+    cdsVendaDTOCFOP: TFloatField;
+    cdsVendaDTOCHV_NFE: TStringField;
+    cdsVendaDTOCLIENTE: TStringField;
+    cdsVendaDTOCODLOJA: TFloatField;
+    cdsVendaDTODATAMOVI: TStringField;
+    cdsVendaDTODT_MOVI: TDateField;
+    cdsVendaDTOFORMALAN: TStringField;
+    cdsVendaDTOID: TStringField;
+    cdsVendaDTOMENSAGEM: TStringField;
+    cdsVendaDTOMOD_NOTA: TFloatField;
+    cdsVendaDTONUMCUPOM: TFloatField;
+    cdsVendaDTONUMPRE: TFloatField;
+    cdsVendaDTONUMSERIE: TStringField;
+    cdsVendaDTONUM_NOTA: TFloatField;
+    cdsVendaDTOOPERADOR: TStringField;
+    cdsVendaDTOSER_NOTA: TStringField;
+    cdsVendaDTOSUB_NOTA: TStringField;
+    cdsVendaDTOTOTVENDA: TFloatField;
+    cdsVendaDTOTOT_ITEM: TFloatField;
+    cdsVendaDTOVALACRES: TFloatField;
+    cdsVendaDTOVALDESC: TFloatField;
+    cdsVendaDTOVENDEDOR: TStringField;
+    qItemVendaDTOITEMVENDADTO_ID: TLargeintField;
+    qItemVendaDTOACREITEM: TFloatField;
+    qItemVendaDTOACREVEND: TFloatField;
+    qItemVendaDTOALIQUOTA: TFloatField;
+    qItemVendaDTOCODLOJA: TFloatField;
+    qItemVendaDTODATAMOVI: TStringField;
+    qItemVendaDTODT_MOVI: TDateField;
+    qItemVendaDTODESCITEM: TFloatField;
+    qItemVendaDTODESCVEND: TFloatField;
+    qItemVendaDTOGUID: TStringField;
+    qItemVendaDTOGUIDPROD: TStringField;
+    qItemVendaDTOID: TStringField;
+    qItemVendaDTONUMCUPOM: TFloatField;
+    qItemVendaDTONUMSERIE: TStringField;
+    qItemVendaDTOPCOVENDA: TFloatField;
+    qItemVendaDTOPRODUTO: TStringField;
+    qItemVendaDTOQTDEMBAL: TFloatField;
+    qItemVendaDTOQTDVENDA: TFloatField;
+    qItemVendaDTOTIPOALIQ: TStringField;
+    qItemVendaDTOUNIDMEDI: TStringField;
+    cdsItemVendaDTOITEMVENDADTO_ID: TLargeintField;
+    cdsItemVendaDTOACREITEM: TFloatField;
+    cdsItemVendaDTOACREVEND: TFloatField;
+    cdsItemVendaDTOALIQUOTA: TFloatField;
+    cdsItemVendaDTOCODLOJA: TFloatField;
+    cdsItemVendaDTODATAMOVI: TStringField;
+    cdsItemVendaDTODT_MOVI: TDateField;
+    cdsItemVendaDTODESCITEM: TFloatField;
+    cdsItemVendaDTODESCVEND: TFloatField;
+    cdsItemVendaDTOGUID: TStringField;
+    cdsItemVendaDTOGUIDPROD: TStringField;
+    cdsItemVendaDTOID: TStringField;
+    cdsItemVendaDTONUMCUPOM: TFloatField;
+    cdsItemVendaDTONUMSERIE: TStringField;
+    cdsItemVendaDTOPCOVENDA: TFloatField;
+    cdsItemVendaDTOPRODUTO: TStringField;
+    cdsItemVendaDTOQTDEMBAL: TFloatField;
+    cdsItemVendaDTOQTDVENDA: TFloatField;
+    cdsItemVendaDTOTIPOALIQ: TStringField;
+    cdsItemVendaDTOUNIDMEDI: TStringField;
+    qReducaoZREDUCAOZDTO_ID: TLargeintField;
+    qReducaoZALQ_TR01: TFloatField;
+    qReducaoZALQ_TR02: TFloatField;
+    qReducaoZALQ_TR03: TFloatField;
+    qReducaoZALQ_TR04: TFloatField;
+    qReducaoZALQ_TR05: TFloatField;
+    qReducaoZALQ_TR06: TFloatField;
+    qReducaoZALQ_TR07: TFloatField;
+    qReducaoZALQ_TR08: TFloatField;
+    qReducaoZALQ_TR09: TFloatField;
+    qReducaoZALQ_TR10: TFloatField;
+    qReducaoZALQ_TR11: TFloatField;
+    qReducaoZALQ_TR12: TFloatField;
+    qReducaoZALQ_TR13: TFloatField;
+    qReducaoZALQ_TR14: TFloatField;
+    qReducaoZALQ_TR15: TFloatField;
+    qReducaoZALQ_TR16: TFloatField;
+    qReducaoZALQ_TR17: TFloatField;
+    qReducaoZALQ_TR18: TFloatField;
+    qReducaoZALQ_TR19: TFloatField;
+    qReducaoZCODLOJA: TFloatField;
+    qReducaoZCONT_FIM: TFloatField;
+    qReducaoZCONT_INI: TFloatField;
+    qReducaoZCONT_REI: TFloatField;
+    qReducaoZCONT_Z: TFloatField;
+    qReducaoZDATAMOVI: TStringField;
+    qReducaoZGTOT_FIM: TFloatField;
+    qReducaoZGTOT_INI: TFloatField;
+    qReducaoZID: TStringField;
+    qReducaoZNUMSERIE: TStringField;
+    qReducaoZTIP_TR01: TStringField;
+    qReducaoZTIP_TR02: TStringField;
+    qReducaoZTIP_TR03: TStringField;
+    qReducaoZTIP_TR04: TStringField;
+    qReducaoZTIP_TR05: TStringField;
+    qReducaoZTIP_TR06: TStringField;
+    qReducaoZTIP_TR07: TStringField;
+    qReducaoZTIP_TR08: TStringField;
+    qReducaoZTIP_TR09: TStringField;
+    qReducaoZTIP_TR10: TStringField;
+    qReducaoZTIP_TR11: TStringField;
+    qReducaoZTIP_TR12: TStringField;
+    qReducaoZTIP_TR13: TStringField;
+    qReducaoZTIP_TR14: TStringField;
+    qReducaoZTIP_TR15: TStringField;
+    qReducaoZTIP_TR16: TStringField;
+    qReducaoZTIP_TR17: TStringField;
+    qReducaoZTIP_TR18: TStringField;
+    qReducaoZTIP_TR19: TStringField;
+    qReducaoZTOT_ACRE: TFloatField;
+    qReducaoZTOT_CANC: TFloatField;
+    qReducaoZTOT_DESC: TFloatField;
+    qReducaoZTOT_INCI: TFloatField;
+    qReducaoZTOT_ISEN: TFloatField;
+    qReducaoZTOT_SUBS: TFloatField;
+    qReducaoZTOT_TR01: TFloatField;
+    qReducaoZTOT_TR02: TFloatField;
+    qReducaoZTOT_TR03: TFloatField;
+    qReducaoZTOT_TR04: TFloatField;
+    qReducaoZTOT_TR05: TFloatField;
+    qReducaoZTOT_TR06: TFloatField;
+    qReducaoZTOT_TR07: TFloatField;
+    qReducaoZTOT_TR08: TFloatField;
+    qReducaoZTOT_TR09: TFloatField;
+    qReducaoZTOT_TR10: TFloatField;
+    qReducaoZTOT_TR11: TFloatField;
+    qReducaoZTOT_TR12: TFloatField;
+    qReducaoZTOT_TR13: TFloatField;
+    qReducaoZTOT_TR14: TFloatField;
+    qReducaoZTOT_TR15: TFloatField;
+    qReducaoZTOT_TR16: TFloatField;
+    qReducaoZTOT_TR17: TFloatField;
+    qReducaoZTOT_TR18: TFloatField;
+    qReducaoZTOT_TR19: TFloatField;
+    qReducaoZDT_MOVI: TDateField;
+    cdsReducaoZREDUCAOZDTO_ID: TLargeintField;
+    cdsReducaoZALQ_TR01: TFloatField;
+    cdsReducaoZALQ_TR02: TFloatField;
+    cdsReducaoZALQ_TR03: TFloatField;
+    cdsReducaoZALQ_TR04: TFloatField;
+    cdsReducaoZALQ_TR05: TFloatField;
+    cdsReducaoZALQ_TR06: TFloatField;
+    cdsReducaoZALQ_TR07: TFloatField;
+    cdsReducaoZALQ_TR08: TFloatField;
+    cdsReducaoZALQ_TR09: TFloatField;
+    cdsReducaoZALQ_TR10: TFloatField;
+    cdsReducaoZALQ_TR11: TFloatField;
+    cdsReducaoZALQ_TR12: TFloatField;
+    cdsReducaoZALQ_TR13: TFloatField;
+    cdsReducaoZALQ_TR14: TFloatField;
+    cdsReducaoZALQ_TR15: TFloatField;
+    cdsReducaoZALQ_TR16: TFloatField;
+    cdsReducaoZALQ_TR17: TFloatField;
+    cdsReducaoZALQ_TR18: TFloatField;
+    cdsReducaoZALQ_TR19: TFloatField;
+    cdsReducaoZCODLOJA: TFloatField;
+    cdsReducaoZCONT_FIM: TFloatField;
+    cdsReducaoZCONT_INI: TFloatField;
+    cdsReducaoZCONT_REI: TFloatField;
+    cdsReducaoZCONT_Z: TFloatField;
+    cdsReducaoZDATAMOVI: TStringField;
+    cdsReducaoZGTOT_FIM: TFloatField;
+    cdsReducaoZGTOT_INI: TFloatField;
+    cdsReducaoZID: TStringField;
+    cdsReducaoZNUMSERIE: TStringField;
+    cdsReducaoZTIP_TR01: TStringField;
+    cdsReducaoZTIP_TR02: TStringField;
+    cdsReducaoZTIP_TR03: TStringField;
+    cdsReducaoZTIP_TR04: TStringField;
+    cdsReducaoZTIP_TR05: TStringField;
+    cdsReducaoZTIP_TR06: TStringField;
+    cdsReducaoZTIP_TR07: TStringField;
+    cdsReducaoZTIP_TR08: TStringField;
+    cdsReducaoZTIP_TR09: TStringField;
+    cdsReducaoZTIP_TR10: TStringField;
+    cdsReducaoZTIP_TR11: TStringField;
+    cdsReducaoZTIP_TR12: TStringField;
+    cdsReducaoZTIP_TR13: TStringField;
+    cdsReducaoZTIP_TR14: TStringField;
+    cdsReducaoZTIP_TR15: TStringField;
+    cdsReducaoZTIP_TR16: TStringField;
+    cdsReducaoZTIP_TR17: TStringField;
+    cdsReducaoZTIP_TR18: TStringField;
+    cdsReducaoZTIP_TR19: TStringField;
+    cdsReducaoZTOT_ACRE: TFloatField;
+    cdsReducaoZTOT_CANC: TFloatField;
+    cdsReducaoZTOT_DESC: TFloatField;
+    cdsReducaoZTOT_INCI: TFloatField;
+    cdsReducaoZTOT_ISEN: TFloatField;
+    cdsReducaoZTOT_SUBS: TFloatField;
+    cdsReducaoZTOT_TR01: TFloatField;
+    cdsReducaoZTOT_TR02: TFloatField;
+    cdsReducaoZTOT_TR03: TFloatField;
+    cdsReducaoZTOT_TR04: TFloatField;
+    cdsReducaoZTOT_TR05: TFloatField;
+    cdsReducaoZTOT_TR06: TFloatField;
+    cdsReducaoZTOT_TR07: TFloatField;
+    cdsReducaoZTOT_TR08: TFloatField;
+    cdsReducaoZTOT_TR09: TFloatField;
+    cdsReducaoZTOT_TR10: TFloatField;
+    cdsReducaoZTOT_TR11: TFloatField;
+    cdsReducaoZTOT_TR12: TFloatField;
+    cdsReducaoZTOT_TR13: TFloatField;
+    cdsReducaoZTOT_TR14: TFloatField;
+    cdsReducaoZTOT_TR15: TFloatField;
+    cdsReducaoZTOT_TR16: TFloatField;
+    cdsReducaoZTOT_TR17: TFloatField;
+    cdsReducaoZTOT_TR18: TFloatField;
+    cdsReducaoZTOT_TR19: TFloatField;
+    cdsReducaoZDT_MOVI: TDateField;
+    qTBvendaDTOVENDADTO_ID: TLargeintField;
+    qTBvendaDTOCANCELADA: TStringField;
+    qTBvendaDTOCFOP: TFloatField;
+    qTBvendaDTOCHV_NFE: TStringField;
+    qTBvendaDTOCLIENTE: TStringField;
+    qTBvendaDTOCODLOJA: TFloatField;
+    qTBvendaDTODATAMOVI: TStringField;
+    qTBvendaDTODATAMOVIF: TDateField;
+    qTBvendaDTOFORMALAN: TStringField;
+    qTBvendaDTOID: TStringField;
+    qTBvendaDTOMENSAGEM: TStringField;
+    qTBvendaDTOMOD_NOTA: TFloatField;
+    qTBvendaDTONUMCUPOM: TFloatField;
+    qTBvendaDTONUMPRE: TFloatField;
+    qTBvendaDTONUMSERIE: TStringField;
+    qTBvendaDTONUM_NOTA: TFloatField;
+    qTBvendaDTOOPERADOR: TStringField;
+    qTBvendaDTOSER_NOTA: TStringField;
+    qTBvendaDTOSUB_NOTA: TStringField;
+    qTBvendaDTOTOTVENDA: TFloatField;
+    qTBvendaDTOTOT_ITEM: TFloatField;
+    qTBvendaDTOVALACRES: TFloatField;
+    qTBvendaDTOVALDESC: TFloatField;
+    qTBvendaDTOVENDEDOR: TStringField;
+    cdsTBvendaDTOVENDADTO_ID: TLargeintField;
+    cdsTBvendaDTOCANCELADA: TStringField;
+    cdsTBvendaDTOCFOP: TFloatField;
+    cdsTBvendaDTOCHV_NFE: TStringField;
+    cdsTBvendaDTOCLIENTE: TStringField;
+    cdsTBvendaDTOCODLOJA: TFloatField;
+    cdsTBvendaDTODATAMOVI: TStringField;
+    cdsTBvendaDTODATAMOVIF: TDateField;
+    cdsTBvendaDTOFORMALAN: TStringField;
+    cdsTBvendaDTOID: TStringField;
+    cdsTBvendaDTOMENSAGEM: TStringField;
+    cdsTBvendaDTOMOD_NOTA: TFloatField;
+    cdsTBvendaDTONUMCUPOM: TFloatField;
+    cdsTBvendaDTONUMPRE: TFloatField;
+    cdsTBvendaDTONUMSERIE: TStringField;
+    cdsTBvendaDTONUM_NOTA: TFloatField;
+    cdsTBvendaDTOOPERADOR: TStringField;
+    cdsTBvendaDTOSER_NOTA: TStringField;
+    cdsTBvendaDTOSUB_NOTA: TStringField;
+    cdsTBvendaDTOTOTVENDA: TFloatField;
+    cdsTBvendaDTOTOT_ITEM: TFloatField;
+    cdsTBvendaDTOVALACRES: TFloatField;
+    cdsTBvendaDTOVALDESC: TFloatField;
+    cdsTBvendaDTOVENDEDOR: TStringField;
+    qTBitemVendaDTOITEMVENDADTO_ID: TLargeintField;
+    qTBitemVendaDTOACREITEM: TFloatField;
+    qTBitemVendaDTOACREVEND: TFloatField;
+    qTBitemVendaDTOALIQUOTA: TFloatField;
+    qTBitemVendaDTOCODLOJA: TFloatField;
+    qTBitemVendaDTODATAMOVI: TStringField;
+    qTBitemVendaDTODESCITEM: TFloatField;
+    qTBitemVendaDTODESCVEND: TFloatField;
+    qTBitemVendaDTOGUID: TStringField;
+    qTBitemVendaDTOGUIDPROD: TStringField;
+    qTBitemVendaDTOID: TStringField;
+    qTBitemVendaDTONUMCUPOM: TFloatField;
+    qTBitemVendaDTONUMSERIE: TStringField;
+    qTBitemVendaDTOPCOVENDA: TFloatField;
+    qTBitemVendaDTOPRODUTO: TStringField;
+    qTBitemVendaDTOQTDEMBAL: TFloatField;
+    qTBitemVendaDTOQTDVENDA: TFloatField;
+    qTBitemVendaDTOTIPOALIQ: TStringField;
+    qTBitemVendaDTOUNIDMEDI: TStringField;
+    qTBitemVendaDTOID_PRODUTO: TIntegerField;
+    qTBitemVendaDTOID_GRUPO_PRODUTO: TIntegerField;
+    qTBitemVendaDTOCANCELADO: TStringField;
+    qTBitemVendaDTODESCRICAO: TStringField;
+    qTBitemVendaDTOEMBALGEM: TStringField;
+    qTBitemVendaDTOCD_BARRA: TStringField;
+    cdsTBitemVendaDTOITEMVENDADTO_ID: TLargeintField;
+    cdsTBitemVendaDTOACREITEM: TFloatField;
+    cdsTBitemVendaDTOACREVEND: TFloatField;
+    cdsTBitemVendaDTOALIQUOTA: TFloatField;
+    cdsTBitemVendaDTOCODLOJA: TFloatField;
+    cdsTBitemVendaDTODATAMOVI: TStringField;
+    cdsTBitemVendaDTODESCITEM: TFloatField;
+    cdsTBitemVendaDTODESCVEND: TFloatField;
+    cdsTBitemVendaDTOGUID: TStringField;
+    cdsTBitemVendaDTOGUIDPROD: TStringField;
+    cdsTBitemVendaDTOID: TStringField;
+    cdsTBitemVendaDTONUMCUPOM: TFloatField;
+    cdsTBitemVendaDTONUMSERIE: TStringField;
+    cdsTBitemVendaDTOPCOVENDA: TFloatField;
+    cdsTBitemVendaDTOPRODUTO: TStringField;
+    cdsTBitemVendaDTOQTDEMBAL: TFloatField;
+    cdsTBitemVendaDTOQTDVENDA: TFloatField;
+    cdsTBitemVendaDTOTIPOALIQ: TStringField;
+    cdsTBitemVendaDTOUNIDMEDI: TStringField;
+    cdsTBitemVendaDTOID_PRODUTO: TIntegerField;
+    cdsTBitemVendaDTOID_GRUPO_PRODUTO: TIntegerField;
+    cdsTBitemVendaDTOCANCELADO: TStringField;
+    cdsTBitemVendaDTODESCRICAO: TStringField;
+    cdsTBitemVendaDTOEMBALGEM: TStringField;
+    cdsTBitemVendaDTOCD_BARRA: TStringField;
+    procedure Button1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure DBGrid2DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure DBGrid4DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure DBGrid5DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure Timer1Timer(Sender: TObject);
+    procedure MaskEdit1Enter(Sender: TObject);
+    procedure MaskEdit1Exit(Sender: TObject);
+    function UltimoDiaMes(Mdt: TDateTime) : TDateTime;
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure MaskEdit2Exit(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+    procedure DBGrid3DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    IniControle : TIniFile;
+    procedure ExportaVendaDTO;
+    procedure ExportaItemVendaDTO;
+  end;
+
+var
+  frmVendaFiscal: TfrmVendaFiscal;
+
+implementation
+
+uses U_LIB, UD_PESQUISA, uDM;
+
+{$R *.dfm}
+
+procedure TfrmVendaFiscal.Button1Click(Sender: TObject);
+var
+  dataini,datafin : String;
+begin
+  PageControl1.ActivePage := TabSheet1;
+  dataini := FormatDateTime('ddmmyyyy',StrToDate(MaskEdit1.Text));
+  datafin := FormatDateTime('ddmmyyyy',StrToDate(MaskEdit2.Text));
+
+  cdsTBvendaDTO.Close;
+  cdsTBvendaDTO.Params[0].AsDate := StrToDate(MaskEdit1.Text);
+  cdsTBvendaDTO.Params[1].AsDate := StrToDate(MaskEdit2.Text);
+  cdsTBvendaDTO.Open;
+
+  cdsTBitemVendaDTO.Close;
+  cdsTBitemVendaDTO.Params[0].AsInteger := cdsTBvendaDTONUMCUPOM.AsInteger;
+  cdsTBitemVendaDTO.Open;
+
+  cdsVendaDTO.Close;
+  cdsVendaDTO.Params[0].AsDate := StrToDate(MaskEdit1.Text);
+  cdsVendaDTO.Params[1].AsDate := StrToDate(MaskEdit2.Text);
+  cdsVendaDTO.Open;
+
+  cdsItemVendaDTO.Close;
+  cdsItemVendaDTO.Params[0].AsInteger := cdsVendaDTONUMCUPOM.AsInteger;
+  cdsItemVendaDTO.Open;
+
+  cdsReducaoZ.Close;
+  cdsReducaoZ.Params[0].AsDate := StrToDate(MaskEdit1.Text);
+  cdsReducaoZ.Params[1].AsDate := StrToDate(MaskEdit2.Text);
+  cdsReducaoZ.Open;
+  DBGrid4.SetFocus;
+end;
+
+procedure TfrmVendaFiscal.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  BitBtn3Click(Self);
+  ConexaoFiscal.Connected := False;
+  Action := caFree;
+  frmVendaFiscal := nil;
+end;
+
+procedure TfrmVendaFiscal.FormShow(Sender: TObject);
+begin
+  if (not ConexaoFiscal.Connected ) then
+  begin
+    try
+       IniControle := TIniFile.Create(ExtractFilePath(Application.ExeName)+'EXPORTACAO.INI');
+      if Trim(IniControle.ReadString('SERVIDOR', 'DATABASE', '')) <> '' then
+      begin
+        ConexaoFiscal.Params.Clear;
+        ConexaoFiscal.Params.Values['DATABASE'] := Inicontrole.ReadString('SERVIDOR','DATABASE','');
+        ConexaoFiscal.Params.Values['User_Name'] := Inicontrole.ReadString('SERVIDOR','User_Name','');
+        ConexaoFiscal.Params.Values['PASSWORD'] := Inicontrole.ReadString('SERVIDOR','PASSWORD','masterkey');
+        ConexaoFiscal.Params.Values['SQLDialect'] := Trim(Inicontrole.ReadString('SERVIDOR','SQLDialect','3'));
+        ConexaoFiscal.connected:= true;
+        Inicontrole.Free;
+        Button1Click(Self);
+        MaskEdit1.SetFocus;
+      end;
+    except
+      Application.MessageBox( 'Não foi possivel conectar com o banco de dados Dincash.' + #13 +
+                              'verifique se o arquivo de configuração está configurado, ' + #13 +
+                              'Tente Novamente ou Entre em contato com suporte para esclarecer qualquer dúvida.',
+                              'Error Interno',mb_ok + mb_IconError );
+        Abort;
+    end;
+  end;
+end;
+
+procedure TfrmVendaFiscal.DBGrid1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+  If cdsVendaDTOCANCELADA.AsString = 'S'  then // condição
+  begin
+   DBGrid1.Canvas.Font.Color:= clRed; // coloque aqui a cor desejada
+    if gdSelected in State then
+    with (Sender as TDBGrid).Canvas do
+    begin
+      Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+      Font.Style := [fsBold];
+      FillRect(Rect);
+    end;
+    TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+  end
+  ELSE
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
+    Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+    Font.Style := [fsBold];
+    FillRect(Rect);
+  end;
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+
+end;
+
+procedure TfrmVendaFiscal.DBGrid2DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+  TDbGrid(Sender).Canvas.font.Color:= clBlack; //aqui é definida a cor da fonte
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
+    Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+    Font.Style := [fsBold];
+    FillRect(Rect);
+  end;
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+end;
+
+procedure TfrmVendaFiscal.ExportaVendaDTO;
+begin
+   Gauge3.MaxValue := cdsVendaDTO.RecordCount;
+   Gauge3.Progress := 0;
+   cdsVendaDTO.First;
+   while not cdsVendaDTO.Eof do
+   begin
+      cdsTBvendaDTO.Open;
+      cds_spTBvendaDTO.Params[0].AsString  := cdsVendaDTOCANCELADA.AsString;
+      cds_spTBvendaDTO.Params[1].AsFloat   := cdsVendaDTOCFOP.AsFloat;
+      cds_spTBvendaDTO.Params[2].AsString  := cdsVendaDTOCHV_NFE.AsString;
+      cds_spTBvendaDTO.Params[3].AsString  := cdsVendaDTOCLIENTE.AsString;
+      cds_spTBvendaDTO.Params[4].AsFloat   := cdsVendaDTOCODLOJA.AsFloat;
+      cds_spTBvendaDTO.Params[5].AsString  := cdsVendaDTODATAMOVI.AsString;
+      cds_spTBvendaDTO.Params[6].AsString  := cdsVendaDTOFORMALAN.AsString;
+      cds_spTBvendaDTO.Params[7].AsString  := cdsVendaDTOID.AsString;
+      cds_spTBvendaDTO.Params[8].AsString  := cdsVendaDTOMENSAGEM.AsString;
+      cds_spTBvendaDTO.Params[9].AsFloat   := cdsVendaDTOMOD_NOTA.AsFloat;
+      cds_spTBvendaDTO.Params[10].AsFloat  := cdsVendaDTONUMCUPOM.AsFloat;
+      cds_spTBvendaDTO.Params[11].AsFloat  := cdsVendaDTONUMPRE.AsFloat;
+      cds_spTBvendaDTO.Params[12].AsString := cdsVendaDTONUMSERIE.AsString;
+      cds_spTBvendaDTO.Params[13].AsFloat  := cdsVendaDTONUM_NOTA.AsFloat;
+      cds_spTBvendaDTO.Params[14].AsString := cdsVendaDTOOPERADOR.AsString;
+      cds_spTBvendaDTO.Params[15].AsString := cdsVendaDTOSER_NOTA.AsString;
+      cds_spTBvendaDTO.Params[16].AsString := cdsVendaDTOSUB_NOTA.AsString;
+      cds_spTBvendaDTO.Params[17].AsFloat  := cdsVendaDTOTOTVENDA.AsFloat;
+      cds_spTBvendaDTO.Params[18].AsFloat  := cdsVendaDTOTOT_ITEM.AsFloat;
+      cds_spTBvendaDTO.Params[19].AsFloat  := cdsVendaDTOVALACRES.AsFloat;
+      cds_spTBvendaDTO.Params[20].AsFloat  := cdsVendaDTOVALDESC.AsFloat;
+      cds_spTBvendaDTO.Params[21].AsString := cdsVendaDTOVENDEDOR.AsString;
+      cds_spTBvendaDTO.Execute;
+
+      cdsTBvendaDTO.ApplyUpdates(0);
+      cdsTBvendaDTO.Refresh;
+
+           cdsitemVendaDTO.First;
+         while not cdsItemVendaDTO.Eof do
+         begin
+            cdsTBitemVendaDTO.Close;
+            cdsTBitemVendaDTO.Open;
+            cds_sp_ItemVendaDTO.Params[0].AsDate    := StrToDate(MaskEdit1.Text);
+            cds_sp_ItemVendaDTO.Params[1].AsDate    := StrToDate(MaskEdit2.Text);
+            cds_sp_ItemVendaDTO.Params[2].AsInteger := cdsVendaDTOVENDADTO_ID.AsInteger;
+            cds_sp_ItemVendaDTO.Params[3].AsFloat   := cdsItemVendaDTOACREITEM.AsFloat;
+            cds_sp_ItemVendaDTO.Params[4].AsFloat   := cdsItemVendaDTOACREVEND.AsFloat;
+            cds_sp_ItemvendaDTO.Params[5].AsFloat   := cdsItemVendaDTOALIQUOTA.AsFloat;
+            cds_sp_ItemvendaDTO.Params[6].AsFloat   := cdsItemVendaDTOCODLOJA.AsFloat;
+            cds_sp_ItemvendaDTO.Params[7].AsString  := cdsItemVendaDTODATAMOVI.AsString;
+            cds_sp_ItemvendaDTO.Params[8].AsFloat   := cdsItemVendaDTODESCITEM.AsFloat;
+            cds_sp_ItemvendaDTO.Params[9].AsFloat   := cdsItemVendaDTODESCVEND.AsFloat;
+            cds_sp_ItemvendaDTO.Params[10].AsString := cdsItemVendaDTOGUID.AsString;
+            cds_sp_ItemvendaDTO.Params[11].AsString := cdsItemVendaDTOGUIDPROD.AsString;
+            cds_sp_ItemvendaDTO.Params[12].AsString := cdsItemVendaDTOID.AsString;
+            cds_sp_ItemvendaDTO.Params[13].AsFloat  := cdsItemVendaDTONUMCUPOM.AsFloat;
+            cds_sp_ItemvendaDTO.Params[14].AsString := cdsItemVendaDTONUMSERIE.AsString;
+            cds_sp_ItemvendaDTO.Params[15].AsFloat  := cdsItemVendaDTOPCOVENDA.AsFloat;
+            cds_sp_ItemvendaDTO.Params[16].AsString := cdsItemVendaDTOPRODUTO.AsString;
+            cds_sp_ItemvendaDTO.Params[17].AsFloat  := cdsItemVendaDTOQTDEMBAL.AsFloat;
+            cds_sp_ItemvendaDTO.Params[18].AsFloat  := cdsItemVendaDTOQTDVENDA.AsFloat;
+            cds_sp_ItemvendaDTO.Params[19].AsString := cdsItemVendaDTOTIPOALIQ.AsString;
+            cds_sp_ItemvendaDTO.Params[20].AsString := cdsItemVendaDTOUNIDMEDI.AsString;
+            cds_sp_ItemvendaDTO.Params[21].AsString := cdsTBvendaDTOCANCELADA.AsString;
+            cds_sp_ItemVendaDTO.Execute;
+
+            cdsTBitemVendaDTO.ApplyUpdates(0);
+            cdsTBitemVendaDTO.Refresh;
+            cdsitemVendaDTO.Next;
+         end;
+      cdsVendaDTO.Next;
+      Gauge3.Progress := Gauge3.Progress +1 ;
+   end;
+end;
+
+procedure TfrmVendaFiscal.ExportaItemVendaDTO;
+begin
+   cdsVendaDTO.Close;
+   cdsVendaDTO.Open;
+   cdsVendaDTO.First;
+   while not cdsVendaDTO.Eof do
+   begin
+         cdsitemVendaDTO.First;
+         while not cdsItemVendaDTO.Eof do
+         begin
+            cdsTBitemVendaDTO.Close;
+            cdsTBitemVendaDTO.Open;
+            cds_sp_ItemVendaDTO.Params[0].AsDate    := StrToDate(MaskEdit1.Text);
+            cds_sp_ItemVendaDTO.Params[1].AsDate    := StrToDate(MaskEdit2.Text);
+            cds_sp_ItemVendaDTO.Params[2].AsInteger := cdsVendaDTOVENDADTO_ID.AsInteger;
+            cds_sp_ItemVendaDTO.Params[3].AsFloat   := cdsItemVendaDTOACREITEM.AsFloat;
+            cds_sp_ItemVendaDTO.Params[4].AsFloat   := cdsItemVendaDTOACREVEND.AsFloat;
+            cds_sp_ItemvendaDTO.Params[5].AsFloat   := cdsItemVendaDTOALIQUOTA.AsFloat;
+            cds_sp_ItemvendaDTO.Params[6].AsFloat   := cdsItemVendaDTOCODLOJA.AsFloat;
+            cds_sp_ItemvendaDTO.Params[7].AsString  := cdsItemVendaDTODATAMOVI.AsString;
+            cds_sp_ItemvendaDTO.Params[8].AsFloat   := cdsItemVendaDTODESCITEM.AsFloat;
+            cds_sp_ItemvendaDTO.Params[9].AsFloat   := cdsItemVendaDTODESCVEND.AsFloat;
+            cds_sp_ItemvendaDTO.Params[10].AsString := cdsItemVendaDTOGUID.AsString;
+            cds_sp_ItemvendaDTO.Params[11].AsString := cdsItemVendaDTOGUIDPROD.AsString;
+            cds_sp_ItemvendaDTO.Params[12].AsString := cdsItemVendaDTOID.AsString;
+            cds_sp_ItemvendaDTO.Params[13].AsFloat  := cdsItemVendaDTONUMCUPOM.AsFloat;
+            cds_sp_ItemvendaDTO.Params[14].AsString := cdsItemVendaDTONUMSERIE.AsString;
+            cds_sp_ItemvendaDTO.Params[15].AsFloat  := cdsItemVendaDTOPCOVENDA.AsFloat;
+            cds_sp_ItemvendaDTO.Params[16].AsString := cdsItemVendaDTOPRODUTO.AsString;
+            cds_sp_ItemvendaDTO.Params[17].AsFloat  := cdsItemVendaDTOQTDEMBAL.AsFloat;
+            cds_sp_ItemvendaDTO.Params[18].AsFloat  := cdsItemVendaDTOQTDVENDA.AsFloat;
+            cds_sp_ItemvendaDTO.Params[19].AsString := cdsItemVendaDTOTIPOALIQ.AsString;
+            cds_sp_ItemvendaDTO.Params[20].AsString := cdsItemVendaDTOUNIDMEDI.AsString;
+            cds_sp_ItemvendaDTO.Params[21].AsString := cdsTBvendaDTOCANCELADA.AsString;
+            cds_sp_ItemVendaDTO.Execute;
+
+            cdsTBitemVendaDTO.ApplyUpdates(0);
+            cdsTBitemVendaDTO.Refresh;
+            cdsitemVendaDTO.Next;
+         end;
+      cdsVendaDTO.Next;
+   end;
+
+end;
+
+procedure TfrmVendaFiscal.BitBtn1Click(Sender: TObject);
+var
+  dataini,datafin : String;
+begin
+  if ConexaoFiscal.Connected = False then
+  begin
+    ShowMessage('Sem Comunicação com o Banco de Dados Dincash. Verifique as Conexões');
+  end
+  else
+  begin
+    Button1Click(Self);
+  end;
+end;
+
+procedure TfrmVendaFiscal.DBGrid4DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+  If cdsTBvendaDTOCANCELADA.AsString = 'S'  then // condição
+  begin
+   DBGrid4.Canvas.Font.Color:= clRed; // coloque aqui a cor desejada
+    if gdSelected in State then
+    with (Sender as TDBGrid).Canvas do
+    begin
+      Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+      Font.Style := [fsBold];
+      FillRect(Rect);
+    end;
+    TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+  end
+  ELSE
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
+    Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+    Font.Style := [fsBold];
+    FillRect(Rect);
+  end;
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+
+end;
+
+procedure TfrmVendaFiscal.DBGrid5DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+  TDbGrid(Sender).Canvas.font.Color:= clBlack; //aqui é definida a cor da fonte
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
+    Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+    Font.Style := [fsBold];
+    FillRect(Rect);
+  end;
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+
+end;
+
+procedure TfrmVendaFiscal.Timer1Timer(Sender: TObject);
+begin
+  Button1Click(Self);
+end;
+
+procedure TfrmVendaFiscal.MaskEdit1Enter(Sender: TObject);
+var
+  atual:TDate;
+     dia,mes,ano:Word;
+  dia1,mes1,ano1:Word;
+  mes2 : String;
+  texto:Tdate;
+begin
+  atual:=Now;
+  DecodeDate(atual,ano,mes,dia);
+  if mes < 10 then
+  begin
+    mes2 := '0'+IntToStr(mes);
+    MaskEdit1.Text:='01'+'/'+(mes2)+'/'+IntToStr(ano);
+  end
+  else
+  begin
+    MaskEdit1.Text:='01'+'/'+IntToStr(mes)+'/'+IntToStr(ano);
+  end;
+  texto := UltimoDiaMes(Date);
+  MaskEdit2.Text := (datetostr(Texto));
+  
+end;
+
+procedure TfrmVendaFiscal.MaskEdit1Exit(Sender: TObject);
+var
+  texto:Tdate;
+begin
+  texto := UltimoDiaMes(Date);
+  MaskEdit2.Text := (datetostr(Texto));
+end;
+
+function TfrmVendaFiscal.UltimoDiaMes(Mdt: TDateTime): TDateTime;
+var
+  ano, mes, dia : word;
+  mDtTemp : TDateTime;
+begin
+  Decodedate(mDt, ano, mes, dia);
+  mDtTemp := (mDt - dia) + 33;
+  Decodedate(mDtTemp, ano, mes, dia);
+  Result := mDtTemp - dia;
+end;
+
+procedure TfrmVendaFiscal.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmVendaFiscal.MaskEdit2Exit(Sender: TObject);
+begin
+  Button1Click(Self);
+end;
+
+procedure TfrmVendaFiscal.BitBtn3Click(Sender: TObject);
+begin
+  cdsTBitemVendaDTO.Close;
+  cdsTBitemVendaDTO.Open;
+   cdsDelCupomCancelado.Execute;
+  cdsTBitemVendaDTO.ApplyUpdates(0);
+  cdsTBitemVendaDTO.Refresh; 
+
+  cdsTBvendaDTO.Close;
+  cdsTBvendaDTO.Params[0].AsDate := StrToDate(MaskEdit1.Text);
+  cdsTBvendaDTO.Params[1].AsDate := StrToDate(MaskEdit2.Text);
+  cdsTBvendaDTO.Open;
+
+  cdsTBitemVendaDTO.Close;
+  cdsTBitemVendaDTO.Params[0].AsInteger := cdsTBvendaDTONUMCUPOM.AsInteger;
+  cdsTBitemVendaDTO.Open;
+
+
+end;
+procedure TfrmVendaFiscal.DBGrid3DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
+    Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+    Font.Style := [fsBold];
+    FillRect(Rect);
+  end;
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+
+end;
+
+end.

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/02/19 04:11:48.000.485,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/02/19 04:13:40.000.958,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/02/24 01:59:13.000.647,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/02/26 02:48:42.000.239,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/02/27 03:36:22.000.428,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/03/05 02:38:57.000.984,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/03/12 01:52:08.000.578,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/03/18 02:15:18.000.031,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/05/21 00:44:35.000.110,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/12/06 03:19:27.000.869,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/07/29 21:02:42.000.004,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/08/11 00:55:49.000.528,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/08/11 02:29:33.000.068,C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Sintegra\Documentos\uAtualizaNCM.dfm</Transaction>
+    <Transaction>2017/08/11 02:29:33.000.068,C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Sintegra\Documentos\uAtualizaNCM.pas</Transaction>
+    <Transaction>2017/08/11 02:29:39.000.560,C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Sintegra\Documentos\AtualizaNCM.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

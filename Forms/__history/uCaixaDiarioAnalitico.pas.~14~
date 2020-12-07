@@ -1,0 +1,197 @@
+unit uCaixaDiarioAnalitico;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls,
+  Vcl.DBCtrls, Data.FMTBcd, Data.DB, Datasnap.DBClient, Datasnap.Provider,
+  Data.SqlExpr, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.Mask;
+
+type
+  TfrmCaixaDiarioAnalitico = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    DateTimePicker1: TDateTimePicker;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    GroupBox1: TGroupBox;
+    Label5: TLabel;
+    qUsuario: TSQLQuery;
+    dspUsuario: TDataSetProvider;
+    cdsUsuario: TClientDataSet;
+    dsUsuario: TDataSource;
+    qVendas: TSQLQuery;
+    dspVendas: TDataSetProvider;
+    cdsVendas: TClientDataSet;
+    dsVendas: TDataSource;
+    qUsuarioID_USUARIO: TIntegerField;
+    qUsuarioID_LOJA: TIntegerField;
+    qUsuarioNOME_USUARIO: TStringField;
+    qUsuarioNIVEL: TSmallintField;
+    qUsuarioCAIXA: TStringField;
+    cdsUsuarioID_USUARIO: TIntegerField;
+    cdsUsuarioID_LOJA: TIntegerField;
+    cdsUsuarioNOME_USUARIO: TStringField;
+    cdsUsuarioNIVEL: TSmallintField;
+    cdsUsuarioCAIXA: TStringField;
+    DBLookupComboBox1: TDBLookupComboBox;
+    BB_PESQUISAR: TBitBtn;
+    BB_IMPRIMIR: TBitBtn;
+    BB_SAIR: TBitBtn;
+    SQLQuery1: TSQLQuery;
+    DataSetProvider1: TDataSetProvider;
+    ClientDataSet1: TClientDataSet;
+    DataSource1: TDataSource;
+    qVendasDT_MOV: TDateField;
+    qVendasCAIXA: TIntegerField;
+    qVendasID_USUARIO: TIntegerField;
+    qVendasID_LOJA: TIntegerField;
+    qVendasDESCRICAO_PAGAMENTO: TStringField;
+    qVendasFORMA_PAGAMENTO: TStringField;
+    qVendasNOME_USUARIO: TStringField;
+    qVendasVENDAS: TFMTBCDField;
+    cdsVendasDT_MOV: TDateField;
+    cdsVendasCAIXA: TIntegerField;
+    cdsVendasID_USUARIO: TIntegerField;
+    cdsVendasID_LOJA: TIntegerField;
+    cdsVendasDESCRICAO_PAGAMENTO: TStringField;
+    cdsVendasFORMA_PAGAMENTO: TStringField;
+    cdsVendasNOME_USUARIO: TStringField;
+    cdsVendasVENDAS: TFMTBCDField;
+    DBGrid1: TDBGrid;
+    MaskEdit1: TMaskEdit;
+    MaskEdit2: TMaskEdit;
+    edtTotal: TEdit;
+    L_OPERADOR: TLabel;
+    qDinamica: TSQLQuery;
+    dspDinamica: TDataSetProvider;
+    cdsDinamica: TClientDataSet;
+    dsDinamica: TDataSource;
+    qDinamicaSUM: TFMTBCDField;
+    cdsDinamicaSUM: TFMTBCDField;
+    procedure FormShow(Sender: TObject);
+    procedure DBComboBox1Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure BB_PESQUISARClick(Sender: TObject);
+    procedure MaskEdit1Exit(Sender: TObject);
+    procedure MaskEdit2Exit(Sender: TObject);
+  private
+    { Private declarations }
+    Procedure TotalCaixaOperador;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCaixaDiarioAnalitico: TfrmCaixaDiarioAnalitico;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM;
+
+procedure TfrmCaixaDiarioAnalitico.BB_PESQUISARClick(Sender: TObject);
+begin
+  if DBLookupComboBox1.Text = '' then
+  begin
+    ShowMessage('Favor Informar Operador de Caixa');
+    DBLookupComboBox1.SetFocus;
+    DBLookupComboBox1.Action;
+  end
+  else
+  begin
+    cdsVendas.Close;
+    cdsVendas.Params[0].AsDate    := DateTimePicker1.Date;
+    cdsVendas.Params[1].AsInteger := cdsUsuarioID_USUARIO.AsInteger;
+    cdsVendas.Params[2].AsTime    := StrToTime(MaskEdit1.Text);
+    cdsVendas.Params[3].AsTime    := StrToTime(MaskEdit2.Text);
+    cdsVendas.Open;
+
+    if cdsVendas.IsEmpty then
+    begin
+      ShowMessage('Nenhum Registro Encontrado! ');
+      BB_IMPRIMIR.Enabled := False;
+      DateTimePicker1.SetFocus;
+      L_OPERADOR.Caption := 'Total do Caixa do Operador ';
+      edtTotal.Text := 'R$ 0,00';
+    end
+    else
+    begin
+      TotalCaixaOperador;
+      BB_IMPRIMIR.Enabled := True;
+      DBGrid1.SetFocus;
+    end;
+  end;
+
+
+end;
+
+procedure TfrmCaixaDiarioAnalitico.DBComboBox1Click(Sender: TObject);
+begin
+ cdsUsuario.Close;
+ cdsUsuario.Open
+end;
+
+procedure TfrmCaixaDiarioAnalitico.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+
+end;
+
+procedure TfrmCaixaDiarioAnalitico.FormShow(Sender: TObject);
+begin
+
+  DateTimePicker1.Date := Now;
+  MaskEdit1.Text := '00:00';
+  MaskEdit2.Text := '00:00';
+ cdsUsuario.Close;
+ cdsUsuario.Open
+
+end;
+
+procedure TfrmCaixaDiarioAnalitico.MaskEdit1Exit(Sender: TObject);
+begin
+  if (MaskEdit1.Text >'23:59') and (MaskEdit1.Text <'00:00') then
+  begin
+    ShowMessage('Hora Inválida !');
+    MaskEdit1.SetFocus;
+    Exit;
+  end;
+end;
+
+procedure TfrmCaixaDiarioAnalitico.MaskEdit2Exit(Sender: TObject);
+begin
+  if (MaskEdit2.Text >'23:59') and (MaskEdit2.Text <'00:00') then
+  begin
+    ShowMessage('Hora Inválida !');
+    MaskEdit2.SetFocus;
+    Exit;
+  end;
+
+end;
+
+procedure TfrmCaixaDiarioAnalitico.TotalCaixaOperador;
+begin
+
+    cdsDinamica.Close;
+    cdsDinamica.Params[0].AsDate    := DateTimePicker1.Date;
+    cdsDinamica.Params[1].AsInteger := cdsUsuarioID_USUARIO.AsInteger;
+    cdsDinamica.Params[2].AsTime    := StrToTime(MaskEdit1.Text);
+    cdsDinamica.Params[3].AsTime    := StrToTime(MaskEdit2.Text);
+    cdsDinamica.Open;
+
+  L_OPERADOR.Caption := 'Total do Caixa do Operador  '+cdsUsuarioNOME_USUARIO.AsString;
+  edtTotal.Text      := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+
+end;
+
+end.

@@ -1,0 +1,63 @@
+program Gerenciador;
+
+uses
+  Vcl.Forms,
+  uMenu in 'Forms\uMenu.pas' {frmMenu},
+  uDM in 'Forms\uDM.pas' {DM: TDataModule},
+  uCadFor in 'Forms\uCadFor.pas' {frmCadfor},
+  U_LIB in 'Forms\U_LIB.pas',
+  UD_PESQUISA in 'Forms\UD_PESQUISA.pas' {FD_PESQUISA},
+  uCadGrupo in 'Forms\uCadGrupo.pas' {frmCadGrupo},
+  uCadPro in 'Forms\uCadPro.pas' {frmCadPro},
+  uEntradaProduto in 'Forms\uEntradaProduto.pas' {frmEntradaProduto},
+  uConsultaEstoque in 'Forms\uConsultaEstoque.pas' {frmConsultaEstoque},
+  uRelatorios in 'Forms\uRelatorios.pas' {frmRelatorios},
+  uVendaFiscal in 'Forms\uVendaFiscal.pas' {frmVendaFiscal},
+  uPrincipal in 'Forms\uPrincipal.pas' {frmPrincipal},
+  uDmFiscal in 'Forms\uDmFiscal.pas' {DM_FISCAL: TDataModule},
+  uComanda in 'Forms\uComanda.pas' {frmComanda},
+  uNFe in 'Forms\uNFe.pas' {frmNotaFiscalEletronica},
+  uConfigParamentros in 'Forms\uConfigParamentros.pas' {frmConfigParametros},
+  uConfiguraArquivoNfe in 'Forms\uConfiguraArquivoNfe.pas' {frmConfiguraArquivoNFe},
+  uSelecionarCertificado in 'Forms\uSelecionarCertificado.pas' {frSelecionarCertificado},
+  ufrmStatus in 'Forms\ufrmStatus.pas' {frmStatus},
+  uSenha in 'Forms\uSenha.pas' {frmSenha},
+  uLogin in 'Forms\uLogin.pas' {frmLogin},
+  uPesquisaPadrao in 'Forms\uPesquisaPadrao.pas' {frmPesquisaPadrao},
+  uCadFormaPagto in 'Forms\uCadFormaPagto.pas' {frmCadFormaPagto},
+  uCadPlanoPagto in 'Forms\uCadPlanoPagto.pas' {frmCadPlanosPagto},
+  uCadCliente in 'Forms\uCadCliente.pas' {frmCadCliente},
+  uCadEmpresa in 'Forms\uCadEmpresa.pas' {frmCadEmpresa},
+  uCadVendendor in 'Forms\uCadVendendor.pas' {frmCadVendedor},
+  uConsultaCNPJ in 'Forms\uConsultaCNPJ.pas' {frmConsultaCNPJ},
+  uConsultaCPF in 'Forms\uConsultaCPF.pas' {frmConsultaCPF};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'Gerenciador Fiscall';
+  Application.CreateForm(TfrmMenu, frmMenu);
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TFD_PESQUISA, FD_PESQUISA);
+  Application.CreateForm(TfrmRelatorios, frmRelatorios);
+  Application.CreateForm(TDM_FISCAL, DM_FISCAL);
+  Application.CreateForm(TfrmComanda, frmComanda);
+  Application.CreateForm(TfrmNotaFiscalEletronica, frmNotaFiscalEletronica);
+  Application.CreateForm(TfrmConfigParametros, frmConfigParametros);
+  Application.CreateForm(TfrmConfiguraArquivoNFe, frmConfiguraArquivoNFe);
+  Application.CreateForm(TfrSelecionarCertificado, frSelecionarCertificado);
+  Application.CreateForm(TfrmStatus, frmStatus);
+  Application.CreateForm(TfrmSenha, frmSenha);
+  Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TfrmPesquisaPadrao, frmPesquisaPadrao);
+  Application.CreateForm(TfrmCadFormaPagto, frmCadFormaPagto);
+  Application.CreateForm(TfrmCadPlanosPagto, frmCadPlanosPagto);
+  Application.CreateForm(TfrmCadCliente, frmCadCliente);
+  Application.CreateForm(TfrmCadEmpresa, frmCadEmpresa);
+  Application.CreateForm(TfrmCadVendedor, frmCadVendedor);
+  Application.CreateForm(TfrmConsultaCNPJ, frmConsultaCNPJ);
+  Application.CreateForm(TfrmConsultaCPF, frmConsultaCPF);
+  Application.Run;
+end.

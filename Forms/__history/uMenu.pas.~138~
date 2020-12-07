@@ -1,0 +1,1060 @@
+unit uMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ImgList, Vcl.ComCtrls,
+  Vcl.ToolWin, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls,MidasLib, Vcl.Grids,
+  Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error,
+  FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
+  FireDAC.Stan.Async, FireDAC.Phys, Vcl.Touch.Keyboard, Data.DB,
+  FireDAC.Comp.Client, Vcl.Imaging.jpeg, IniFiles, Vcl.Imaging.pngimage,
+  System.ImageList, System.Actions, Vcl.ActnList;
+
+type
+  TfrmMenu = class(TForm)
+    MainMenu1: TMainMenu;
+    Cadastros1: TMenuItem;
+    Estoque1: TMenuItem;
+    Vendas1: TMenuItem;
+    Relatorios1: TMenuItem;
+    Sair1: TMenuItem;
+    StatusBar1: TStatusBar;
+    Fornecedores1: TMenuItem;
+    Timer1: TTimer;
+    Produto1: TMenuItem;
+    N1: TMenuItem;
+    GrupodeProduto1: TMenuItem;
+    N2: TMenuItem;
+    Produto2: TMenuItem;
+    N3: TMenuItem;
+    Empresa1: TMenuItem;
+    Entrada1: TMenuItem;
+    N4: TMenuItem;
+    ConsultaEstoque1: TMenuItem;
+    NotaFiscaldeCompra1: TMenuItem;
+    N5: TMenuItem;
+    OutrasEntradas1: TMenuItem;
+    SaldoeEstoque1: TMenuItem;
+    VendasECF1: TMenuItem;
+    Inventrio1: TMenuItem;
+    N6: TMenuItem;
+    Clientes1: TMenuItem;
+    N7: TMenuItem;
+    Vendedores1: TMenuItem;
+    N8: TMenuItem;
+    Financeiro1: TMenuItem;
+    FormasdePagamento1: TMenuItem;
+    N9: TMenuItem;
+    PlanosdePagamento1: TMenuItem;
+    TrayIcon1: TTrayIcon;
+    Configuraes1: TMenuItem;
+    ArquivoInicializao1: TMenuItem;
+    TreeView1: TTreeView;
+    N10: TMenuItem;
+    ArquivoNFe1: TMenuItem;
+    N11: TMenuItem;
+    Usurios1: TMenuItem;
+    BitBtn1: TBitBtn;
+    N12: TMenuItem;
+    NFe1: TMenuItem;
+    BitBtn2: TBitBtn;
+    DBGrid1: TDBGrid;
+    Cofins: TBitBtn;
+    CaixaDiario1: TMenuItem;
+    Analtico1: TMenuItem;
+    N13: TMenuItem;
+    N14: TMenuItem;
+    Mesas1: TMenuItem;
+    Timer2: TTimer;
+    N15: TMenuItem;
+    LogOffde1: TMenuItem;
+    N16: TMenuItem;
+    ransportadora1: TMenuItem;
+    N17: TMenuItem;
+    N18: TMenuItem;
+    MatriaPrima1: TMenuItem;
+    N19: TMenuItem;
+    Artigo1: TMenuItem;
+    N20: TMenuItem;
+    Categorias1: TMenuItem;
+    Produo1: TMenuItem;
+    EntradadeNotaFiscal1: TMenuItem;
+    N21: TMenuItem;
+    RemessaParaProduo1: TMenuItem;
+    ImageList1: TImageList;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Label1: TLabel;
+    Panel2: TPanel;
+    Image1: TImage;
+    Image2: TImage;
+    Panel3: TPanel;
+    L_HORA_WIN10: TLabel;
+    l_data_dia: TLabel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    Label2: TLabel;
+    L_USUARIO: TLabel;
+    Label3: TLabel;
+    L_EMPRESA: TLabel;
+    Label4: TLabel;
+    Panel8: TPanel;
+    Label5: TLabel;
+    Image3: TImage;
+    Memo1: TMemo;
+    Panel9: TPanel;
+    Image4: TImage;
+    Panel10: TPanel;
+    Image5: TImage;
+    Panel11: TPanel;
+    Image6: TImage;
+    Panel12: TPanel;
+    Image7: TImage;
+    abelaPreo1: TMenuItem;
+    ClieenteFornecedor1: TMenuItem;
+    N22: TMenuItem;
+    abelaCores1: TMenuItem;
+    N23: TMenuItem;
+    inturaria1: TMenuItem;
+    N24: TMenuItem;
+    GrupoEmpresa1: TMenuItem;
+    Acabamentos1: TMenuItem;
+    N25: TMenuItem;
+    N26: TMenuItem;
+    ProgramaoTinturaria1: TMenuItem;
+    Financeiro2: TMenuItem;
+    ContasPagar1: TMenuItem;
+    ContasPagar2: TMenuItem;
+    N27: TMenuItem;
+    N28: TMenuItem;
+    ManutenodeContas1: TMenuItem;
+    Panel13: TPanel;
+    Image8: TImage;
+    Panel14: TPanel;
+    Image9: TImage;
+    N29: TMenuItem;
+    ingimento1: TMenuItem;
+    PnTitulo: TPanel;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton9: TSpeedButton;
+    lblTitulo: TLabel;
+    ImageList2: TImageList;
+    ActionList1: TActionList;
+    Ac_Incluir: TAction;
+    Ac_Excluir: TAction;
+    Ac_Alterar: TAction;
+    Ac_Confirmar: TAction;
+    Ac_Fechar: TAction;
+    EdtValorPesquisa: TButtonedEdit;
+    procedure Sair1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Fornecedores1Click(Sender: TObject);
+    procedure GrupodeProduto1Click(Sender: TObject);
+    procedure Produto2Click(Sender: TObject);
+    procedure NotaFiscaldeCompra1Click(Sender: TObject);
+    procedure ConsultaEstoque1Click(Sender: TObject);
+    procedure SaldoeEstoque1Click(Sender: TObject);
+    procedure VendasECF1Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure Inventrio1Click(Sender: TObject);
+    procedure Clientes1Click(Sender: TObject);
+    procedure Vendedores1Click(Sender: TObject);
+    procedure Empresa1Click(Sender: TObject);
+    procedure PlanosdePagamento1Click(Sender: TObject);
+    procedure FormasdePagamento1Click(Sender: TObject);
+    procedure ArquivoInicializao1Click(Sender: TObject);
+    procedure AddItemMenuTree(ItemMenu : TMenuItem; Nivel : integer; var node1:tTreeNode);
+    procedure TreeView1Change(Sender: TObject; Node: TTreeNode);
+    procedure ArquivoNFe1Click(Sender: TObject);
+    procedure Usurios1Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure NFe1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure CofinsClick(Sender: TObject);
+    procedure Analtico1Click(Sender: TObject);
+    procedure Mesas1Click(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure LogOffde1Click(Sender: TObject);
+    procedure Artigo1Click(Sender: TObject);
+    procedure MatriaPrima1Click(Sender: TObject);
+    procedure Categorias1Click(Sender: TObject);
+    procedure ransportadora1Click(Sender: TObject);
+    procedure EntradadeNotaFiscal1Click(Sender: TObject);
+    procedure RemessaParaProduo1Click(Sender: TObject);
+    procedure xxMouseEnter(Sender: TObject);
+    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure Image2MouseEnter(Sender: TObject);
+    procedure Panel5MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Panel2MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    function DiaSemana(Data:TDateTime): String;
+    procedure Image3MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Panel9MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Panel10MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Panel11MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Panel12MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Image7MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure ClieenteFornecedor1Click(Sender: TObject);
+    procedure abelaCores1Click(Sender: TObject);
+    procedure inturaria1Click(Sender: TObject);
+    procedure GrupoEmpresa1Click(Sender: TObject);
+    procedure Acabamentos1Click(Sender: TObject);
+    procedure ProgramaoTinturaria1Click(Sender: TObject);
+    procedure ContasPagar1Click(Sender: TObject);
+    procedure ContasPagar2Click(Sender: TObject);
+    procedure ManutenodeContas1Click(Sender: TObject);
+    procedure Panel8MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Panel13MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Image8MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure ingimento1Click(Sender: TObject);
+    procedure Panel14MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Image9MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+  private
+    { Private declarations }
+    Fecha : Boolean;
+    procedure CarregaTreeViewer;
+    Procedure ChecaUsuario(nivel :integer);
+  public
+    { Public declarations }
+      recInformacoes: record
+      nm_Usuario: String;
+      id_Usuario:Integer;
+      Nivel: Integer;
+      lojaCredenciada : String;
+  end;
+    Inicontrole : TIniFile;
+    IniSistema: TIniFile;
+    sNovo,sNovoAnt,sNome_Novo: String;
+    bPesquisa,bSenha: Boolean;
+    procedure NovoCadastro;
+    Procedure NovoAcesso;
+  end;
+
+
+var
+  frmMenu: TfrmMenu;
+
+implementation
+
+{$R *.dfm}
+
+uses uDM, uCadFor, uCadGrupo, uCadPro, uEntradaProduto, uConsultaEstoque,
+  uRelatorios, uVendaFiscal, uPrincipal, uCadCliente, uCadVendendor,
+  uCadEmpresa, uCadPlanoPagto, uCadFormaPagto, uPesquisaPadrao,
+  uConfigParamentros, uConfiguraArquivoNfe, uLogin, uSenha,
+  uSelecionarCertificado, uNFe, uComanda, uCaixaDiarioAnalitico, uCadMesa,
+  uCadTransportadora, uCadArtigo, uCadMatPrima, uProducao, uCadCategoria,
+  uRemessaProducao, U_LIB, uPrecoMalharia, uCadCores, uPrecoTinturaria,
+  uCadGrupoEmpresa, uCadAcabamento, uProgramacao, uContasPagarLista,
+  uRelatorioConPag, uManutencaoContasPagar, uTingimento;
+
+
+function AjustaStr ( str: String; tam: Integer ): String;
+begin
+while Length ( str ) < tam do
+str := str + ' ';
+if Length ( str ) > tam then
+str := Copy ( str, 1, tam );
+Result := str;
+end;
+
+procedure TfrmMenu.abelaCores1Click(Sender: TObject);
+begin
+  if frmCadCores = nil then
+  begin
+    frmCadCores := TfrmCadCores.Create(Application);
+    frmCadCores.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.Acabamentos1Click(Sender: TObject);
+begin
+  if frmCadAcabamento = nil then
+  begin
+    frmCadAcabamento := TfrmCadAcabamento.Create(Application);
+    frmCadAcabamento.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.AddItemMenuTree(ItemMenu: TMenuItem; Nivel: integer; var node1: tTreeNode);
+var I : integer;
+    node2 :Ttreenode;
+    s_str :string;
+begin
+if Nivel = 0  then
+   Begin
+    s_str := ItemMenu.Caption;
+    Delete(s_str, Pos('&', ItemMenu.Caption), 1);
+    node1 := frmMenu.TreeView1.Items.Add(nil, s_str);
+   end;
+
+  for I := 0 to ItemMenu.Count-1 do
+  begin
+    if (ItemMenu.Items[I].Caption <> '-') then
+     Begin
+      s_str := ItemMenu.Items[I].Caption;
+      Delete(s_str, Pos('&', ItemMenu.Items[I].Caption), 1);
+      node2 := frmMenu.TreeView1.Items.AddChild(node1,s_str);
+     end;
+
+    if ItemMenu.Items[I].Count > 0 then
+      AddItemMenuTree(ItemMenu.Items[I],Succ(Nivel),node2);
+
+  end;
+end;
+
+procedure TfrmMenu.Analtico1Click(Sender: TObject);
+begin
+  if frmCaixaDiarioAnalitico = nil then
+  begin
+    frmCaixaDiarioAnalitico := TfrmCaixaDiarioAnalitico.Create(Application);
+    frmCaixaDiarioAnalitico.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.ArquivoInicializao1Click(Sender: TObject);
+begin
+  if frmConfigParametros = nil then
+  begin
+    frmConfigParametros := TfrmConfigParametros.Create(Application);
+    frmConfigParametros.ShowModal;
+  end;
+
+end;
+
+procedure TfrmMenu.ArquivoNFe1Click(Sender: TObject);
+begin
+  if frmConfiguraArquivoNFe = nil then
+  begin
+    frmConfiguraArquivoNFe := TfrmConfiguraArquivoNFe.Create(Application);
+    frmConfiguraArquivoNFe.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.Artigo1Click(Sender: TObject);
+begin
+  if frmCadArtigo = nil then
+  begin
+    frmCadArtigo := TfrmCadArtigo.Create(Application);
+    frmCadArtigo.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.BitBtn1Click(Sender: TObject);
+begin
+//  frSelecionarCertificado.ShowModal;
+end;
+
+procedure TfrmMenu.BitBtn2Click(Sender: TObject);
+begin
+  if frmConfiguraArquivoNFe = nil then
+  begin
+    frmConfiguraArquivoNFe := TfrmConfiguraArquivoNFe.Create(Application);
+    frmConfiguraArquivoNFe.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.CarregaTreeViewer;
+var
+ i_i :integer;
+ Node :TTreeNode;
+begin
+ for i_i := 0 to Mainmenu1.Items.Count -1 do
+  AddItemMenuTree(MainMenu1.Items[i_i], 0, node);
+end;
+
+procedure TfrmMenu.Categorias1Click(Sender: TObject);
+begin
+  if frmCadCategorias = nil  then
+  begin
+    frmCadCategorias := TfrmCadCategorias.Create(Application);
+    frmCadCategorias.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.ChecaUsuario(nivel: integer);
+begin
+ if nivel = 0 then
+ begin
+   Cadastros1.Visible := True;
+//   Estoque1.Visible   := True;
+//   Vendas1.Visible   := True;
+   Relatorios1.Visible   := True;
+//   CaixaDiario1.Visible   := True;
+   Configuraes1.Visible   := True;
+
+   //botoes
+
+ end else if nivel = 4 then
+ begin
+   Cadastros1.Visible := False;
+   Estoque1.Visible   := False;
+   Vendas1.Visible   := False;
+   Relatorios1.Visible   := False;
+   CaixaDiario1.Visible   := False;
+   Configuraes1.Visible   := False;
+
+   //botoes
+
+
+ end else
+ if nivel = 1 then
+ begin
+
+ end else
+ if nivel = 2 then
+ begin
+   Cadastros1.Visible := False;
+   Estoque1.Visible   := False;
+   Vendas1.Visible   := False;
+   Relatorios1.Visible   := False;
+   CaixaDiario1.Visible   := False;
+   Configuraes1.Visible   := False;
+
+   //botoes
+
+
+ end else if nivel = 4 then
+ begin
+   Cadastros1.Visible := False;
+   Estoque1.Visible   := False;
+   Vendas1.Visible   := False;
+   Relatorios1.Visible   := False;
+   CaixaDiario1.Visible   := False;
+   Configuraes1.Visible   := False;
+
+   //botoes
+
+ end;
+  if nivel = 2 then
+  begin
+     Timer2.Enabled := True;
+  end;
+  if nivel = 4 then
+  begin
+     Timer2.Enabled := True;
+  end;
+
+end;
+
+procedure TfrmMenu.ClieenteFornecedor1Click(Sender: TObject);
+begin
+  if frmPrecoMalharia = NIL then
+  begin
+    frmPrecoMalharia := TfrmPrecoMalharia.Create(Application);
+    frmPrecoMalharia.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.Clientes1Click(Sender: TObject);
+begin
+  if frmCadCliente = nil then
+  begin
+    frmCadCliente := TfrmCadCliente.Create(Application);
+    frmCadCliente.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.CofinsClick(Sender: TObject);
+var arq: TextFile;
+linha, aliquota,vlVenda: String;
+begin
+  DM.cdsSitIPI.Open;
+
+//  AssignFile (arq,'\\192.168.50.39\djsystem\MONITOR\Importar\PRODUTO.TXT');
+//  DM.EXPORTA+'PRODUTO.TXT');
+  AssignFile (arq,DM.EXPORTA+'IPII.TXT');
+  Rewrite ( arq );
+  DM.cdsSitIPI.First;
+  while not DM.cdsSitIPI.Eof do
+  begin
+    Write ( arq, AjustaStr ( DM.cdsSitIPICOD_SIT.AsString, 6 ) );
+    Write ( arq, AjustaStr ( DM.cdsSitIPIDESCRICAO.AsString, 60 ) );
+//    Write ( arq, AjustaStr ( '49', 2 ) );
+    Write ( arq, AjustaStr ( '0', 5 ) );
+    Write ( arq, AjustaStr ( '', 14 ) );
+    Write ( arq, AjustaStr ( '', 60 ) );
+    Write ( arq, AjustaStr ( '', 3 ) );
+    Write ( arq, AjustaStr ( '01', 2 ) );
+    Write ( arq, AjustaStr ( 'P', 1 ) );
+    Write ( arq, AjustaStr ( '100', 5 ) );
+    Write ( arq, AjustaStr ( '18', 4 ) );
+    Write ( arq, AjustaStr ( '0', 10 ) );
+    Write ( arq, AjustaStr ( 'N', 1 ) );
+    Write ( arq, AjustaStr ( 'N', 1 ) );
+    WriteLn ( arq );
+    DM.cdsSitIPI.Next
+  end;
+  CloseFile ( arq );
+end;
+
+procedure TfrmMenu.ConsultaEstoque1Click(Sender: TObject);
+begin
+  if frmConsultaEstoque = nil then
+  begin
+    frmConsultaEstoque := TfrmConsultaEstoque.Create(Application);
+    frmConsultaEstoque.ShowModal;
+  end;
+
+end;
+
+procedure TfrmMenu.ContasPagar1Click(Sender: TObject);
+begin
+  if frmContasPagarLista = nil then
+  begin
+    frmContasPagarLista := TfrmContasPagarLista.Create(Application);
+    frmContasPagarLista.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.ContasPagar2Click(Sender: TObject);
+begin
+  if frmRelatorioConPag = nil then
+  begin
+    frmRelatorioConPag := TfrmRelatorioConPag.Create(Application);
+    frmRelatorioConPag.ShowModal;
+  end;
+end;
+
+function TfrmMenu.DiaSemana(Data: TDateTime): String;
+var
+  NoDia : Integer;
+  DiaDaSemana : array [1..7] of String[13];
+begin
+{ Dias da Semana }
+  DiaDasemana [1]:= 'Domingo';
+  DiaDasemana [2]:= 'Segunda-feira';
+  DiaDasemana [3]:= 'Terça-feira';
+  DiaDasemana [4]:= 'Quarta-feira';
+  DiaDasemana [5]:= 'Quinta-feira';
+  DiaDasemana [6]:= 'Sexta-feira';
+  DiaDasemana [7]:= 'Sábado';
+  NoDia:=DayOfWeek(Data);
+  DiaSemana:=DiaDasemana[NoDia];
+end;
+
+procedure TfrmMenu.Empresa1Click(Sender: TObject);
+begin
+  if frmCadEmpresa = nil then
+  begin
+    frmCadEmpresa := TfrmCadEmpresa.Create(Application);
+    frmCadEmpresa.ShowModal;
+  end;
+
+end;
+
+procedure TfrmMenu.EntradadeNotaFiscal1Click(Sender: TObject);
+begin
+  if frmProducao = nil then
+  begin
+    frmProducao := TfrmProducao.Create(Application);
+    frmProducao.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.FormasdePagamento1Click(Sender: TObject);
+begin
+  if frmCadFormaPagto = nil then
+  begin
+    frmCadFormaPagto := TfrmCadFormaPagto.Create(Application);
+    frmCadFormaPagto.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = Vk_f5 then
+  begin
+    LogOffde1Click(Self);
+  end;
+end;
+
+procedure TfrmMenu.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+ Panel2.Color := clTeal;
+ Panel2.Font.Color := clWhite;
+ Panel13.Color := clTeal;
+ Panel13.Font.Color := clWhite;
+
+ Panel14.Color := clTeal;
+ Panel14.Font.Color := clWhite;
+
+ Panel5.Color := clTeal;
+ Panel5.Font.Color := clWhite;
+ Label5.Font.Color := clWhite;
+ Panel9.Color := $00B9B900;
+ Panel9.Font.Color := clWhite;
+ Panel10.Color := $00B9B900;
+ Panel10.Font.Color := clWhite;
+ Panel11.Color := $003D836D;
+ Panel11.Font.Color := clWhite;
+ Panel12.Color := $003D836D;
+ Panel12.Font.Color := clWhite;
+ Panel8.Color := $005EAEFF;
+ Panel8.Font.Color := clWhite;
+ Label5.Font.Color := clWhite;
+
+
+end;
+
+procedure TfrmMenu.FormShow(Sender: TObject);
+var
+Handle: THandle;
+begin
+ if DM.CONFIGURADO = 'N' then
+ begin
+   MessageDlg('Arquivo de Inicialização Não Configurado, Favor Configurar! ', mtInformation, [mbOK], 0);
+   frmConfigParametros := TfrmConfigParametros.Create(Application);
+   frmConfigParametros.ShowModal;
+ end
+ else
+ begin
+//  DM.cdsEmpresa.Open;
+//  StatusBar1.Panels[0].Text := 'Empresa : '+DM.cdsEmpresaFANTASIA.AsString;
+//  frmMenu.Caption := Caption + '               '+DM.cdsEmpresaFANTASIA.AsString+'                '+FormatDateTime('dd "de" mmmm "de" yyyy',Date);;
+//  recInformacoes.nm_Usuario := 'MARCIO';
+//
+//  CarregaTreeViewer;
+  NovoAcesso;
+ end;
+end;
+
+procedure TfrmMenu.Fornecedores1Click(Sender: TObject);
+begin
+  if frmCadfor = nil then
+  begin
+    frmCadfor := TfrmCadfor.Create(Application);
+    frmCadfor.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.GrupodeProduto1Click(Sender: TObject);
+begin
+  if frmCadGrupo = nil then
+  begin
+    frmCadGrupo := TfrmCadGrupo.Create(Application);
+    frmCadGrupo.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.GrupoEmpresa1Click(Sender: TObject);
+begin
+  if frmCadGrupoEmpresa = nil then
+  begin
+    frmCadGrupoEmpresa := TfrmCadGrupoEmpresa.Create(Application);
+    frmCadGrupoEmpresa.ShowModal;
+  end;
+
+end;
+
+procedure TfrmMenu.xxMouseEnter(Sender: TObject);
+begin
+  Panel2.Color := clWindow;
+end;
+
+procedure TfrmMenu.Image2MouseEnter(Sender: TObject);
+begin
+  Panel5.Color := clWindow;
+end;
+
+procedure TfrmMenu.Image3MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel8.Color := $00E7FEFD;
+
+  Panel8.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.Image7MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel12.Color := $00E7FEFD;
+  Panel12.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.Image8MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel13.Color := $00E7FEFD;
+  Panel13.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.Image9MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel14.Color := $00E7FEFD;
+  Panel14.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.ingimento1Click(Sender: TObject);
+begin
+  if frmTingimento = nil then
+  begin
+    frmTingimento := TfrmTingimento.Create(Application);
+    frmTingimento.ShowModal;
+  end;
+
+end;
+
+procedure TfrmMenu.inturaria1Click(Sender: TObject);
+begin
+  if frmPrecoTinturaria = nil then
+  begin
+    frmPrecoTinturaria := TfrmPrecoTinturaria.Create(Application);
+    frmPrecoTinturaria.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.Inventrio1Click(Sender: TObject);
+begin
+//  frmRelatorios.frxReport1.ShowReport();
+  frmRelatorios.QR_INVENTARIO.Preview;
+//   frmRelatorios.QR_SaldoEstoque.Preview;
+end;
+
+procedure TfrmMenu.LogOffde1Click(Sender: TObject);
+begin
+  NovoAcesso;
+end;
+
+procedure TfrmMenu.ManutenodeContas1Click(Sender: TObject);
+begin
+  if frmManutencaoContasPagar = nil then
+  begin
+    frmManutencaoContasPagar := TfrmManutencaoContasPagar.Create(Application);
+    frmManutencaoContasPagar.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.MatriaPrima1Click(Sender: TObject);
+begin
+  if frmCadMatPrima = nil then
+  begin
+    frmCadMatPrima := TfrmCadMatPrima.Create(Application);
+    frmCadMatPrima.ShowModal;
+  end;
+
+end;
+
+procedure TfrmMenu.Mesas1Click(Sender: TObject);
+begin
+  if frmCadMesa = nil then
+  begin
+    frmCadMesa := TfrmCadMesa.Create(Application);
+    frmCadMesa.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.NFe1Click(Sender: TObject);
+begin
+  if frmNotaFiscalEletronica = nil then
+  begin
+    frmNotaFiscalEletronica := TfrmNotaFiscalEletronica.Create(Application);
+    frmNotaFiscalEletronica.ShowModal;
+  end;
+
+end;
+
+procedure TfrmMenu.NotaFiscaldeCompra1Click(Sender: TObject);
+begin
+  if frmEntradaProduto = nil then
+  begin
+    frmEntradaProduto := TfrmEntradaProduto.Create(Application);
+    frmEntradaProduto.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.NovoAcesso;
+Var
+Loja : String;
+begin
+  if frmMenu.Fecha = True then
+  begin
+    Application.Terminate;
+  end;
+  bSenha := False;
+  Application.CreateForm(TfrmSenha, frmSenha);
+  frmSenha.ShowModal;
+  Loja :=recInformacoes.lojaCredenciada;//DM.LOJA;
+  ChecaUsuario(recInformacoes.Nivel);
+
+  StatusBar1.Panels.Items[1].Text :='Usuário: '+recInformacoes.nm_Usuario;
+  L_USUARIO.Caption := recInformacoes.nm_Usuario;
+
+  if Loja <> '' then
+  begin
+    DM.cdsEmpresa.Close;
+    DM.cdsEmpresa.CommandText :=  ' SELECT L.ID_LOJA, L.R_SOCIAL, L.FANTASIA, L.ENDERECO, L.COMPLEMENTO, '+
+                                  ' L.NUMERO, L.BAIRRO, L.CEP, L.CONTATO, L.CPF_CONTATO, L.CNPJ, L.INS_EST,'+
+                                  ' L.TELEFONE, L.FAX, L.EMAIL, L.DT_CADASTRO, L.SITUACAO, L.DT_ABERTURA,'+
+                                  ' L.CNAE_PRINCIPAL, L.CNAE_SECUNDARIO, L.CODIGO_MUNIC, M.NOME AS CIDADE, M.UF'+
+                                  ' FROM TB_LOJAS L'+
+                                  ' LEFT OUTER JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = L.CODIGO_MUNIC)'+
+                                  ' WHERE L.ID_LOJA = '+Loja;
+
+//    DM.cdsEmpresa.Params[0].AsInteger := StrToInt(recInformacoes.lojaCredenciada);
+    DM.cdsEmpresa.Open;
+    StatusBar1.Panels.Items[0].Text :=DM.cdsEmpresaID_LOJA.AsString+' - '+DM.cdsEmpresaFANTASIA.AsString;
+    frmMenu.Caption := Caption + '               '+DM.cdsEmpresaFANTASIA.AsString+'                '+FormatDateTime('dd "de" mmmm "de" yyyy',Date);
+    L_EMPRESA.Caption := DM.cdsEmpresaFANTASIA.AsString;
+  end
+  else
+  begin
+    StatusBar1.Panels.Items[0].Text :='USUARIO MASTER';
+     L_EMPRESA.Caption := 'USUARIO MASTER';
+    frmMenu.Caption := Caption + '               '+DM.cdsEmpresaFANTASIA.AsString+'                '+FormatDateTime('dd "de" mmmm "de" yyyy',Date);
+  end;
+end;
+
+procedure TfrmMenu.NovoCadastro;
+begin
+  if sNovo = 'Artigo' then
+  begin
+   if frmCadArtigo = nil then
+   begin
+     frmCadArtigo := TfrmCadArtigo.Create(Application);
+     frmCadArtigo.ShowModal;
+   end;
+  end;
+  if sNovo = 'Fornecedor' then
+  begin
+   if frmCadfor = nil then
+   begin
+     frmCadfor := TfrmCadfor.Create(Application);
+     frmCadfor.ShowModal;
+   end;
+  end;
+  if sNovo = 'Cliente' then
+  begin
+   if frmCadCliente = nil then
+   begin
+     frmCadCliente := TfrmCadCliente.Create(Application);
+     frmCadCliente.ShowModal;
+   end;
+  end;
+
+  if sNovo = 'Matéria-Prima' then
+  begin
+   if frmCadMatPrima = nil then
+   begin
+     frmCadMatPrima := TfrmCadMatPrima.Create(Application);
+     frmCadMatPrima.ShowModal;
+   end;
+  end;
+  if sNovo = 'Cores' then
+  begin
+   if frmCadCores = nil then
+   begin
+     frmCadCores := TfrmCadCores.Create(Application);
+     frmCadCores.ShowModal;
+   end;
+  end;
+
+end;
+
+procedure TfrmMenu.Panel10MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel10.Color := $00E7FEFD;
+  Panel10.Font.Color := clBlue;
+
+end;
+
+procedure TfrmMenu.Panel11MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel11.Color := $00E7FEFD;
+  Panel11.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.Panel12MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel12.Color := $00E7FEFD;
+  Panel12.Font.Color := clBlue;
+
+end;
+
+procedure TfrmMenu.Panel13MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel13.Color := $00E7FEFD;
+  Panel13.Font.Color := clBlue;
+
+end;
+
+procedure TfrmMenu.Panel14MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel14.Color := $00E7FEFD;
+  Panel14.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.Panel2MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel2.Color := $00E7FEFD;
+  Panel2.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.Panel5MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel5.Color := $00E7FEFD;
+  Panel5.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.Panel8MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel8.Color := $00E7FEFD;
+  Panel8.Font.Color := clBlue;
+  Label5.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.Panel9MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  Panel9.Color := $00E7FEFD;
+  Panel9.Font.Color := clBlue;
+end;
+
+procedure TfrmMenu.PlanosdePagamento1Click(Sender: TObject);
+begin
+  if frmCadPlanosPagto = nil then
+  begin
+    frmCadPlanosPagto := TfrmCadPlanosPagto.Create(Application);
+    frmCadPlanosPagto.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.Produto2Click(Sender: TObject);
+begin
+  if frmCadPro = nil then
+  begin
+    frmCadPro := TfrmCadPro.Create(Application);
+    frmCadPro.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.ProgramaoTinturaria1Click(Sender: TObject);
+begin
+  if frmProgramacao = nil then
+  begin
+    frmProgramacao := TfrmProgramacao.Create(Application);
+    frmProgramacao.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.ransportadora1Click(Sender: TObject);
+begin
+  if frmCadTransportadora = nil then
+  begin
+    frmCadTransportadora := TfrmCadTransportadora.Create(Application);
+    frmCadTransportadora.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.RemessaParaProduo1Click(Sender: TObject);
+begin
+  if frmRemessaProducao = nil then
+  begin
+    frmRemessaProducao := TfrmRemessaProducao.Create(Application);
+    frmRemessaProducao.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.Sair1Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TfrmMenu.SaldoeEstoque1Click(Sender: TObject);
+begin
+  frmRelatorios.QR_SaldoEstoque.Preview;
+//  frmRelatorios.frxReport2.ShowReport();
+end;
+
+procedure TfrmMenu.SpeedButton3Click(Sender: TObject);
+begin
+{  if frmPrincipal = nil then
+  begin
+    frmPrincipal := TfrmPrincipal.Create(Application);
+    frmPrincipal.ShowModal;
+  end;}
+
+end;
+
+procedure TfrmMenu.Timer1Timer(Sender: TObject);
+begin
+//   StatusBar1.Panels[4].Text := DateToStr(Date);
+//   StatusBar1.Panels[5].Text := TimeToStr(Time);
+   L_HORA_WIN10.Caption := TimeToStr(Time);
+   l_data_dia.Caption   := DiaSemana(date)+ ','+DateToStr(Date);
+end;
+
+procedure TfrmMenu.Timer2Timer(Sender: TObject);
+begin
+  //SpeedButton6Click(Self);
+  Timer2.Enabled := False;
+
+end;
+
+procedure TfrmMenu.TreeView1Change(Sender: TObject; Node: TTreeNode);
+Var
+ i : Integer;
+begin
+{  for i:= 0 to TreeView1.Selected.Count -1 do
+  begin
+    ShowMessage(TreeView1.Selected.Text+ ' '+IntToStr(i));
+  end;}
+end;
+
+procedure TfrmMenu.Usurios1Click(Sender: TObject);
+begin
+  if frmLogin = nil then
+  begin
+    frmLogin := TfrmLogin.Create(Application);
+    frmLogin.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.VendasECF1Click(Sender: TObject);
+begin
+  if frmVendaFiscal = nil then
+  begin
+    frmVendaFiscal := TfrmVendaFiscal.Create(Application);
+    frmVendaFiscal.ShowModal;
+  end;
+end;
+
+procedure TfrmMenu.Vendedores1Click(Sender: TObject);
+begin
+  if frmCadVendedor = nil then
+  begin
+    frmCadVendedor := TfrmCadVendedor.Create(Application);
+    frmCadVendedor.ShowModal;
+  end;
+end;
+
+end.

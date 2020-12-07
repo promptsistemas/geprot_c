@@ -1,0 +1,35 @@
+unit uManutencaoContasPagar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TfrmManutencaoContasPagar = class(TForm)
+    Panel1: TPanel;
+    Label5: TLabel;
+    SpeedButton3: TSpeedButton;
+    procedure SpeedButton3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmManutencaoContasPagar: TfrmManutencaoContasPagar;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM;
+
+procedure TfrmManutencaoContasPagar.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

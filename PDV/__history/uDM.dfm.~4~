@@ -1,0 +1,2340 @@
+object DM: TDM
+  OldCreateOrder = False
+  Height = 413
+  Width = 852
+  object Conexao: TSQLConnection
+    ConnectionName = 'FBConnection'
+    DriverName = 'Firebird'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=Data.DBXFirebird'
+      
+        'DriverPackageLoader=TDBXDynalinkDriverLoader,DbxCommonDriver210.' +
+        'bpl'
+      
+        'DriverAssemblyLoader=Borland.Data.TDBXDynalinkDriverLoader,Borla' +
+        'nd.Data.DbxCommonDriver,Version=21.0.0.0,Culture=neutral,PublicK' +
+        'eyToken=91d62ebb5b0d1b1b'
+      
+        'MetaDataPackageLoader=TDBXFirebirdMetaDataCommandFactory,DbxFire' +
+        'birdDriver210.bpl'
+      
+        'MetaDataAssemblyLoader=Borland.Data.TDBXFirebirdMetaDataCommandF' +
+        'actory,Borland.Data.DbxFirebirdDriver,Version=21.0.0.0,Culture=n' +
+        'eutral,PublicKeyToken=91d62ebb5b0d1b1b'
+      'GetDriverFunc=getSQLDriverINTERBASE'
+      'LibraryName=dbxfb.dll'
+      'LibraryNameOsx=libsqlfb.dylib'
+      'VendorLib=fbclient.dll'
+      'VendorLibWin64=fbclient.dll'
+      'VendorLibOsx=/Library/Frameworks/Firebird.framework/Firebird'
+      'Role=RoleName'
+      'MaxBlobSize=-1'
+      'TrimChar=False'
+      'DriverName=Firebird'
+      'Database=127.0.0.1:c:\Sintegra\bdados\dincash.fdb'
+      'RoleName=RoleName'
+      'User_Name=sysdba'
+      'Password=masterkey'
+      'ServerCharSet='
+      'SQLDialect=3'
+      'ErrorResourceFile='
+      'LocaleCode=0000'
+      'BlobSize=-1'
+      'CommitRetain=False'
+      'WaitOnLocks=True'
+      'IsolationLevel=ReadCommitted'
+      'Trim Char=False')
+    Left = 32
+    Top = 16
+  end
+  object qDinamica: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = Conexao
+    Left = 144
+    Top = 8
+  end
+  object dspDinamica: TDataSetProvider
+    DataSet = qDinamica
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 176
+    Top = 8
+  end
+  object cdsDinamica: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspDinamica'
+    Left = 208
+    Top = 8
+  end
+  object dsDinamica: TDataSource
+    DataSet = cdsDinamica
+    Left = 240
+    Top = 8
+  end
+  object sds_Tabela: TSQLDataSet
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = Conexao
+    Left = 312
+    Top = 8
+  end
+  object dsp_Tabela: TDataSetProvider
+    DataSet = sds_Tabela
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 344
+    Top = 8
+  end
+  object cds_Tabela: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dsp_Tabela'
+    Left = 376
+    Top = 8
+  end
+  object ds_Tabela: TDataSource
+    DataSet = cds_Tabela
+    Left = 408
+    Top = 8
+  end
+  object qEmpresa: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      '    L.ID_LOJA,'
+      '    L.R_SOCIAL,'
+      '    L.FANTASIA,'
+      '    L.ENDERECO,'
+      '    L.COMPLEMENTO,'
+      '    L.NUMERO,'
+      '    L.BAIRRO,'
+      '    L.CEP,'
+      '    L.CONTATO,'
+      '    L.CPF_CONTATO,'
+      '    L.CNPJ,'
+      '    L.INS_EST,'
+      '    L.TELEFONE,'
+      '    L.FAX,'
+      '    L.EMAIL,'
+      '    L.DT_CADASTRO,'
+      '    L.SITUACAO,'
+      '    L.DT_ABERTURA,'
+      '    L.CNAE_PRINCIPAL,'
+      '    L.CNAE_SECUNDARIO,'
+      '    L.CODIGO_MUNIC,'
+      '    M.NOME AS CIDADE,'
+      '    M.UF'
+      'FROM TB_LOJAS L'
+      
+        'LEFT OUTER JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = L.CODIGO_MU' +
+        'NIC)')
+    SQLConnection = Conexao
+    Left = 24
+    Top = 64
+    object qEmpresaID_LOJA: TIntegerField
+      FieldName = 'ID_LOJA'
+      Required = True
+    end
+    object qEmpresaR_SOCIAL: TStringField
+      FieldName = 'R_SOCIAL'
+      Size = 35
+    end
+    object qEmpresaFANTASIA: TStringField
+      FieldName = 'FANTASIA'
+      Size = 35
+    end
+    object qEmpresaENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Size = 34
+    end
+    object qEmpresaCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Size = 22
+    end
+    object qEmpresaNUMERO: TStringField
+      FieldName = 'NUMERO'
+      FixedChar = True
+      Size = 5
+    end
+    object qEmpresaBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Size = 15
+    end
+    object qEmpresaCEP: TStringField
+      FieldName = 'CEP'
+      Size = 10
+    end
+    object qEmpresaCONTATO: TStringField
+      FieldName = 'CONTATO'
+      Size = 28
+    end
+    object qEmpresaCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Size = 18
+    end
+    object qEmpresaCPF_CONTATO: TStringField
+      FieldName = 'CPF_CONTATO'
+      Size = 14
+    end
+    object qEmpresaINS_EST: TStringField
+      FieldName = 'INS_EST'
+      Size = 14
+    end
+    object qEmpresaTELEFONE: TStringField
+      FieldName = 'TELEFONE'
+      Size = 12
+    end
+    object qEmpresaFAX: TStringField
+      FieldName = 'FAX'
+      Size = 10
+    end
+    object qEmpresaEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 50
+    end
+    object qEmpresaDT_CADASTRO: TDateField
+      FieldName = 'DT_CADASTRO'
+    end
+    object qEmpresaSITUACAO: TStringField
+      FieldName = 'SITUACAO'
+      Size = 30
+    end
+    object qEmpresaDT_ABERTURA: TDateField
+      FieldName = 'DT_ABERTURA'
+    end
+    object qEmpresaCNAE_PRINCIPAL: TStringField
+      FieldName = 'CNAE_PRINCIPAL'
+      Size = 200
+    end
+    object qEmpresaCNAE_SECUNDARIO: TStringField
+      FieldName = 'CNAE_SECUNDARIO'
+      Size = 999
+    end
+    object qEmpresaCODIGO_MUNIC: TStringField
+      FieldName = 'CODIGO_MUNIC'
+      Size = 7
+    end
+    object qEmpresaCIDADE: TStringField
+      FieldName = 'CIDADE'
+      ProviderFlags = []
+      Size = 35
+    end
+    object qEmpresaUF: TStringField
+      FieldName = 'UF'
+      ProviderFlags = []
+      Size = 2
+    end
+  end
+  object dspEmpresa: TDataSetProvider
+    DataSet = qEmpresa
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    OnGetTableName = dspEmpresaGetTableName
+    Left = 56
+    Top = 64
+  end
+  object cdsEmpresa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspEmpresa'
+    Left = 88
+    Top = 64
+    object cdsEmpresaID_LOJA: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID_LOJA'
+      Required = True
+    end
+    object cdsEmpresaR_SOCIAL: TStringField
+      DisplayLabel = 'R. Social'
+      FieldName = 'R_SOCIAL'
+      Size = 35
+    end
+    object cdsEmpresaFANTASIA: TStringField
+      DisplayLabel = 'Fantasia'
+      FieldName = 'FANTASIA'
+      Size = 35
+    end
+    object cdsEmpresaENDERECO: TStringField
+      DisplayLabel = 'Endere'#231'o'
+      FieldName = 'ENDERECO'
+      Size = 34
+    end
+    object cdsEmpresaCOMPLEMENTO: TStringField
+      DisplayLabel = 'Complemento'
+      FieldName = 'COMPLEMENTO'
+      Size = 22
+    end
+    object cdsEmpresaNUMERO: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'NUMERO'
+      FixedChar = True
+      Size = 5
+    end
+    object cdsEmpresaBAIRRO: TStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAIRRO'
+      Size = 15
+    end
+    object cdsEmpresaCEP: TStringField
+      FieldName = 'CEP'
+      Size = 10
+    end
+    object cdsEmpresaCONTATO: TStringField
+      DisplayLabel = 'Contato'
+      FieldName = 'CONTATO'
+      Size = 28
+    end
+    object cdsEmpresaCPF_CONTATO: TStringField
+      FieldName = 'CPF_CONTATO'
+      Size = 14
+    end
+    object cdsEmpresaCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Size = 18
+    end
+    object cdsEmpresaINS_EST: TStringField
+      DisplayLabel = 'Insc. Est'
+      FieldName = 'INS_EST'
+      Size = 14
+    end
+    object cdsEmpresaTELEFONE: TStringField
+      DisplayLabel = 'Telefone'
+      FieldName = 'TELEFONE'
+      Size = 12
+    end
+    object cdsEmpresaFAX: TStringField
+      DisplayLabel = 'Telefone '
+      FieldName = 'FAX'
+      Size = 10
+    end
+    object cdsEmpresaEMAIL: TStringField
+      DisplayLabel = 'e-mail'
+      FieldName = 'EMAIL'
+      Size = 50
+    end
+    object cdsEmpresaDT_CADASTRO: TDateField
+      DisplayLabel = 'Data Cadastro'
+      FieldName = 'DT_CADASTRO'
+      EditMask = '##/##/####'
+    end
+    object cdsEmpresaSITUACAO: TStringField
+      DisplayLabel = 'Situa'#231#227'o'
+      FieldName = 'SITUACAO'
+      Size = 30
+    end
+    object cdsEmpresaDT_ABERTURA: TDateField
+      DisplayLabel = 'Data Abertura'
+      FieldName = 'DT_ABERTURA'
+      EditMask = '##/##/####'
+    end
+    object cdsEmpresaCNAE_PRINCIPAL: TStringField
+      DisplayLabel = 'CNAE Principal'
+      FieldName = 'CNAE_PRINCIPAL'
+      Size = 200
+    end
+    object cdsEmpresaCNAE_SECUNDARIO: TStringField
+      FieldName = 'CNAE_SECUNDARIO'
+      Size = 999
+    end
+    object cdsEmpresaCODIGO_MUNIC: TStringField
+      DisplayLabel = 'C'#243'digo Cidade'
+      FieldName = 'CODIGO_MUNIC'
+      Size = 7
+    end
+    object cdsEmpresaCIDADE: TStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CIDADE'
+      ProviderFlags = []
+      Size = 35
+    end
+    object cdsEmpresaUF: TStringField
+      DisplayLabel = 'Estado'
+      FieldName = 'UF'
+      ProviderFlags = []
+      Size = 2
+    end
+  end
+  object dsEmpresa: TDataSource
+    DataSet = cdsEmpresa
+    Left = 120
+    Top = 64
+  end
+  object qCliente: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      '    C.ID_CLIENTE              ,'
+      '    C.CODIGO_MUNIC             ,'
+      '    C.DT_CADASTRO             ,'
+      '    C.TP_CLIENTE              ,'
+      '    C.CNPJ_CPF                ,'
+      '    C.INSC_RG                 ,'
+      '    C.R_SOCIAL                ,'
+      '    C.FANTASIA                ,'
+      '    C.ENDERECO                ,'
+      '    C.COMPLEMENTO             ,'
+      '    C.NUMERO                  ,'
+      '    C.BAIRRO                  ,'
+      '    C.CEP                     ,'
+      '    C.DT_NASCIMENTO           ,'
+      '    C.SEXO                    ,'
+      '    C.ESTADO_CIVIL            ,'
+      '    C.VL_LIMITE               ,'
+      '    C.EMAIL                   ,'
+      '    C.TELEFONE                ,'
+      '    C.CELULAR                 ,'
+      '    C.WHATSAPP                ,'
+      '    C.CONTATO                ,'
+      '    C.OBS                     ,'
+      '    C.ATIVO                   ,'
+      '    C.SPC                     ,'
+      '    C.DT_CONSULTA_SPC         ,'
+      '    C.VL_ULT_DESC             ,'
+      '    C.DT_ULT_COMPRA           ,'
+      '    C.VL_ULT_COMPRA           ,'
+      '    C.INFORMACOES             ,'
+      '    C.BLOQUEIO                ,'
+      '    C.PONTO_REF,'
+      '    M.uf,'
+      '    M.nome AS CIDADE,'
+      '    M.ddd'
+      'FROM tb_cliente C'
+      'JOIN tb_municipios M ON (M.codigo_munic = C.codigo_munic)')
+    SQLConnection = Conexao
+    Left = 24
+    Top = 112
+    object qClienteID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Required = True
+    end
+    object qClienteCODIGO_MUNIC: TStringField
+      FieldName = 'CODIGO_MUNIC'
+      Required = True
+      Size = 7
+    end
+    object qClienteDT_CADASTRO: TDateField
+      FieldName = 'DT_CADASTRO'
+    end
+    object qClienteTP_CLIENTE: TStringField
+      FieldName = 'TP_CLIENTE'
+      Size = 10
+    end
+    object qClienteCNPJ_CPF: TStringField
+      FieldName = 'CNPJ_CPF'
+      Size = 18
+    end
+    object qClienteINSC_RG: TStringField
+      FieldName = 'INSC_RG'
+      Size = 14
+    end
+    object qClienteR_SOCIAL: TStringField
+      FieldName = 'R_SOCIAL'
+      Size = 50
+    end
+    object qClienteFANTASIA: TStringField
+      FieldName = 'FANTASIA'
+      Size = 50
+    end
+    object qClienteENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Size = 50
+    end
+    object qClienteCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Size = 50
+    end
+    object qClienteNUMERO: TStringField
+      FieldName = 'NUMERO'
+      FixedChar = True
+      Size = 18
+    end
+    object qClienteBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Size = 40
+    end
+    object qClienteCEP: TStringField
+      FieldName = 'CEP'
+      Size = 10
+    end
+    object qClienteDT_NASCIMENTO: TDateField
+      FieldName = 'DT_NASCIMENTO'
+    end
+    object qClienteSEXO: TStringField
+      FieldName = 'SEXO'
+      Size = 10
+    end
+    object qClienteESTADO_CIVIL: TStringField
+      FieldName = 'ESTADO_CIVIL'
+      Size = 15
+    end
+    object qClienteVL_LIMITE: TFMTBCDField
+      FieldName = 'VL_LIMITE'
+      Precision = 18
+      Size = 2
+    end
+    object qClienteEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 50
+    end
+    object qClienteTELEFONE: TStringField
+      FieldName = 'TELEFONE'
+      Size = 14
+    end
+    object qClienteCELULAR: TStringField
+      FieldName = 'CELULAR'
+      Size = 14
+    end
+    object qClienteWHATSAPP: TStringField
+      FieldName = 'WHATSAPP'
+      Size = 14
+    end
+    object qClienteCONTATO: TStringField
+      FieldName = 'CONTATO'
+    end
+    object qClienteOBS: TStringField
+      FieldName = 'OBS'
+      Size = 100
+    end
+    object qClienteATIVO: TStringField
+      FieldName = 'ATIVO'
+      Size = 1
+    end
+    object qClienteSPC: TStringField
+      FieldName = 'SPC'
+      Size = 1
+    end
+    object qClienteDT_CONSULTA_SPC: TDateField
+      FieldName = 'DT_CONSULTA_SPC'
+    end
+    object qClienteVL_ULT_DESC: TFMTBCDField
+      FieldName = 'VL_ULT_DESC'
+      Precision = 18
+      Size = 2
+    end
+    object qClienteDT_ULT_COMPRA: TDateField
+      FieldName = 'DT_ULT_COMPRA'
+    end
+    object qClienteVL_ULT_COMPRA: TFMTBCDField
+      FieldName = 'VL_ULT_COMPRA'
+      Precision = 18
+      Size = 2
+    end
+    object qClienteINFORMACOES: TStringField
+      FieldName = 'INFORMACOES'
+      Size = 200
+    end
+    object qClienteBLOQUEIO: TStringField
+      FieldName = 'BLOQUEIO'
+      Size = 1
+    end
+    object qClientePONTO_REF: TStringField
+      FieldName = 'PONTO_REF'
+      Size = 50
+    end
+    object qClienteUF: TStringField
+      FieldName = 'UF'
+      ProviderFlags = []
+      Size = 2
+    end
+    object qClienteCIDADE: TStringField
+      FieldName = 'CIDADE'
+      ProviderFlags = []
+      Size = 35
+    end
+    object qClienteDDD: TStringField
+      FieldName = 'DDD'
+      ProviderFlags = []
+      Size = 2
+    end
+  end
+  object dspCliente: TDataSetProvider
+    DataSet = qCliente
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    OnGetTableName = dspClienteGetTableName
+    Left = 56
+    Top = 112
+  end
+  object cdsCliente: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspCliente'
+    Left = 88
+    Top = 112
+    object cdsClienteID_CLIENTE: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID_CLIENTE'
+      Required = True
+    end
+    object cdsClienteCODIGO_MUNIC: TStringField
+      FieldName = 'CODIGO_MUNIC'
+      Required = True
+      Size = 7
+    end
+    object cdsClienteDT_CADASTRO: TDateField
+      DisplayLabel = 'Data Cadastro'
+      FieldName = 'DT_CADASTRO'
+      EditMask = '##/##/####'
+    end
+    object cdsClienteTP_CLIENTE: TStringField
+      FieldName = 'TP_CLIENTE'
+      Size = 10
+    end
+    object cdsClienteCNPJ_CPF: TStringField
+      DisplayLabel = 'CNPJ/CPF'
+      FieldName = 'CNPJ_CPF'
+      Size = 18
+    end
+    object cdsClienteINSC_RG: TStringField
+      DisplayLabel = 'INSC/RG'
+      FieldName = 'INSC_RG'
+      Size = 14
+    end
+    object cdsClienteR_SOCIAL: TStringField
+      DisplayLabel = 'Nome/R.Social'
+      FieldName = 'R_SOCIAL'
+      Size = 50
+    end
+    object cdsClienteFANTASIA: TStringField
+      DisplayLabel = 'Apelido/Fantasia'
+      FieldName = 'FANTASIA'
+      Size = 50
+    end
+    object cdsClienteENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Size = 50
+    end
+    object cdsClienteCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Size = 50
+    end
+    object cdsClienteNUMERO: TStringField
+      FieldName = 'NUMERO'
+      FixedChar = True
+      Size = 18
+    end
+    object cdsClienteCEP: TStringField
+      FieldName = 'CEP'
+      Size = 10
+    end
+    object cdsClienteBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Size = 40
+    end
+    object cdsClienteDT_NASCIMENTO: TDateField
+      DisplayLabel = 'Data Nascimento'
+      FieldName = 'DT_NASCIMENTO'
+      EditMask = '##/##/####'
+    end
+    object cdsClienteSEXO: TStringField
+      FieldName = 'SEXO'
+      Size = 10
+    end
+    object cdsClienteESTADO_CIVIL: TStringField
+      FieldName = 'ESTADO_CIVIL'
+      Size = 15
+    end
+    object cdsClienteVL_LIMITE: TFMTBCDField
+      DisplayLabel = 'Limite de Cr'#233'dito'
+      FieldName = 'VL_LIMITE'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsClienteEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 50
+    end
+    object cdsClienteTELEFONE: TStringField
+      FieldName = 'TELEFONE'
+      Size = 14
+    end
+    object cdsClienteCELULAR: TStringField
+      FieldName = 'CELULAR'
+      Size = 14
+    end
+    object cdsClienteWHATSAPP: TStringField
+      FieldName = 'WHATSAPP'
+      Size = 14
+    end
+    object cdsClienteCONTATO: TStringField
+      FieldName = 'CONTATO'
+    end
+    object cdsClienteOBS: TStringField
+      FieldName = 'OBS'
+      Size = 100
+    end
+    object cdsClienteATIVO: TStringField
+      FieldName = 'ATIVO'
+      Size = 1
+    end
+    object cdsClienteSPC: TStringField
+      FieldName = 'SPC'
+      Size = 1
+    end
+    object cdsClienteDT_CONSULTA_SPC: TDateField
+      FieldName = 'DT_CONSULTA_SPC'
+      EditMask = '##/##/####'
+    end
+    object cdsClienteVL_ULT_DESC: TFMTBCDField
+      FieldName = 'VL_ULT_DESC'
+      Precision = 18
+      Size = 2
+    end
+    object cdsClienteDT_ULT_COMPRA: TDateField
+      DisplayLabel = 'Data Ult.Compra'
+      FieldName = 'DT_ULT_COMPRA'
+      EditMask = '##/##/####'
+    end
+    object cdsClienteVL_ULT_COMPRA: TFMTBCDField
+      DisplayLabel = 'Vl. Ult.Compra'
+      FieldName = 'VL_ULT_COMPRA'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsClienteINFORMACOES: TStringField
+      FieldName = 'INFORMACOES'
+      Size = 200
+    end
+    object cdsClienteBLOQUEIO: TStringField
+      FieldName = 'BLOQUEIO'
+      Size = 1
+    end
+    object cdsClientePONTO_REF: TStringField
+      FieldName = 'PONTO_REF'
+      Size = 50
+    end
+    object cdsClienteUF: TStringField
+      FieldName = 'UF'
+      ProviderFlags = []
+      Size = 2
+    end
+    object cdsClienteCIDADE: TStringField
+      FieldName = 'CIDADE'
+      ProviderFlags = []
+      Size = 35
+    end
+    object cdsClienteDDD: TStringField
+      FieldName = 'DDD'
+      ProviderFlags = []
+      Size = 2
+    end
+  end
+  object dsCliente: TDataSource
+    DataSet = cdsCliente
+    Left = 120
+    Top = 112
+  end
+  object qProduto: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      ' P.ID_PRODUTO,'
+      ' P.ID_GRUPO_PRODUTO,'
+      ' P.ID_FORNECEDOR,'
+      ' P.COD_CST,'
+      ' P.DESCRICAO,'
+      ' P.UNIDADE,'
+      ' P.EMBALGEM,'
+      ' P.CD_BARRA,'
+      ' P.REFERENCIA,'
+      ' P.CODIGO,'
+      ' P.ESTOQUE,'
+      ' P.ESTOQ_MIN,'
+      ' P.VL_CUSTO,'
+      ' P.VL_VENDA_ATAC,'
+      ' P.VL_VENDA_VARE,'
+      ' P.VL_MARGEM,'
+      ' P.VL_VENDA_NF,'
+      ' P.DT_ULT_COMPRA,'
+      ' P.DT_ULT_VENDA,'
+      ' P.VL_DESC_MAX,'
+      ' P.ST,'
+      ' P.NCM,'
+      ' P.ESTOQUE_1,'
+      ' P.EXPORTADO,'
+      ' P. ALIQUOTA ,'
+      ' P.TIPO_ALIQ,'
+      ' P.COD_COFINS,'
+      ' P.COD_TRIBUTARIO,'
+      ' P.COD_IPI,'
+      ' P.ALIQUOTA_PIS,'
+      ' P.ALIQUOTA_IPI,'
+      ' P.ALIQUOTA_COFINS,'
+      ' SC.COD_SIT||'#39' - '#39'||SC.DESCRICAO AS SIT_COFINS,'
+      ' ST.COD_SIT||'#39' - '#39'||ST.DESCRICAO AS SIT_TRIBUTARIO,'
+      ' SI.COD_SIT||'#39' - '#39'||SI.DESCRICAO AS SIT_IPI,'
+      ' GP.descricao AS GRUPO,'
+      ' F.nome AS FORNECEDOR,'
+      ' CS.DESC_CST'
+      'FROM'
+      ' TB_PRODUTO P'
+      
+        'LEFT OUTER JOIN tb_grupo_produto GP ON (GP.id_grupo_produto = P.' +
+        'id_grupo_produto)'
+      
+        'LEFT OUTER JOIN tb_fornecedor F ON (F.id_fornecedor = P.id_forne' +
+        'cedor)'
+      'LEFT OUTER JOIN TB_CST CS ON (CS.COD_CST = P.COD_CST)'
+      'LEFT OUTER JOIN TB_SIT_COFINS SC ON (SC.COD_SIT = P.COD_COFINS)'
+      
+        'LEFT OUTER JOIN TB_SIT_TRIBUTARIA ST ON (ST.COD_SIT = P.COD_TRIB' +
+        'UTARIO)'
+      'LEFT OUTER JOIN TB_SIT_IPI SI ON (SI.COD_SIT = P.COD_IPI)')
+    SQLConnection = Conexao
+    Left = 184
+    Top = 64
+    object qProdutoID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+      Required = True
+    end
+    object qProdutoID_GRUPO_PRODUTO: TIntegerField
+      FieldName = 'ID_GRUPO_PRODUTO'
+      Required = True
+    end
+    object qProdutoID_FORNECEDOR: TIntegerField
+      FieldName = 'ID_FORNECEDOR'
+      Required = True
+    end
+    object qProdutoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object qProdutoUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 10
+    end
+    object qProdutoEMBALGEM: TStringField
+      FieldName = 'EMBALGEM'
+      Size = 10
+    end
+    object qProdutoCD_BARRA: TStringField
+      FieldName = 'CD_BARRA'
+      Size = 13
+    end
+    object qProdutoREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object qProdutoCODIGO: TStringField
+      FieldName = 'CODIGO'
+      Size = 7
+    end
+    object qProdutoVL_CUSTO: TFMTBCDField
+      FieldName = 'VL_CUSTO'
+      Precision = 18
+      Size = 2
+    end
+    object qProdutoVL_VENDA_ATAC: TFMTBCDField
+      FieldName = 'VL_VENDA_ATAC'
+      Precision = 18
+      Size = 2
+    end
+    object qProdutoVL_VENDA_VARE: TFMTBCDField
+      FieldName = 'VL_VENDA_VARE'
+      Precision = 18
+      Size = 2
+    end
+    object qProdutoVL_MARGEM: TFMTBCDField
+      FieldName = 'VL_MARGEM'
+      Precision = 18
+      Size = 2
+    end
+    object qProdutoVL_VENDA_NF: TFMTBCDField
+      FieldName = 'VL_VENDA_NF'
+      Precision = 18
+      Size = 2
+    end
+    object qProdutoDT_ULT_COMPRA: TDateField
+      FieldName = 'DT_ULT_COMPRA'
+    end
+    object qProdutoDT_ULT_VENDA: TDateField
+      FieldName = 'DT_ULT_VENDA'
+    end
+    object qProdutoVL_DESC_MAX: TFMTBCDField
+      FieldName = 'VL_DESC_MAX'
+      Precision = 18
+      Size = 4
+    end
+    object qProdutoST: TStringField
+      FieldName = 'ST'
+      Size = 3
+    end
+    object qProdutoNCM: TStringField
+      FieldName = 'NCM'
+      Size = 10
+    end
+    object qProdutoEXPORTADO: TStringField
+      FieldName = 'EXPORTADO'
+      Size = 1
+    end
+    object qProdutoGRUPO: TStringField
+      FieldName = 'GRUPO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object qProdutoFORNECEDOR: TStringField
+      FieldName = 'FORNECEDOR'
+      ProviderFlags = []
+      Size = 50
+    end
+    object qProdutoESTOQUE: TFMTBCDField
+      FieldName = 'ESTOQUE'
+      Precision = 18
+      Size = 3
+    end
+    object qProdutoESTOQ_MIN: TFMTBCDField
+      FieldName = 'ESTOQ_MIN'
+      Precision = 18
+      Size = 3
+    end
+    object qProdutoESTOQUE_1: TFMTBCDField
+      FieldName = 'ESTOQUE_1'
+      Precision = 18
+      Size = 3
+    end
+    object qProdutoCOD_CST: TStringField
+      FieldName = 'COD_CST'
+      Size = 3
+    end
+    object qProdutoDESC_CST: TStringField
+      FieldName = 'DESC_CST'
+      ProviderFlags = []
+      Size = 255
+    end
+    object qProdutoCOD_COFINS: TStringField
+      FieldName = 'COD_COFINS'
+      Size = 3
+    end
+    object qProdutoCOD_TRIBUTARIO: TStringField
+      FieldName = 'COD_TRIBUTARIO'
+      Size = 3
+    end
+    object qProdutoSIT_COFINS: TStringField
+      FieldName = 'SIT_COFINS'
+      ProviderFlags = []
+      Size = 261
+    end
+    object qProdutoSIT_TRIBUTARIO: TStringField
+      FieldName = 'SIT_TRIBUTARIO'
+      ProviderFlags = []
+      Size = 261
+    end
+    object qProdutoCOD_IPI: TStringField
+      FieldName = 'COD_IPI'
+      Size = 3
+    end
+    object qProdutoSIT_IPI: TStringField
+      FieldName = 'SIT_IPI'
+      ProviderFlags = []
+      Size = 261
+    end
+    object qProdutoALIQUOTA: TFMTBCDField
+      FieldName = 'ALIQUOTA'
+      Precision = 9
+      Size = 2
+    end
+    object qProdutoALIQUOTA_PIS: TFMTBCDField
+      FieldName = 'ALIQUOTA_PIS'
+      Precision = 9
+      Size = 2
+    end
+    object qProdutoALIQUOTA_IPI: TFMTBCDField
+      FieldName = 'ALIQUOTA_IPI'
+      Precision = 9
+      Size = 2
+    end
+    object qProdutoALIQUOTA_COFINS: TFMTBCDField
+      FieldName = 'ALIQUOTA_COFINS'
+      Precision = 9
+      Size = 2
+    end
+    object qProdutoTIPO_ALIQ: TStringField
+      FieldName = 'TIPO_ALIQ'
+      Size = 1
+    end
+  end
+  object dspProduto: TDataSetProvider
+    DataSet = qProduto
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    OnGetTableName = dspProdutoGetTableName
+    Left = 212
+    Top = 64
+  end
+  object cdsProduto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspProduto'
+    Left = 242
+    Top = 63
+    object cdsProdutoID_PRODUTO: TIntegerField
+      DisplayLabel = 'C'#243'd.Produto'
+      FieldName = 'ID_PRODUTO'
+      Required = True
+    end
+    object cdsProdutoDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o do Produto'
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object cdsProdutoUNIDADE: TStringField
+      DisplayLabel = 'Unidade'
+      FieldName = 'UNIDADE'
+      Size = 10
+    end
+    object cdsProdutoEMBALGEM: TStringField
+      DisplayLabel = 'Embalagem'
+      FieldName = 'EMBALGEM'
+      Size = 10
+    end
+    object cdsProdutoCD_BARRA: TStringField
+      DisplayLabel = 'C'#243'd. Barra'
+      FieldName = 'CD_BARRA'
+      Size = 13
+    end
+    object cdsProdutoVL_CUSTO: TFMTBCDField
+      DisplayLabel = 'Vl. Custo'
+      FieldName = 'VL_CUSTO'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsProdutoREFERENCIA: TStringField
+      DisplayLabel = 'C'#243'd.Interno'
+      FieldName = 'REFERENCIA'
+    end
+    object cdsProdutoCODIGO: TStringField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Size = 7
+    end
+    object cdsProdutoVL_VENDA_ATAC: TFMTBCDField
+      DisplayLabel = 'Vl Venda Atacado'
+      FieldName = 'VL_VENDA_ATAC'
+      DisplayFormat = '###,###0.000'
+      EditFormat = '###,###0.000'
+      Precision = 18
+      Size = 2
+    end
+    object cdsProdutoVL_VENDA_VARE: TFMTBCDField
+      DisplayLabel = 'Valor'
+      FieldName = 'VL_VENDA_VARE'
+      DisplayFormat = '###,###0.000'
+      EditFormat = '###,###0.000'
+      Precision = 18
+      Size = 2
+    end
+    object cdsProdutoVL_MARGEM: TFMTBCDField
+      DisplayLabel = 'Vl Margen Lucro'
+      FieldName = 'VL_MARGEM'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsProdutoVL_VENDA_NF: TFMTBCDField
+      DisplayLabel = 'Vl Venda NF'
+      FieldName = 'VL_VENDA_NF'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsProdutoDT_ULT_COMPRA: TDateField
+      DisplayLabel = 'Data Ult Compra'
+      FieldName = 'DT_ULT_COMPRA'
+      EditMask = '##/##/####'
+    end
+    object cdsProdutoDT_ULT_VENDA: TDateField
+      DisplayLabel = 'Data Ult Venda'
+      FieldName = 'DT_ULT_VENDA'
+      EditMask = '##/##/####'
+    end
+    object cdsProdutoID_GRUPO_PRODUTO: TIntegerField
+      DisplayLabel = 'C'#243'd Grupo'
+      FieldName = 'ID_GRUPO_PRODUTO'
+      Required = True
+    end
+    object cdsProdutoID_FORNECEDOR: TIntegerField
+      DisplayLabel = 'C'#243'd Fornecedor'
+      FieldName = 'ID_FORNECEDOR'
+      Required = True
+    end
+    object cdsProdutoGRUPO: TStringField
+      DisplayLabel = 'Grupo'
+      FieldName = 'GRUPO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object cdsProdutoFORNECEDOR: TStringField
+      DisplayLabel = 'Fornecedor'
+      FieldName = 'FORNECEDOR'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsProdutoVL_DESC_MAX: TFMTBCDField
+      DisplayLabel = 'Perc.Desc. M'#225'x.'
+      FieldName = 'VL_DESC_MAX'
+      DisplayFormat = '###,###0.0000'
+      EditFormat = '###,###0.0000'
+      Precision = 18
+      Size = 2
+    end
+    object cdsProdutoST: TStringField
+      FieldName = 'ST'
+      Size = 3
+    end
+    object cdsProdutoNCM: TStringField
+      FieldName = 'NCM'
+      Size = 10
+    end
+    object cdsProdutoEXPORTADO: TStringField
+      FieldName = 'EXPORTADO'
+      Size = 1
+    end
+    object cdsProdutoESTOQUE: TFMTBCDField
+      DisplayLabel = 'Estoque'
+      FieldName = 'ESTOQUE'
+      DisplayFormat = '###,###0.000'
+      EditFormat = '###,###0.000'
+      Precision = 18
+      Size = 3
+    end
+    object cdsProdutoESTOQ_MIN: TFMTBCDField
+      DisplayLabel = 'Estoque Min'
+      FieldName = 'ESTOQ_MIN'
+      DisplayFormat = '###,###0.000'
+      EditFormat = '###,###0.000'
+      Precision = 18
+      Size = 3
+    end
+    object cdsProdutoESTOQUE_1: TFMTBCDField
+      DisplayLabel = 'Estoque'
+      FieldName = 'ESTOQUE_1'
+      DisplayFormat = '###,###0.000'
+      EditFormat = '###,###0.000'
+      Precision = 18
+      Size = 3
+    end
+    object cdsProdutoCOD_CST: TStringField
+      DisplayLabel = 'C'#243'd. CST'
+      FieldName = 'COD_CST'
+      Size = 3
+    end
+    object cdsProdutoCOD_COFINS: TStringField
+      FieldName = 'COD_COFINS'
+      Size = 3
+    end
+    object cdsProdutoCOD_TRIBUTARIO: TStringField
+      FieldName = 'COD_TRIBUTARIO'
+      Size = 3
+    end
+    object cdsProdutoCOD_IPI: TStringField
+      FieldName = 'COD_IPI'
+      Size = 3
+    end
+    object cdsProdutoSIT_IPI: TStringField
+      FieldName = 'SIT_IPI'
+      ProviderFlags = []
+      Size = 261
+    end
+    object cdsProdutoSIT_TRIBUTARIO: TStringField
+      FieldName = 'SIT_TRIBUTARIO'
+      ProviderFlags = []
+      Size = 261
+    end
+    object cdsProdutoSIT_COFINS: TStringField
+      FieldName = 'SIT_COFINS'
+      ProviderFlags = []
+      Size = 261
+    end
+    object cdsProdutoDESC_CST: TStringField
+      FieldName = 'DESC_CST'
+      ProviderFlags = []
+      Size = 255
+    end
+    object cdsProdutoALIQUOTA: TFMTBCDField
+      FieldName = 'ALIQUOTA'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 9
+      Size = 2
+    end
+    object cdsProdutoALIQUOTA_PIS: TFMTBCDField
+      FieldName = 'ALIQUOTA_PIS'
+      Precision = 9
+      Size = 2
+    end
+    object cdsProdutoALIQUOTA_IPI: TFMTBCDField
+      FieldName = 'ALIQUOTA_IPI'
+      Precision = 9
+      Size = 2
+    end
+    object cdsProdutoALIQUOTA_COFINS: TFMTBCDField
+      FieldName = 'ALIQUOTA_COFINS'
+      Precision = 9
+      Size = 2
+    end
+    object cdsProdutoTIPO_ALIQ: TStringField
+      FieldName = 'TIPO_ALIQ'
+      Size = 1
+    end
+  end
+  object dsProduto: TDataSource
+    DataSet = cdsProduto
+    Left = 273
+    Top = 64
+  end
+  object sdsGrupoProduto: TSQLDataSet
+    CommandText = 'select * from TB_GRUPO_PRODUTO'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = Conexao
+    Left = 185
+    Top = 113
+    object sdsGrupoProdutoID_GRUPO_PRODUTO: TIntegerField
+      FieldName = 'ID_GRUPO_PRODUTO'
+    end
+    object sdsGrupoProdutoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 30
+    end
+    object sdsGrupoProdutoEXPORTADO: TStringField
+      FieldName = 'EXPORTADO'
+      Size = 1
+    end
+  end
+  object dspGrupoProduto: TDataSetProvider
+    DataSet = sdsGrupoProduto
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 216
+    Top = 113
+  end
+  object cdsGrupoProduto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspGrupoProduto'
+    Left = 245
+    Top = 113
+    object cdsGrupoProdutoID_GRUPO_PRODUTO: TIntegerField
+      DisplayLabel = 'Grupo Produto'
+      DisplayWidth = 10
+      FieldName = 'ID_GRUPO_PRODUTO'
+    end
+    object cdsGrupoProdutoDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o do Grupo'
+      DisplayWidth = 30
+      FieldName = 'DESCRICAO'
+      Size = 30
+    end
+    object cdsGrupoProdutoEXPORTADO: TStringField
+      DisplayWidth = 1
+      FieldName = 'EXPORTADO'
+      Visible = False
+      Size = 1
+    end
+  end
+  object dsGrupoProduto: TDataSource
+    DataSet = cdsGrupoProduto
+    Left = 277
+    Top = 113
+  end
+  object qVendedor: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      'V.ID_VENDEDOR,'
+      'V.ID_LOJA    ,'
+      'V.CODIGO_MUNIC,'
+      'V.NOME        ,'
+      'V.ENDERECO    ,'
+      'V.NUMERO      ,'
+      'V.BAIRRO      ,'
+      'V.COMPLEMENTO ,'
+      'V.CEP         ,'
+      'V.CPF         ,'
+      'V.RG          ,'
+      'V.TELEFONE    ,'
+      'V.CELULAR     ,'
+      'V.WHATSAPP    ,'
+      'V.EMAIL       ,'
+      'V.DT_NASCIMENTO ,'
+      'V.DT_CADASTRO ,'
+      'V.ATIVO       ,'
+      'V.VL_COMISSAO ,'
+      'L.FANTASIA AS NOME_LOJA,'
+      'M.NOME AS CIDADE,'
+      'M.UF,'
+      'M.DDD'
+      'FROM TB_VENDEDOR V'
+      'LEFT OUTER JOIN TB_LOJAS L ON (L.ID_LOJA = V.ID_LOJA)'
+      
+        'LEFT OUTER JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = V.CODIGO_MU' +
+        'NIC)')
+    SQLConnection = Conexao
+    Left = 24
+    Top = 160
+    object qVendedorID_VENDEDOR: TIntegerField
+      FieldName = 'ID_VENDEDOR'
+      Required = True
+    end
+    object qVendedorID_LOJA: TIntegerField
+      FieldName = 'ID_LOJA'
+    end
+    object qVendedorCODIGO_MUNIC: TStringField
+      FieldName = 'CODIGO_MUNIC'
+      Required = True
+      Size = 7
+    end
+    object qVendedorNOME: TStringField
+      FieldName = 'NOME'
+      Size = 50
+    end
+    object qVendedorENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Size = 50
+    end
+    object qVendedorNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Size = 50
+    end
+    object qVendedorBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Size = 50
+    end
+    object qVendedorCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Size = 40
+    end
+    object qVendedorCEP: TStringField
+      FieldName = 'CEP'
+      Size = 10
+    end
+    object qVendedorCPF: TStringField
+      FieldName = 'CPF'
+      Size = 18
+    end
+    object qVendedorRG: TStringField
+      FieldName = 'RG'
+      Size = 14
+    end
+    object qVendedorTELEFONE: TStringField
+      FieldName = 'TELEFONE'
+      Size = 14
+    end
+    object qVendedorCELULAR: TStringField
+      FieldName = 'CELULAR'
+      Size = 14
+    end
+    object qVendedorWHATSAPP: TStringField
+      FieldName = 'WHATSAPP'
+      Size = 14
+    end
+    object qVendedorEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 70
+    end
+    object qVendedorDT_NASCIMENTO: TStringField
+      FieldName = 'DT_NASCIMENTO'
+      FixedChar = True
+      Size = 18
+    end
+    object qVendedorDT_CADASTRO: TDateField
+      FieldName = 'DT_CADASTRO'
+    end
+    object qVendedorATIVO: TStringField
+      FieldName = 'ATIVO'
+      Size = 1
+    end
+    object qVendedorVL_COMISSAO: TFMTBCDField
+      FieldName = 'VL_COMISSAO'
+      Precision = 18
+      Size = 2
+    end
+    object qVendedorNOME_LOJA: TStringField
+      FieldName = 'NOME_LOJA'
+      ProviderFlags = []
+      Size = 35
+    end
+    object qVendedorCIDADE: TStringField
+      FieldName = 'CIDADE'
+      ProviderFlags = []
+      Size = 35
+    end
+    object qVendedorUF: TStringField
+      FieldName = 'UF'
+      ProviderFlags = []
+      Size = 2
+    end
+    object qVendedorDDD: TStringField
+      FieldName = 'DDD'
+      ProviderFlags = []
+      Size = 2
+    end
+  end
+  object dspVendedor: TDataSetProvider
+    DataSet = qVendedor
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    OnGetTableName = dspVendedorGetTableName
+    Left = 56
+    Top = 160
+  end
+  object cdsVendedor: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspVendedor'
+    Left = 88
+    Top = 160
+    object cdsVendedorID_VENDEDOR: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID_VENDEDOR'
+      Required = True
+    end
+    object cdsVendedorID_LOJA: TIntegerField
+      DisplayLabel = 'Cod.Loja'
+      FieldName = 'ID_LOJA'
+    end
+    object cdsVendedorCODIGO_MUNIC: TStringField
+      DisplayLabel = 'C'#243'digo Cidade'
+      FieldName = 'CODIGO_MUNIC'
+      Required = True
+      Size = 7
+    end
+    object cdsVendedorNOME: TStringField
+      DisplayLabel = 'Nome do Vendedor'
+      FieldName = 'NOME'
+      Size = 50
+    end
+    object cdsVendedorENDERECO: TStringField
+      DisplayLabel = 'Endere'#231'o'
+      FieldName = 'ENDERECO'
+      Size = 50
+    end
+    object cdsVendedorNUMERO: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'NUMERO'
+      Size = 50
+    end
+    object cdsVendedorBAIRRO: TStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAIRRO'
+      Size = 50
+    end
+    object cdsVendedorCOMPLEMENTO: TStringField
+      DisplayLabel = 'Complemento'
+      FieldName = 'COMPLEMENTO'
+      Size = 40
+    end
+    object cdsVendedorCEP: TStringField
+      FieldName = 'CEP'
+      Size = 10
+    end
+    object cdsVendedorCPF: TStringField
+      FieldName = 'CPF'
+      Size = 18
+    end
+    object cdsVendedorRG: TStringField
+      FieldName = 'RG'
+      Size = 14
+    end
+    object cdsVendedorTELEFONE: TStringField
+      DisplayLabel = 'Telefone'
+      FieldName = 'TELEFONE'
+      Size = 14
+    end
+    object cdsVendedorCELULAR: TStringField
+      DisplayLabel = 'Celular'
+      FieldName = 'CELULAR'
+      Size = 14
+    end
+    object cdsVendedorWHATSAPP: TStringField
+      DisplayLabel = 'WhatsApp'
+      FieldName = 'WHATSAPP'
+      Size = 14
+    end
+    object cdsVendedorEMAIL: TStringField
+      DisplayLabel = 'e-mail'
+      FieldName = 'EMAIL'
+      Size = 70
+    end
+    object cdsVendedorDT_NASCIMENTO: TStringField
+      DisplayLabel = 'Data Nascimento'
+      FieldName = 'DT_NASCIMENTO'
+      EditMask = '##/##/####'
+      FixedChar = True
+      Size = 18
+    end
+    object cdsVendedorDT_CADASTRO: TDateField
+      DisplayLabel = 'Data Cadastro'
+      FieldName = 'DT_CADASTRO'
+      EditMask = '##/##/####'
+    end
+    object cdsVendedorATIVO: TStringField
+      DisplayLabel = 'Ativo'
+      FieldName = 'ATIVO'
+      Size = 1
+    end
+    object cdsVendedorVL_COMISSAO: TFMTBCDField
+      DisplayLabel = 'Vl. Comiss'#227'o'
+      FieldName = 'VL_COMISSAO'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendedorNOME_LOJA: TStringField
+      DisplayLabel = 'Loja Filiado'
+      FieldName = 'NOME_LOJA'
+      ProviderFlags = []
+      Size = 35
+    end
+    object cdsVendedorCIDADE: TStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CIDADE'
+      ProviderFlags = []
+      Size = 35
+    end
+    object cdsVendedorUF: TStringField
+      FieldName = 'UF'
+      ProviderFlags = []
+      Size = 2
+    end
+    object cdsVendedorDDD: TStringField
+      FieldName = 'DDD'
+      ProviderFlags = []
+      Size = 2
+    end
+  end
+  object dsVendedor: TDataSource
+    DataSet = cdsVendedor
+    Left = 120
+    Top = 160
+  end
+  object qPlanoPagamento: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      ' P.ID_PLANO_PAGAMENTO,'
+      ' P.DESCRICAO_PAGAMENTO,'
+      ' P.QT_PARCELAS,'
+      ' P.QT_DIAS_ENTRE_PARCELAS,'
+      ' P.QT_DIAS_PRIMEIRA_PARCELA'
+      'FROM TB_PLANO_PAGAMENTO P')
+    SQLConnection = Conexao
+    Left = 192
+    Top = 160
+    object qPlanoPagamentoID_PLANO_PAGAMENTO: TIntegerField
+      FieldName = 'ID_PLANO_PAGAMENTO'
+      Required = True
+    end
+    object qPlanoPagamentoDESCRICAO_PAGAMENTO: TStringField
+      FieldName = 'DESCRICAO_PAGAMENTO'
+      Size = 40
+    end
+    object qPlanoPagamentoQT_PARCELAS: TIntegerField
+      FieldName = 'QT_PARCELAS'
+    end
+    object qPlanoPagamentoQT_DIAS_ENTRE_PARCELAS: TIntegerField
+      FieldName = 'QT_DIAS_ENTRE_PARCELAS'
+    end
+    object qPlanoPagamentoQT_DIAS_PRIMEIRA_PARCELA: TIntegerField
+      FieldName = 'QT_DIAS_PRIMEIRA_PARCELA'
+    end
+  end
+  object dspPlanoPagamento: TDataSetProvider
+    DataSet = qPlanoPagamento
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Left = 224
+    Top = 160
+  end
+  object cdsPlanoPagamento: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPlanoPagamento'
+    Left = 256
+    Top = 160
+    object cdsPlanoPagamentoID_PLANO_PAGAMENTO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID_PLANO_PAGAMENTO'
+      Required = True
+    end
+    object cdsPlanoPagamentoDESCRICAO_PAGAMENTO: TStringField
+      DisplayLabel = 'Plano de Pagamento'
+      FieldName = 'DESCRICAO_PAGAMENTO'
+      Size = 40
+    end
+    object cdsPlanoPagamentoQT_PARCELAS: TIntegerField
+      DisplayLabel = 'Quant Parcelas'
+      FieldName = 'QT_PARCELAS'
+    end
+    object cdsPlanoPagamentoQT_DIAS_ENTRE_PARCELAS: TIntegerField
+      DisplayLabel = 'Dias Entre Parcelas'
+      FieldName = 'QT_DIAS_ENTRE_PARCELAS'
+    end
+    object cdsPlanoPagamentoQT_DIAS_PRIMEIRA_PARCELA: TIntegerField
+      DisplayLabel = 'Dias 1'#186' Parcela'
+      FieldName = 'QT_DIAS_PRIMEIRA_PARCELA'
+    end
+  end
+  object dsPlanoPagamento: TDataSource
+    DataSet = cdsPlanoPagamento
+    Left = 288
+    Top = 160
+  end
+  object qFormaPagamento: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      ' F.ID_FORMA_PAGAMENTO,'
+      ' F.DESCRICAO_PAGAMENTO'
+      'FROM TB_FORMA_PAGAMENTO F')
+    SQLConnection = Conexao
+    Left = 192
+    Top = 207
+    object qFormaPagamentoID_FORMA_PAGAMENTO: TIntegerField
+      FieldName = 'ID_FORMA_PAGAMENTO'
+      Required = True
+    end
+    object qFormaPagamentoDESCRICAO_PAGAMENTO: TStringField
+      FieldName = 'DESCRICAO_PAGAMENTO'
+      Size = 40
+    end
+  end
+  object dspFormaPagamento: TDataSetProvider
+    DataSet = qFormaPagamento
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Left = 224
+    Top = 207
+  end
+  object cdsFormaPagamento: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspFormaPagamento'
+    Left = 256
+    Top = 207
+    object cdsFormaPagamentoID_FORMA_PAGAMENTO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID_FORMA_PAGAMENTO'
+      Required = True
+    end
+    object cdsFormaPagamentoDESCRICAO_PAGAMENTO: TStringField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'DESCRICAO_PAGAMENTO'
+      Size = 40
+    end
+  end
+  object dsFormaPagamento: TDataSource
+    DataSet = cdsFormaPagamento
+    Left = 288
+    Top = 207
+  end
+  object qMunicipio: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      ' M.codigo_munic,'
+      ' M.uf,'
+      ' M.nome,'
+      ' M.ddd,'
+      ' M.populacao,'
+      ' M.distancia,'
+      ' M.regiao'
+      'FROM tb_municipios M')
+    SQLConnection = Conexao
+    Left = 24
+    Top = 208
+    object qMunicipioCODIGO_MUNIC: TStringField
+      FieldName = 'CODIGO_MUNIC'
+      Required = True
+      Size = 7
+    end
+    object qMunicipioUF: TStringField
+      FieldName = 'UF'
+      Size = 2
+    end
+    object qMunicipioNOME: TStringField
+      FieldName = 'NOME'
+      Size = 35
+    end
+    object qMunicipioDDD: TStringField
+      FieldName = 'DDD'
+      Size = 2
+    end
+    object qMunicipioPOPULACAO: TIntegerField
+      FieldName = 'POPULACAO'
+    end
+    object qMunicipioDISTANCIA: TIntegerField
+      FieldName = 'DISTANCIA'
+    end
+    object qMunicipioREGIAO: TStringField
+      FieldName = 'REGIAO'
+      Size = 50
+    end
+  end
+  object dspMunicipio: TDataSetProvider
+    DataSet = qMunicipio
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 56
+    Top = 208
+  end
+  object cdsMunicipio: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspMunicipio'
+    Left = 88
+    Top = 208
+    object cdsMunicipioCODIGO_MUNIC: TStringField
+      DisplayLabel = 'C'#243'd. Municipio'
+      FieldName = 'CODIGO_MUNIC'
+      Required = True
+      Size = 7
+    end
+    object cdsMunicipioUF: TStringField
+      FieldName = 'UF'
+      Size = 2
+    end
+    object cdsMunicipioNOME: TStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'NOME'
+      Size = 35
+    end
+    object cdsMunicipioDDD: TStringField
+      FieldName = 'DDD'
+      Size = 2
+    end
+    object cdsMunicipioPOPULACAO: TIntegerField
+      DisplayLabel = 'Popula'#231#227'o'
+      FieldName = 'POPULACAO'
+    end
+    object cdsMunicipioDISTANCIA: TIntegerField
+      FieldName = 'DISTANCIA'
+    end
+    object cdsMunicipioREGIAO: TStringField
+      DisplayLabel = 'Regi'#227'o'
+      FieldName = 'REGIAO'
+      Size = 50
+    end
+  end
+  object dsMunicipio: TDataSource
+    DataSet = cdsMunicipio
+    Left = 120
+    Top = 208
+  end
+  object qUsuario: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      ' U.ID_USUARIO,'
+      ' U.ID_LOJA,'
+      ' U.NOME_USUARIO,'
+      ' U.SENHA,'
+      ' U.NIVEL,'
+      ' L.R_SOCIAL'
+      'FROM TB_USUARIO U'
+      'LEFT OUTER JOIN TB_LOJAS L ON (L.ID_LOJA = U.ID_LOJA)')
+    SQLConnection = Conexao
+    Left = 24
+    Top = 256
+    object qUsuarioID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+      Required = True
+    end
+    object qUsuarioID_LOJA: TIntegerField
+      FieldName = 'ID_LOJA'
+    end
+    object qUsuarioNOME_USUARIO: TStringField
+      FieldName = 'NOME_USUARIO'
+      Size = 30
+    end
+    object qUsuarioSENHA: TStringField
+      FieldName = 'SENHA'
+      Size = 10
+    end
+    object qUsuarioNIVEL: TSmallintField
+      FieldName = 'NIVEL'
+    end
+    object qUsuarioR_SOCIAL: TStringField
+      FieldName = 'R_SOCIAL'
+      ProviderFlags = []
+      Size = 35
+    end
+  end
+  object dspUsuario: TDataSetProvider
+    DataSet = qUsuario
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    OnGetTableName = dspUsuarioGetTableName
+    Left = 56
+    Top = 256
+  end
+  object cdsUsuario: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspUsuario'
+    Left = 88
+    Top = 256
+    object cdsUsuarioID_USUARIO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID_USUARIO'
+      Required = True
+    end
+    object cdsUsuarioID_LOJA: TIntegerField
+      DisplayLabel = 'C'#243'd. Loja'
+      FieldName = 'ID_LOJA'
+    end
+    object cdsUsuarioNOME_USUARIO: TStringField
+      DisplayLabel = 'Usu'#225'rio'
+      FieldName = 'NOME_USUARIO'
+      Size = 30
+    end
+    object cdsUsuarioSENHA: TStringField
+      DisplayLabel = 'Senha'
+      FieldName = 'SENHA'
+      Size = 10
+    end
+    object cdsUsuarioNIVEL: TSmallintField
+      DisplayLabel = 'N'#237'vel'
+      FieldName = 'NIVEL'
+    end
+    object cdsUsuarioR_SOCIAL: TStringField
+      DisplayLabel = 'Loja'
+      FieldName = 'R_SOCIAL'
+      ProviderFlags = []
+      Size = 35
+    end
+  end
+  object dsUsuario: TDataSource
+    DataSet = cdsUsuario
+    Left = 120
+    Top = 256
+  end
+  object qPagamentoPDV: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      ' PG.ID_PAGAMENTO_PDV,'
+      ' PG.ID_PDV,'
+      ' PG.ID_PLANO_PAGAMENTO,'
+      ' PG.ID_FORMA_PAGAMENTO,'
+      ' PG.ID_LOJA,'
+      ' PG.ID_USUARIO,'
+      ' PG.VL_PAGAMENTO,'
+      ' PG.VL_RECEBIDO,'
+      ' PG.DT_MOV,'
+      ' PG.CAIXA,'
+      ' L.R_SOCIAL AS LOJA,'
+      ' U.NOME_USUARIO,'
+      ' PL.DESCRICAO_PAGAMENTO AS PLANO_PAGAMENTO,'
+      ' FP.DESCRICAO_PAGAMENTO AS FORMA_PAGAMENTO'
+      'FROM TB_PAGAMENTO_PDV PG'
+      'LEFT OUTER JOIN TB_LOJAS L ON (L.ID_LOJA = PG.ID_LOJA)'
+      'LEFT OUTER JOIN TB_PDV P ON (P.ID_PDV = PG.ID_PDV)'
+      'LEFT OUTER JOIN TB_USUARIO U ON (U.ID_USUARIO = PG.ID_USUARIO)'
+      
+        'LEFT OUTER JOIN TB_PLANO_PAGAMENTO PL ON (PL.ID_PLANO_PAGAMENTO ' +
+        '= PG.ID_PLANO_PAGAMENTO)'
+      
+        'LEFT OUTER JOIN TB_FORMA_PAGAMENTO FP ON (FP.ID_FORMA_PAGAMENTO ' +
+        '= PG.ID_FORMA_PAGAMENTO)')
+    SQLConnection = Conexao
+    Left = 24
+    Top = 304
+    object qPagamentoPDVID_PAGAMENTO_PDV: TIntegerField
+      FieldName = 'ID_PAGAMENTO_PDV'
+      Required = True
+    end
+    object qPagamentoPDVID_PDV: TIntegerField
+      FieldName = 'ID_PDV'
+    end
+    object qPagamentoPDVID_PLANO_PAGAMENTO: TIntegerField
+      FieldName = 'ID_PLANO_PAGAMENTO'
+    end
+    object qPagamentoPDVID_FORMA_PAGAMENTO: TIntegerField
+      FieldName = 'ID_FORMA_PAGAMENTO'
+    end
+    object qPagamentoPDVID_LOJA: TIntegerField
+      FieldName = 'ID_LOJA'
+    end
+    object qPagamentoPDVID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+    end
+    object qPagamentoPDVVL_PAGAMENTO: TFMTBCDField
+      FieldName = 'VL_PAGAMENTO'
+      Precision = 18
+      Size = 2
+    end
+    object qPagamentoPDVVL_RECEBIDO: TFMTBCDField
+      FieldName = 'VL_RECEBIDO'
+      Precision = 18
+      Size = 2
+    end
+    object qPagamentoPDVDT_MOV: TDateField
+      FieldName = 'DT_MOV'
+    end
+    object qPagamentoPDVCAIXA: TIntegerField
+      FieldName = 'CAIXA'
+    end
+    object qPagamentoPDVLOJA: TStringField
+      FieldName = 'LOJA'
+      ProviderFlags = []
+      Size = 35
+    end
+    object qPagamentoPDVNOME_USUARIO: TStringField
+      FieldName = 'NOME_USUARIO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object qPagamentoPDVPLANO_PAGAMENTO: TStringField
+      FieldName = 'PLANO_PAGAMENTO'
+      ProviderFlags = []
+      Size = 40
+    end
+    object qPagamentoPDVFORMA_PAGAMENTO: TStringField
+      FieldName = 'FORMA_PAGAMENTO'
+      ProviderFlags = []
+      Size = 40
+    end
+  end
+  object dspPagamentoPDV: TDataSetProvider
+    DataSet = qPagamentoPDV
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    OnGetTableName = dspPagamentoPDVGetTableName
+    Left = 56
+    Top = 304
+  end
+  object cdsPagamentoPDV: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPagamentoPDV'
+    Left = 88
+    Top = 304
+    object cdsPagamentoPDVID_PAGAMENTO_PDV: TIntegerField
+      FieldName = 'ID_PAGAMENTO_PDV'
+      Required = True
+    end
+    object cdsPagamentoPDVID_PDV: TIntegerField
+      FieldName = 'ID_PDV'
+    end
+    object cdsPagamentoPDVID_PLANO_PAGAMENTO: TIntegerField
+      FieldName = 'ID_PLANO_PAGAMENTO'
+    end
+    object cdsPagamentoPDVID_FORMA_PAGAMENTO: TIntegerField
+      FieldName = 'ID_FORMA_PAGAMENTO'
+    end
+    object cdsPagamentoPDVID_LOJA: TIntegerField
+      FieldName = 'ID_LOJA'
+    end
+    object cdsPagamentoPDVID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+    end
+    object cdsPagamentoPDVVL_PAGAMENTO: TFMTBCDField
+      FieldName = 'VL_PAGAMENTO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsPagamentoPDVVL_RECEBIDO: TFMTBCDField
+      FieldName = 'VL_RECEBIDO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsPagamentoPDVDT_MOV: TDateField
+      FieldName = 'DT_MOV'
+    end
+    object cdsPagamentoPDVCAIXA: TIntegerField
+      FieldName = 'CAIXA'
+    end
+    object cdsPagamentoPDVLOJA: TStringField
+      FieldName = 'LOJA'
+      ProviderFlags = []
+      Size = 35
+    end
+    object cdsPagamentoPDVNOME_USUARIO: TStringField
+      FieldName = 'NOME_USUARIO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object cdsPagamentoPDVPLANO_PAGAMENTO: TStringField
+      FieldName = 'PLANO_PAGAMENTO'
+      ProviderFlags = []
+      Size = 40
+    end
+    object cdsPagamentoPDVFORMA_PAGAMENTO: TStringField
+      FieldName = 'FORMA_PAGAMENTO'
+      ProviderFlags = []
+      Size = 40
+    end
+  end
+  object dsPagamentoPDV: TDataSource
+    DataSet = cdsPagamentoPDV
+    Left = 120
+    Top = 304
+  end
+  object qItemPdv: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_PDV'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'SELECT'
+      ' IP.ID_ITEM_PDV,'
+      ' IP.ID_PDV,'
+      ' IP.ID_PRODUTO,'
+      ' IP.ID_GRUPO_PRODUTO,'
+      ' IP.ITEM,'
+      ' IP.QUANT,'
+      ' IP.VL_UNIT,'
+      ' IP.VL_TOTAL,'
+      ' PR.CD_BARRA,'
+      ' PR.CODIGO,'
+      ' PR.REFERENCIA,'
+      ' PR.DESCRICAO'
+      'FROM TB_ITEM_PDV IP'
+      'LEFT OUTER JOIN TB_PDV P ON (P.ID_PDV = IP.ID_PDV)'
+      
+        'LEFT OUTER JOIN TB_PRODUTO PR ON (PR.ID_PRODUTO = IP.ID_PRODUTO ' +
+        'AND PR.ID_GRUPO_PRODUTO = IP.ID_GRUPO_PRODUTO)'
+      'WHERE IP.ID_PDV = :ID_PDV')
+    SQLConnection = Conexao
+    Left = 192
+    Top = 304
+    object qItemPdvID_ITEM_PDV: TIntegerField
+      FieldName = 'ID_ITEM_PDV'
+      Required = True
+    end
+    object qItemPdvID_PDV: TIntegerField
+      FieldName = 'ID_PDV'
+    end
+    object qItemPdvID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object qItemPdvID_GRUPO_PRODUTO: TIntegerField
+      FieldName = 'ID_GRUPO_PRODUTO'
+    end
+    object qItemPdvITEM: TIntegerField
+      FieldName = 'ITEM'
+    end
+    object qItemPdvQUANT: TFMTBCDField
+      FieldName = 'QUANT'
+      Precision = 18
+      Size = 3
+    end
+    object qItemPdvVL_UNIT: TFMTBCDField
+      FieldName = 'VL_UNIT'
+      Precision = 18
+      Size = 2
+    end
+    object qItemPdvVL_TOTAL: TFMTBCDField
+      FieldName = 'VL_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object qItemPdvCD_BARRA: TStringField
+      FieldName = 'CD_BARRA'
+      ProviderFlags = []
+      Size = 13
+    end
+    object qItemPdvCODIGO: TStringField
+      FieldName = 'CODIGO'
+      ProviderFlags = []
+      Size = 7
+    end
+    object qItemPdvREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+      ProviderFlags = []
+    end
+    object qItemPdvDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+  end
+  object dspItemPdv: TDataSetProvider
+    DataSet = qItemPdv
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    OnGetTableName = dspItemPdvGetTableName
+    Left = 224
+    Top = 304
+  end
+  object cdsItemPdv: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_PDV'
+        ParamType = ptInput
+      end>
+    ProviderName = 'dspItemPdv'
+    Left = 256
+    Top = 304
+    object cdsItemPdvID_ITEM_PDV: TIntegerField
+      FieldName = 'ID_ITEM_PDV'
+      Required = True
+    end
+    object cdsItemPdvID_PDV: TIntegerField
+      FieldName = 'ID_PDV'
+    end
+    object cdsItemPdvID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsItemPdvID_GRUPO_PRODUTO: TIntegerField
+      FieldName = 'ID_GRUPO_PRODUTO'
+    end
+    object cdsItemPdvITEM: TIntegerField
+      FieldName = 'ITEM'
+    end
+    object cdsItemPdvQUANT: TFMTBCDField
+      FieldName = 'QUANT'
+      Precision = 18
+      Size = 3
+    end
+    object cdsItemPdvVL_UNIT: TFMTBCDField
+      FieldName = 'VL_UNIT'
+      Precision = 18
+      Size = 2
+    end
+    object cdsItemPdvVL_TOTAL: TFMTBCDField
+      FieldName = 'VL_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object cdsItemPdvCD_BARRA: TStringField
+      FieldName = 'CD_BARRA'
+      ProviderFlags = []
+      Size = 13
+    end
+    object cdsItemPdvCODIGO: TStringField
+      FieldName = 'CODIGO'
+      ProviderFlags = []
+      Size = 7
+    end
+    object cdsItemPdvREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+      ProviderFlags = []
+    end
+    object cdsItemPdvDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+  end
+  object dsItemPdv: TDataSource
+    DataSet = cdsItemPdv
+    Left = 288
+    Top = 304
+  end
+  object qPdv: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      ' P.ID_PDV,'
+      ' P.ID_CLIENTE,'
+      ' P.ID_USUARIO,'
+      ' P.ID_LOJA,'
+      ' P.ID_VENDEDOR,'
+      ' P.DT_VENDA,'
+      ' P.HR_VENDA,'
+      ' P.VL_VENDA,'
+      ' P.VL_DESC,'
+      ' P.VL_LIQ,'
+      ' P.PERC_DESC,'
+      ' P.STATUS,'
+      ' P.CUPOM,'
+      ' P.CAIXA,'
+      ' U.NOME_USUARIO,'
+      ' L.R_SOCIAL AS LOJA,'
+      ' C.R_SOCIAL,'
+      ' V.NOME AS VENDEDOR'
+      'FROM TB_PDV P'
+      'LEFT OUTER JOIN TB_LOJAS L ON (L.ID_LOJA = P.ID_LOJA)'
+      'LEFT OUTER JOIN TB_USUARIO U ON (U.ID_USUARIO = P.ID_USUARIO)'
+      'LEFT OUTER JOIN TB_CLIENTE C ON (C.ID_CLIENTE = P.ID_CLIENTE)'
+      'LEFT OUTER JOIN TB_VENDEDOR V ON (V.ID_VENDEDOR = P.ID_VENDEDOR)'
+      'WHERE P.STATUS ='#39'A'#39';')
+    SQLConnection = Conexao
+    Left = 192
+    Top = 256
+    object qPdvID_PDV: TIntegerField
+      FieldName = 'ID_PDV'
+      Required = True
+    end
+    object qPdvID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+    end
+    object qPdvID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+    end
+    object qPdvID_LOJA: TIntegerField
+      FieldName = 'ID_LOJA'
+    end
+    object qPdvID_VENDEDOR: TIntegerField
+      FieldName = 'ID_VENDEDOR'
+    end
+    object qPdvDT_VENDA: TDateField
+      FieldName = 'DT_VENDA'
+    end
+    object qPdvHR_VENDA: TTimeField
+      FieldName = 'HR_VENDA'
+    end
+    object qPdvVL_VENDA: TFMTBCDField
+      FieldName = 'VL_VENDA'
+      Precision = 18
+      Size = 2
+    end
+    object qPdvVL_DESC: TFMTBCDField
+      FieldName = 'VL_DESC'
+      Precision = 18
+      Size = 2
+    end
+    object qPdvVL_LIQ: TFMTBCDField
+      FieldName = 'VL_LIQ'
+      Precision = 18
+      Size = 2
+    end
+    object qPdvPERC_DESC: TFMTBCDField
+      FieldName = 'PERC_DESC'
+      Precision = 18
+      Size = 2
+    end
+    object qPdvSTATUS: TStringField
+      FieldName = 'STATUS'
+      Size = 1
+    end
+    object qPdvCUPOM: TStringField
+      FieldName = 'CUPOM'
+      Size = 1
+    end
+    object qPdvCAIXA: TIntegerField
+      FieldName = 'CAIXA'
+    end
+    object qPdvNOME_USUARIO: TStringField
+      FieldName = 'NOME_USUARIO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object qPdvLOJA: TStringField
+      FieldName = 'LOJA'
+      ProviderFlags = []
+      Size = 35
+    end
+    object qPdvR_SOCIAL: TStringField
+      FieldName = 'R_SOCIAL'
+      ProviderFlags = []
+      Size = 50
+    end
+    object qPdvVENDEDOR: TStringField
+      FieldName = 'VENDEDOR'
+      ProviderFlags = []
+      Size = 50
+    end
+  end
+  object dspPDV: TDataSetProvider
+    DataSet = qPdv
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    OnGetTableName = dspPDVGetTableName
+    Left = 224
+    Top = 256
+  end
+  object cdsPDV: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID_PDV'
+    MasterFields = 'ID_PDV'
+    MasterSource = dsItemPdv
+    PacketRecords = 0
+    Params = <>
+    ProviderName = 'dspPDV'
+    Left = 256
+    Top = 256
+    object cdsPDVID_PDV: TIntegerField
+      FieldName = 'ID_PDV'
+      Required = True
+    end
+    object cdsPDVID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+    end
+    object cdsPDVID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+    end
+    object cdsPDVID_LOJA: TIntegerField
+      FieldName = 'ID_LOJA'
+    end
+    object cdsPDVID_VENDEDOR: TIntegerField
+      FieldName = 'ID_VENDEDOR'
+    end
+    object cdsPDVDT_VENDA: TDateField
+      FieldName = 'DT_VENDA'
+    end
+    object cdsPDVHR_VENDA: TTimeField
+      FieldName = 'HR_VENDA'
+    end
+    object cdsPDVVL_VENDA: TFMTBCDField
+      FieldName = 'VL_VENDA'
+      Precision = 18
+      Size = 2
+    end
+    object cdsPDVVL_DESC: TFMTBCDField
+      FieldName = 'VL_DESC'
+      Precision = 18
+      Size = 2
+    end
+    object cdsPDVVL_LIQ: TFMTBCDField
+      FieldName = 'VL_LIQ'
+      Precision = 18
+      Size = 2
+    end
+    object cdsPDVPERC_DESC: TFMTBCDField
+      FieldName = 'PERC_DESC'
+      Precision = 18
+      Size = 2
+    end
+    object cdsPDVSTATUS: TStringField
+      FieldName = 'STATUS'
+      Size = 1
+    end
+    object cdsPDVCUPOM: TStringField
+      FieldName = 'CUPOM'
+      Size = 1
+    end
+    object cdsPDVCAIXA: TIntegerField
+      FieldName = 'CAIXA'
+    end
+    object cdsPDVNOME_USUARIO: TStringField
+      FieldName = 'NOME_USUARIO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object cdsPDVLOJA: TStringField
+      FieldName = 'LOJA'
+      ProviderFlags = []
+      Size = 35
+    end
+    object cdsPDVR_SOCIAL: TStringField
+      FieldName = 'R_SOCIAL'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsPDVVENDEDOR: TStringField
+      FieldName = 'VENDEDOR'
+      ProviderFlags = []
+      Size = 50
+    end
+  end
+  object dsPDV: TDataSource
+    DataSet = cdsPDV
+    Left = 288
+    Top = 256
+  end
+end

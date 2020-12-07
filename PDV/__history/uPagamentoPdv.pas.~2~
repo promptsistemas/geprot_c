@@ -1,0 +1,783 @@
+unit uPagamentoPdv;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, Buttons, FMTBcd, DB, DBClient, Provider,
+  SqlExpr, DBCtrls, Mask, Grids, DBGrids, DateUtils;
+
+type
+  TfrmPagamentoPdv = class(TForm)
+    Timer1: TTimer;
+    Timer2: TTimer;
+    BB_CANCELAR: TBitBtn;
+    GroupBox1: TGroupBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label6: TLabel;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit5: TDBEdit;
+    Label1: TLabel;
+    Label8: TLabel;
+    GB_ESPECIE: TGroupBox;
+    Label7: TLabel;
+    DBText1: TDBText;
+    DBEdit6: TDBEdit;
+    Edit6: TEdit;
+    Label11: TLabel;
+    L_VALOR_PAGO: TLabel;
+    Label12: TLabel;
+    L_VALOR_DIFERENCA: TLabel;
+    qTipoPagamento: TSQLQuery;
+    qTipoPagamentoID_TIPO_PAGAMENTO: TIntegerField;
+    qTipoPagamentoDESCRICAO_PAGAMENTO: TStringField;
+    dspTipoPagamento: TDataSetProvider;
+    cdsTipoPagamento: TClientDataSet;
+    cdsTipoPagamentoID_TIPO_PAGAMENTO: TIntegerField;
+    cdsTipoPagamentoDESCRICAO_PAGAMENTO: TStringField;
+    dsTipoPagamento: TDataSource;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
+    BB_CF: TBitBtn;
+    GB_FORMA_PAGAMENTO: TGroupBox;
+    DBLookupComboBox1: TDBLookupComboBox;
+    Label5: TLabel;
+    DBGrid3: TDBGrid;
+    qContasReceber: TSQLQuery;
+    dspContasReceber: TDataSetProvider;
+    cdsContasReceber: TClientDataSet;
+    dsContasReceber: TDataSource;
+    qContasReceberID_CONTAS_RECEBER: TIntegerField;
+    qContasReceberID_PEDIDO: TIntegerField;
+    qContasReceberID_CLIENTE: TIntegerField;
+    qContasReceberID_TIPO_PAGAMENTO: TIntegerField;
+    qContasReceberID_VENDEDOR: TIntegerField;
+    qContasReceberID_USUARIO: TIntegerField;
+    qContasReceberDT_EMISSAO: TDateField;
+    qContasReceberDT_VENCIMENTO: TDateField;
+    qContasReceberDT_PAGAMENTO: TDateField;
+    qContasReceberQT_DIAS: TIntegerField;
+    qContasReceberQT_PARCELA: TIntegerField;
+    qContasReceberNR_DOC: TStringField;
+    qContasReceberVL_COMPRA: TFMTBCDField;
+    qContasReceberVL_PARCELA: TFMTBCDField;
+    qContasReceberNR_PARCELA: TStringField;
+    qContasReceberSTATUS: TStringField;
+    qContasReceberREF_DEBITO: TStringField;
+    qContasReceberNR_BANCO: TStringField;
+    qContasReceberCLIENTE: TStringField;
+    qContasReceberVENEDOR: TStringField;
+    cdsContasReceberID_CONTAS_RECEBER: TIntegerField;
+    cdsContasReceberID_PEDIDO: TIntegerField;
+    cdsContasReceberID_CLIENTE: TIntegerField;
+    cdsContasReceberID_TIPO_PAGAMENTO: TIntegerField;
+    cdsContasReceberID_VENDEDOR: TIntegerField;
+    cdsContasReceberID_USUARIO: TIntegerField;
+    cdsContasReceberDT_EMISSAO: TDateField;
+    cdsContasReceberDT_VENCIMENTO: TDateField;
+    cdsContasReceberDT_PAGAMENTO: TDateField;
+    cdsContasReceberQT_DIAS: TIntegerField;
+    cdsContasReceberQT_PARCELA: TIntegerField;
+    cdsContasReceberNR_DOC: TStringField;
+    cdsContasReceberVL_COMPRA: TFMTBCDField;
+    cdsContasReceberVL_PARCELA: TFMTBCDField;
+    cdsContasReceberNR_PARCELA: TStringField;
+    cdsContasReceberSTATUS: TStringField;
+    cdsContasReceberREF_DEBITO: TStringField;
+    cdsContasReceberNR_BANCO: TStringField;
+    cdsContasReceberCLIENTE: TStringField;
+    cdsContasReceberVENEDOR: TStringField;
+    P_TROCO: TPanel;
+    L_TROCO: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    qContasReceberID_FORMA_PAGAMENTO: TIntegerField;
+    qContasReceberFORMA_PAGAMENTO: TStringField;
+    cdsContasReceberID_FORMA_PAGAMENTO: TIntegerField;
+    cdsContasReceberFORMA_PAGAMENTO: TStringField;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
+    procedure BB_CANCELARClick(Sender: TObject);
+    procedure DBGrid1KeyPress(Sender: TObject; var Key: Char);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+    procedure Edit6Exit(Sender: TObject);
+    procedure Edit6KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure Edit6KeyPress(Sender: TObject; var Key: Char);
+    procedure DBEdit6Exit(Sender: TObject);
+    procedure DBEdit6KeyPress(Sender: TObject; var Key: Char);
+    procedure BB_CFClick(Sender: TObject);
+    procedure DBLookupComboBox1KeyPress(Sender: TObject; var Key: Char);
+    procedure dspContasReceberGetTableName(Sender: TObject; DataSet: TDataSet;
+      var TableName: string);
+    procedure DBLookupComboBox1Exit(Sender: TObject);
+  private
+    { Private declarations }
+    Procedure SomaValorPago;
+  public
+    { Public declarations }
+    Procedure GerarParcelas;
+    function UltimoDia: integer;
+  end;
+
+var
+  frmPagamentoPdv: TfrmPagamentoPdv;
+  Diferenca : Double;
+  DiasDoMes : TDate;
+
+implementation
+
+uses U_LIB, UD_PESQUISA, uDm, uPdv, uMenuCaixa, uMenu;
+
+{$R *.dfm}
+
+procedure TfrmPagamentoPdv.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Timer1.Enabled := False;
+  Timer2.Enabled := False;
+  cdsContasReceber.Close;
+  frmPdv.L_PRODUTO.Caption:='';
+end;
+
+procedure TfrmPagamentoPdv.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = 27 then
+  begin
+    BB_CANCELARClick(Self);
+  end;
+
+end;
+
+procedure TfrmPagamentoPdv.FormShow(Sender: TObject);
+begin
+  DBGrid1.Enabled := True;
+  DBGrid1.SetFocus;
+  L_VALOR_PAGO.Caption := '0,00';
+  L_VALOR_DIFERENCA.Caption := FormatFloat('###,###0.00',dm.cdsPdvLocalVL_LIQ.AsFloat);
+  cdsTipoPagamento.Close;
+  cdsTipoPagamento.Open;
+  DM.cdsPdvLocal.Open;
+  DBGrid1.SetFocus;
+
+  DM.cdsPagamentoPdv.Close;
+  DM.cdsPagamentoPdv.Params[0].AsInteger := DM.cdsPdvLocalID_PDV.AsInteger;
+  DM.cdsPagamentoPdv.Open;
+
+  BB_CANCELAR.Visible := True;
+  BB_CF.Visible := True;
+end;
+
+procedure TfrmPagamentoPdv.GerarParcelas;
+var
+i,dias: Byte;
+Valor : Double;
+ultimaData : Tdate;
+begin
+//Abro o Banco
+  cdsContasReceber.Close;
+  cdsContasReceber.Params[0].AsInteger := StrToInt(DM.cdsPdvLocalID_CLIENTE.AsString);
+  cdsContasReceber.Params[1].AsDate    := StrToDate(DM.cdsPdvLocalDT_VENDA.AsString);
+  cdsContasReceber.Params[2].AsInteger := StrToInt(DM.cdsPdvLocalID_PDV.AsString);
+  cdsContasReceber.Open;
+//Chamo um procedimento para verificar se tem prestação pendente
+  //verificaparcela;
+// Minha variável no caso i inicialmente é 0
+  i:=0;
+  // minha variável recebe 1 do numero de parcelas no caso o digitado dentro de edParcela.Text
+  for i := 1 to StrToInt(DM.cdsFormaPagamentoQT_PARCELAS.AsString) do
+  begin
+//  if cdsContasReceber.RecordCount < i then
+//     cdsContasReceber.Insert
+//  else
+    cdsContasReceber.Insert;
+
+    if i = 1 then
+    begin
+      dias := DM.cdsFormaPagamentoQT_DIAS_PRIMEIRA_PARCELA.AsInteger;
+      if DiasDoMes <  now  then
+      begin
+       DiasDoMes := DM.cdsPdvLocalDT_VENDA.AsDateTime+dias;
+      end;
+       if UltimoDia = 28 then
+       begin
+         if ultimaData <> DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+1;
+         end;
+       end;
+       if UltimoDia = 29 then
+       begin
+         if ultimaData <> DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+1;
+         end;
+
+       end;
+       if UltimoDia = 30 then
+       begin
+         if ultimaData <> DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+1;
+         end;
+       end;
+       if UltimoDia = 31 then
+       begin
+         if ultimaData <> DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+1;
+         end;
+       end;
+    end
+    else
+    begin
+      dias := DM.cdsFormaPagamentoQT_DIAS_ENTRE_PARCELAS.AsInteger;
+      DiasDoMes := ultimaData;
+//      DiasDoMes := DiasDoMes+dias;
+      if DiasDoMes <  now  then
+      begin
+       //DiasDoMes := DM.cdsPdvLocalDT_VENDA.AsDateTime+dias;
+      end;
+       if UltimoDia = 28then
+       begin
+         if ultimaData = DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+dias;
+         end;
+       end;
+       if UltimoDia = 29 then
+       begin
+         if ultimaData = DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+dias;
+         end;
+       end;
+       if UltimoDia = 30 then
+       begin
+         if ultimaData = DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+dias;
+         end;
+       end;
+       if UltimoDia = 31 then
+       begin
+         if ultimaData = DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+dias+1;
+         end;
+       end;
+    end;
+
+
+    Valor := (StrToFloat(StringReplace(Edit6.Text,'.','',[rfReplaceAll])));
+    //-(StrToFloat(EdtEntrada.Text)));
+    cdsContasReceber.FieldByName('NR_PARCELA').Value      := IntToStr(i)+'/'+DM.cdsFormaPagamentoQT_PARCELAS.AsString;
+    cdsContasReceber.FieldByName('QT_PARCELA').Value      := DM.cdsFormaPagamentoQT_PARCELAS.AsString;
+    cdsContasReceber.FieldByName('VL_PARCELA').Value      := Valor /(StrToInt(DM.cdsFormaPagamentoQT_PARCELAS.AsString));
+    cdsContasReceber.FieldByName('VL_COMPRA').Value       := DM.cdsPdvLocalVL_LIQ.AsFloat ;
+//    cdsContasReceber.FieldByName('DT_VENCIMENTO').Value   := IncMonth(DM.cdsPdvLocalDT_VENDA.AsDateTime, i - 0);
+    cdsContasReceber.FieldByName('DT_VENCIMENTO').Value   := DiasDoMes; //DM.cdsPdvLocalDT_VENDA.AsDateTime+dias;
+    cdsContasReceber.FieldByName('NR_DOC').Value          := DM.cdsPdvLocalID_PDV.AsString +'/'+IntToStr(i)+'-'+DM.cdsFormaPagamentoQT_PARCELAS.AsString;
+    cdsContasReceber.FieldByName('ID_CLIENTE').Value      := StrToInt(DM.cdsPdvLocalID_CLIENTE.AsString);
+    cdsContasReceber.FieldByName('DT_EMISSAO').Value      := DM.cdsPdvLocalDT_VENDA.AsDateTime;
+    cdsContasReceber.FieldByName('QT_DIAS').Value         := IncMonth(DM.cdsPdvLocalDT_VENDA.AsDateTime, i - 0) -DM.cdsPdvLocalDT_VENDA.AsDateTime;
+    cdsContasReceber.FieldByName('ID_TIPO_PAGAMENTO').Value  := cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger;
+    cdsContasReceber.FieldByName('ID_FORMA_PAGAMENTO').Value  := DM.cdsFormaPagamentoID_FORMA_PAGAMENTO.AsInteger;
+    cdsContasReceber.FieldByName('ID_PEDIDO').Value  := DM.cdsPdvLocalID_PDV.AsInteger;
+    cdsContasReceber.FieldByName('ID_VENDEDOR').Value  := DM.cdsPdvLocalID_VENDEDOR.AsInteger;
+    cdsContasReceber.FieldByName('ID_USUARIO').Value  := frmMenu.recInformacoes.id_Usuario;
+    cdsContasReceber.FieldByName('QT_PARCELA').Value  := DM.cdsFormaPagamentoQT_PARCELAS.AsString;
+    cdsContasReceber.FieldByName('STATUS').Value  := 'A';
+    cdsContasReceber.FieldByName('REF_DEBITO').Value  := DM.cdsPdvLocalR_SOCIAL.AsString;
+
+    cdsContasReceber.Post;
+    DiasDoMes := cdsContasReceberDT_VENCIMENTO.AsDateTime;
+    ultimaData := DiasDoMes;
+    Next;
+    //bb_confirmar.Enabled := True;
+  end;
+end;
+
+procedure TfrmPagamentoPdv.BB_CANCELARClick(Sender: TObject);
+begin
+  if DM.cdsPagamentoPdv.RecordCount>0 then
+  begin
+    if Application.MessageBox('      Atenção! Se retornar a tela de vendas    '+#13
+                              +'serão cancelados todos os pagamentos efetuados'+#13+
+                               '         Deseja Cancelar mesmo assim?','Confirmação',MB_YESNO+MB_ICONQUESTION) = idyes then
+    begin
+      DM.cdsPagamentoPdv.Open;
+      DM.cdsPagamentoPdv.Cancel;
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames;
+      DM.cdsDinamica.CommandText := ' DELETE FROM tb_pagamento_pdv P '+
+                                    ' WHERE P.id_pdv ='+DM.cdsPdvLocalID_PDV.AsString;
+      DM.cdsDinamica.Execute;
+      DM.cdsPagamentoPdv.ApplyUpdates(0);
+      DM.cdsPagamentoPdv.Refresh;
+      DM.cdsPagamentoPdv.Close;
+      DM.cdsPagamentoPdv.Params[0].AsInteger := DM.cdsPdvLocalID_PDV.AsInteger;
+      DM.cdsPagamentoPdv.Open;
+  //    ShowMessage('Pagamento(s) Cancelado(s)!');
+      DM.cdsDinamica.IndexFieldNames;
+      DM.cdsDinamica.CommandText := ' DELETE FROM TB_CONTAS_RECEBER P '+
+                                    ' WHERE P.ID_PEDIDO ='+DM.cdsPdvLocalID_PDV.AsString;
+      DM.cdsDinamica.Execute;
+
+      GB_ESPECIE.Visible := False;
+      GB_FORMA_PAGAMENTO.Visible := False;
+      frmPagamentoPdv.Close;
+    end
+    else
+    begin
+       DBGrid1.SetFocus;
+    end;
+  end
+  else
+  begin
+    GB_ESPECIE.Visible := False;
+    GB_FORMA_PAGAMENTO.Visible := False;
+    frmPagamentoPdv.Close;
+  end;
+
+end;
+
+procedure TfrmPagamentoPdv.SomaValorPago;
+Var
+ SOMA : Double;
+begin
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames:='';
+  DM.cdsDinamica.CommandText := ' SELECT SUM(P.vl_pagamento) FROM tb_pagamento_pdv P '+
+                                ' WHERE P.id_pdv = '+DM.cdsPdvLocalID_PDV.AsString;
+  DM.cdsDinamica.Open;
+
+  L_VALOR_PAGO.Caption := FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+  SOMA := (DM.cdsPdvLocalVL_LIQ.AsFloat - DM.cdsDinamica.Fields[0].AsFloat);
+
+  L_VALOR_DIFERENCA.Caption := FormatFloat('###,,###0.00',SOMA);
+end;
+
+procedure TfrmPagamentoPdv.DBGrid1KeyPress(Sender: TObject; var Key: Char);
+Var
+Valor,ValorNovo : string;
+begin
+  if Key = #13 then
+  begin
+{    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);}
+    if cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger > 1 then
+    begin
+      GB_FORMA_PAGAMENTO.Visible := True;
+      DM.cdsFormaPagamento.Open;
+      DBLookupComboBox1.SetFocus;
+      if Diferenca = 0 then
+      begin
+        Diferenca := DM.cdsPdvLocalVL_LIQ.AsFloat;
+      end
+      else
+      begin
+        Valor:= L_VALOR_DIFERENCA.Caption;
+        valornovo := Trim(StringReplace(Valor,'.','',[rfReplaceAll]));
+        Diferenca :=StrToFloat(ValorNovo);
+      end;
+
+      DBGrid1.Enabled := False;
+      DM.cdsPagamentoPdv.Close;
+      DM.cdsPagamentoPdv.Params[0].AsInteger := DM.cdsPdvLocalID_PDV.AsInteger;
+      DM.cdsPagamentoPdv.Open;
+
+      DM.cdsPagamentoPdv.Append;
+      DM.cdsPagamentoPdvID_TIPO_PAGAMENTO.AsInteger := cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger;
+      DM.cdsPagamentoPdvID_FORMA_PAGAMENTO.AsInteger := DM.cdsFormaPagamentoID_FORMA_PAGAMENTO.AsInteger;
+      DM.cdsPagamentoPdvID_LOJA.AsInteger := DM.cdsPdvLocalID_EMPRESA.AsInteger;
+      DM.cdsPagamentoPdvID_PDV.AsInteger  := DM.cdsPdvLocalID_PDV.AsInteger;
+      Edit6.Text := FormatFloat('###,###0.00',Diferenca);
+
+    end;
+    if cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger = 1 then
+    begin
+      GB_ESPECIE.Visible := True;
+      if Diferenca = 0 then
+      begin
+        Diferenca := DM.cdsPdvLocalVL_LIQ.AsFloat;
+      end
+      else
+      begin
+        Valor:= L_VALOR_DIFERENCA.Caption;
+        valornovo := Trim(StringReplace(Valor,'.','',[rfReplaceAll]));
+        Diferenca :=StrToFloat(ValorNovo);
+      end;
+
+      DBGrid1.Enabled := False;
+      DM.cdsPagamentoPdv.Close;
+      DM.cdsPagamentoPdv.Params[0].AsInteger := DM.cdsPdvLocalID_PDV.AsInteger;
+      DM.cdsPagamentoPdv.Open;
+
+      DM.cdsPagamentoPdv.Append;
+      DM.cdsPagamentoPdvID_TIPO_PAGAMENTO.AsInteger := cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger;
+      DM.cdsPagamentoPdvID_FORMA_PAGAMENTO.AsInteger := 1;
+      DM.cdsPagamentoPdvID_LOJA.AsInteger := DM.cdsPdvLocalID_EMPRESA.AsInteger;
+      DM.cdsPagamentoPdvID_PDV.AsInteger  := DM.cdsPdvLocalID_PDV.AsInteger;
+      Edit6.Text := FormatFloat('###,###0.00',Diferenca);
+      Edit6.SetFocus;
+    end;
+
+  end;
+
+end;
+
+procedure TfrmPagamentoPdv.DBLookupComboBox1Exit(Sender: TObject);
+begin
+  DM.cdsPagamentoPdvID_FORMA_PAGAMENTO.AsInteger := DM.cdsFormaPagamentoID_FORMA_PAGAMENTO.AsInteger;
+  DiasDoMes := date-1;
+end;
+
+procedure TfrmPagamentoPdv.DBLookupComboBox1KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    GB_FORMA_PAGAMENTO.Visible:= False;
+    GB_ESPECIE.Visible:= True;
+    Edit6.SetFocus;
+  end;
+end;
+
+procedure TfrmPagamentoPdv.dspContasReceberGetTableName(Sender: TObject;
+  DataSet: TDataSet; var TableName: string);
+begin
+  TableName := 'TB_CONTAS_RECEBER';
+end;
+
+procedure TfrmPagamentoPdv.Timer1Timer(Sender: TObject);
+begin
+  P_TROCO.Visible := False;
+  Label1.Visible := True;
+  Label8.Visible := True;
+  Label11.Visible := True;
+  Label12.Visible := True;
+  L_VALOR_PAGO.Visible := True;
+  L_VALOR_DIFERENCA.Visible := True;
+  Timer1.Enabled := False;
+  Timer2.Enabled := False;
+  frmPagamentoPdv.Close;
+  frmPdv.BB_CONFIRMAClick(Self);
+
+end;
+
+procedure TfrmPagamentoPdv.Timer2Timer(Sender: TObject);
+begin
+  if DM.cdsPagamentoPdv.RecordCount > 0 then
+  begin
+    P_TROCO.Visible := False;
+    Label1.Visible := True;
+    Label8.Visible := True;
+    Label11.Visible := True;
+    Label12.Visible := True;
+    L_VALOR_PAGO.Visible := True;
+    L_VALOR_DIFERENCA.Visible := True;
+    Timer1.Enabled := False;
+    Timer2.Enabled := False;
+    frmPagamentoPdv.Close;
+    frmPdv.BB_CONFIRMAClick(Self);
+  end;
+
+end;
+
+function TfrmPagamentoPdv.UltimoDia: integer;
+var Date: TDateTime;
+begin
+  Date:= EndOfTheMonth(DiasDoMes);
+  Result:= StrToInt(Copy(DateToStr(Date),0,2));
+end;
+
+procedure TfrmPagamentoPdv.Edit6Exit(Sender: TObject);
+var
+Troco : Double;
+Valor,ValorNovo : string;
+begin
+  if Edit6.Text<>'' then
+  begin
+    SomaValorPago;
+    Valor:= L_VALOR_DIFERENCA.Caption;
+    valornovo := Trim(StringReplace(Valor,'.','',[rfReplaceAll]));
+    Diferenca :=StrToFloat(ValorNovo);
+
+    cdsContasReceber.Close;
+    cdsContasReceber.Params[0].AsInteger := StrToInt(DM.cdsPdvLocalID_CLIENTE.AsString);
+    cdsContasReceber.Params[1].AsDate    := StrToDate(DM.cdsPdvLocalDT_VENDA.AsString);
+    cdsContasReceber.Params[2].AsInteger := StrToInt(DM.cdsPdvLocalID_PDV.AsString);
+    cdsContasReceber.Open;
+
+    if (cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger > 1) AND (cdsContasReceber.RecordCount >= 0) then
+    begin
+      frmPagamentoPdv.ClientHeight := 471;
+      GerarParcelas;
+    end;
+
+    //    Diferenca := StrToFloat(L_VALOR_DIFERENCA.Caption);
+    if Application.MessageBox('Confirmação','Confirma?',MB_ICONQUESTION+MB_YESNO) = idyes then
+    begin
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT MAX(ID_PAGAMENTO_PDV) FROM tb_pagamento_pdv';
+      DM.cdsDinamica.Open;
+      Valor := Edit6.Text;
+      valornovo := Trim(StringReplace(Valor,'.','',[rfReplaceAll]));
+      DM.cdsPagamentoPdvID_PAGAMENTO_PDV.AsInteger := DM.cdsDinamica.Fields[0].AsInteger+1;
+      DM.cdsPagamentoPdvDT_MOV.AsDateTime          := DM.cdsPdvLocalDT_VENDA.AsDateTime;
+      DM.cdsPagamentoPdvCAIXA.AsString             := DM.CAIXA_LOJA;
+      DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat := StrToFloat(ValorNovo);
+      DM.cdsDinamica.Close;
+
+
+      GB_ESPECIE.Visible := False;
+      DBGrid1.Enabled := True;
+      DBGrid1.SetFocus;
+
+      if (DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat > Diferenca) AND (cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger > 1)then
+      begin
+        ShowMessage('Não é Permitido Pagamento a mais para a Modalidade '+cdsTipoPagamentoDESCRICAO_PAGAMENTO.AsString);
+        Exit;
+      end;
+
+      if (DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat > Diferenca) AND (cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger = 1)then
+      begin
+        Troco := (DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat - Diferenca);
+        L_TROCO.Caption := FormatFloat('###,###0.00',Troco);
+        if Application.MessageBox('Deseja Imprimir Venda?','Confirmação',MB_YESNO+MB_ICONQUESTION) = idyes then
+        begin
+           //Correção
+          frmPdv.ImprimirTermica;
+        end;
+        P_TROCO.Visible := True;
+        DBGrid2.SetFocus;
+        P_TROCO.Align   := alClient;
+        L_TROCO.Caption := ' T R O C O    '+FormatFloat('###,###0.00',Troco);
+        Timer1.Enabled := True;
+        Label1.Visible := False;
+        Label8.Visible := False;
+        Label11.Visible := False;
+        Label12.Visible := False;
+        L_VALOR_PAGO.Visible := False;
+        L_VALOR_DIFERENCA.Visible := False;
+        BB_CANCELAR.Visible := False;
+        BB_CF.Visible := False;
+        DM.cdsPagamentoPdvDT_MOV.AsDateTime          := DM.cdsPdvLocalDT_VENDA.AsDateTime;
+        DM.cdsPagamentoPdvCAIXA.AsString             := DM.CAIXA_LOJA;
+        DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat := ( DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat - Troco);
+        DM.cdsPagamentoPdv.ApplyUpdates(0);
+        DM.cdsPagamentoPdv.Refresh;
+
+        cdsContasReceber.Close;
+        cdsContasReceber.Params[0].AsInteger := StrToInt(DM.cdsPdvLocalID_CLIENTE.AsString);
+        cdsContasReceber.Params[1].AsDate    := StrToDate(DM.cdsPdvLocalDT_VENDA.AsString);
+        cdsContasReceber.Params[2].AsInteger := StrToInt(DM.cdsPdvLocalID_PDV.AsString);
+        cdsContasReceber.Open;
+
+        if (cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger > 1) AND (cdsContasReceber.RecordCount >= 0) then
+        begin
+           DM.cdsPagamentoPdvID_FORMA_PAGAMENTO.AsInteger := DM.cdsFormaPagamentoID_FORMA_PAGAMENTO.AsInteger;
+           cdsContasReceber.ApplyUpdates(0);
+           cdsContasReceber.Refresh;
+        end;
+
+        SomaValorPago;
+      end
+      else
+      begin
+        DM.cdsPagamentoPdv.ApplyUpdates(0);
+        DM.cdsPagamentoPdv.Refresh;
+
+{        cdsContasReceber.Close;
+        cdsContasReceber.Params[0].AsInteger := StrToInt(DM.cdsPdvLocalID_CLIENTE.AsString);
+        cdsContasReceber.Params[1].AsDate    := StrToDate(DM.cdsPdvLocalDT_VENDA.AsString);
+        cdsContasReceber.Params[2].AsInteger := StrToInt(DM.cdsPdvLocalID_PDV.AsString);
+        cdsContasReceber.Open; }
+
+
+        if (cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger > 1) AND (cdsContasReceber.RecordCount >= 0) then
+        begin
+          // GerarParcelas;
+           cdsContasReceber.ApplyUpdates(0);
+           cdsContasReceber.Refresh;
+        end;
+        SomaValorPago;
+        if L_VALOR_DIFERENCA.Caption = '0,00' then
+        begin
+          L_TROCO.Caption := '0,00';
+          if Application.MessageBox('Deseja Imprimir Venda?','Confirmação',MB_YESNO+MB_ICONQUESTION) = idyes then
+          begin
+             //Correção
+            frmPdv.ImprimirTermica;
+            cdsContasReceber.Close;
+          end;
+            P_TROCO.Visible := True;
+            DBGrid2.SetFocus;
+            P_TROCO.Align   := alClient;
+            L_TROCO.Caption := '.';
+            Timer1.Enabled := True;
+            Label1.Visible := False;
+            Label8.Visible := False;
+            Label11.Visible := False;
+            Label12.Visible := False;
+            L_VALOR_PAGO.Visible := False;
+            L_VALOR_DIFERENCA.Visible := False;
+            BB_CANCELAR.Visible := False;
+            BB_CF.Visible := False;
+            cdsContasReceber.Close;
+        end;
+      end;
+    end
+    else
+    begin
+      cdsContasReceber.Close;
+      GB_ESPECIE.Visible := False;
+      DBGrid1.Enabled := True;
+      DBGrid1.SetFocus;
+    end;
+  end;
+  frmPagamentoPdv.ClientHeight:= 341;
+end;
+
+procedure TfrmPagamentoPdv.Edit6KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = 27 then
+  begin
+    DM.cdsPagamentoPdv.Cancel;
+    Edit6.Clear;
+    BB_CANCELARClick(Self);
+  end;
+end;
+
+procedure TfrmPagamentoPdv.Edit6KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+   Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmPagamentoPdv.DBEdit6Exit(Sender: TObject);
+var
+Troco : Double;
+Valor,ValorNovo : string;
+begin
+    SomaValorPago;
+    Valor:= L_VALOR_DIFERENCA.Caption;
+    valornovo := Trim(StringReplace(Valor,'.','',[rfReplaceAll]));
+    Diferenca :=StrToFloat(ValorNovo);
+    if Application.MessageBox('Confirmação','Confirma?',MB_ICONQUESTION+MB_YESNO) = idyes then
+    begin
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT MAX(ID_PAGAMENTO_PDV) FROM tb_pagamento_pdv';
+      DM.cdsDinamica.Open;
+
+      DM.cdsPagamentoPdvID_PAGAMENTO_PDV.AsInteger := DM.cdsDinamica.Fields[0].AsInteger+1;
+      DM.cdsDinamica.Close;
+
+
+      GB_ESPECIE.Visible := False;
+      DBGrid1.Enabled := True;
+      DBGrid1.SetFocus;
+
+      if (DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat > Diferenca) AND (cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger > 1)then
+      begin
+        ShowMessage('Não é Permitido Pagamento a mais para a Modalidade '+cdsTipoPagamentoDESCRICAO_PAGAMENTO.AsString);
+        Exit;
+      end;
+
+      if (DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat > Diferenca) AND (cdsTipoPagamentoID_TIPO_PAGAMENTO.AsInteger = 1)then
+      begin
+        Troco := (DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat - Diferenca);
+        P_TROCO.Visible := True;
+        P_TROCO.Align   := alClient;
+        L_TROCO.Caption := ' T R O C O    '+FormatFloat('###,###0.00',Troco);
+        Timer1.Enabled := True;
+        Label1.Visible := False;
+        Label8.Visible := False;
+        Label11.Visible := False;
+        Label12.Visible := False;
+        L_VALOR_PAGO.Visible := False;
+        L_VALOR_DIFERENCA.Visible := False;
+        BB_CANCELAR.Visible := False;
+        BB_CF.Visible := False;        
+       // Diferenca := (Diferenca - DM.cdsPdvLocalVL_LIQUIDO.AsFloat);
+        DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat := ( DM.cdsPagamentoPdvVL_PAGAMENTO.AsFloat - Troco);
+        DM.cdsPagamentoPdvDT_MOV.AsDateTime          := DM.cdsPdvLocalDT_VENDA.AsDateTime;
+        DM.cdsPagamentoPdvCAIXA.AsString             := DM.CAIXA_LOJA;
+        DM.cdsPagamentoPdv.ApplyUpdates(0);
+        DM.cdsPagamentoPdv.Refresh;
+        SomaValorPago;
+        {DM.cdsPdvLocal.Edit;
+        DM.cdsPdvLocalSTATUS.Value:='F';
+        DM.cdsPdvLocal.ApplyUpdates(0);
+        DM.cdsPdvLocal.Refresh;}
+
+      end
+      else
+      begin
+        //Diferenca := (DM.cdsPdvLocalVL_LIQUIDO.AsFloat - Diferenca);
+        DM.cdsPagamentoPdvDT_MOV.AsDateTime          := DM.cdsPdvLocalDT_VENDA.AsDateTime;
+        DM.cdsPagamentoPdvCAIXA.AsString             := DM.CAIXA_LOJA;
+        DM.cdsPagamentoPdv.ApplyUpdates(0);
+        DM.cdsPagamentoPdv.Refresh;
+        SomaValorPago;
+        {DM.cdsPdvLocal.Edit;
+        DM.cdsPdvLocalSTATUS.Value:='F';
+        DM.cdsPdvLocal.ApplyUpdates(0);
+        DM.cdsPdvLocal.Refresh;}
+        if L_VALOR_DIFERENCA.Caption = '0,00' then
+        begin
+            P_TROCO.Visible := True;
+            P_TROCO.Align   := alClient;
+            L_TROCO.Caption := '.';
+            Timer1.Enabled := True;
+            Label1.Visible := False;
+            Label8.Visible := False;
+            Label11.Visible := False;
+            Label12.Visible := False;
+            L_VALOR_PAGO.Visible := False;
+            L_VALOR_DIFERENCA.Visible := False;
+            BB_CANCELAR.Visible := False;
+            BB_CF.Visible := False;
+        end;
+      end;
+    end
+    else
+    begin
+      GB_ESPECIE.Visible := False;
+      DBGrid1.Enabled := True;
+      DBGrid1.SetFocus;
+    end;
+
+end;
+
+procedure TfrmPagamentoPdv.DBEdit6KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+   Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmPagamentoPdv.BB_CFClick(Sender: TObject);
+begin
+  frmPdv.BB_CFClick(Self);
+  DBGrid1.SetFocus;
+end;
+
+end.

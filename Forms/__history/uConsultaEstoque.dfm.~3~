@@ -1,0 +1,694 @@
+object frmConsultaEstoque: TfrmConsultaEstoque
+  Left = 334
+  Top = 124
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Consultar Estoque'
+  ClientHeight = 255
+  ClientWidth = 707
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnKeyPress = FormKeyPress
+  PixelsPerInch = 96
+  TextHeight = 13
+  object SpeedButton1: TSpeedButton
+    Left = 3
+    Top = 0
+    Width = 101
+    Height = 39
+    HelpType = htKeyword
+    Caption = '&Pesquisar'
+    Glyph.Data = {
+      36050000424D3605000000000000360400002800000010000000100000000100
+      0800000000000001000000000000000000000001000000010000000000000101
+      0100020202000303030004040400050505000606060007070700080808000909
+      09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+      1100121212001313130014141400151515001616160017171700181818001919
+      19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+      2100222222002323230024242400252525002626260027272700282828002929
+      29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+      3100323232003333330034343400353535003636360037373700383838003939
+      39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+      4100424242004343430044444400454545004646460047474700484848004949
+      49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+      5100525252005353530054545400555555005656560057575700585858005959
+      59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+      6100626262006363630064646400656565006666660067676700666769006668
+      6A0066696B00676A6C00696B6C006D6D6D006E6E6E006F6F6F00707070006F70
+      71006F7172006F7173006F7174006F7275006F7276006F737600707377006E74
+      7A006C757E006F757B0072767A0073777A0075787B0076797C00787B7D007B7D
+      7F007D7F80008081820084848400858585008686860087878700888888008B89
+      89008F8B8A00938C8A00988E8B009D8F8B00A28F8A00A78F8900AA8E8900AC8E
+      8800AE8E8800B08D8700B18D8700B38E8700B38D8600B48E8700B58F8700B690
+      8700B6918800B7928900B8948A00BA958B00BB968C00BD988E00BE988E00C098
+      8E00C1998F00C29A8F00C49C9100C6A09300C9A39500CDA89600D0AC9700D5B3
+      9900D9B89B00DEBE9E00E6C59E00E9CAA200ECCDA300F0D0A300F2D2A300F3D5
+      A600F4D8AB00F4DAAC00F5DBAE00F5DDB000F5DDB200F5DEB300F5E1B900F7E7
+      C000F9EECB00FBF4D300FDF9D900FDFBDC00FEFDE000FEFDE500FDFDEA00FBFC
+      E900F8FAE800F5F8E900F1F7EA00EFF5EA00EDF4EA00EDF2EA00EEEDE900EFE5
+      EA00F1DBEA00F4CDEB00F9B9ED00FE81F300FE38F900FE16FC00FE05FE00FE00
+      FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00
+      FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00
+      FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00FE00F905FE00EF11FE00E31E
+      FE00D62BFE00CC36FC00B949FB00A859F9009869F6008B75F5007783F400638C
+      EF005691EC004E94E9004996E8004596E700489BE7004B9FE8004EA3E8004FA7
+      EA004FA5E5004EA3E2004E9FDD004E9DD900509BD600509AD300DB68A0DBDBDB
+      DBDBDBDBDBDBDBDBDBDBFFF57AA4DBDBDBDBDBDBDBDBDBDBDBDBF9F9F57AA4DB
+      DBDBDBDBDBDBDBDBDBDBDBF9F9F57AA4DBDBDBDBDBDBDBDBDBDBDBDBF9F9F57A
+      9CDBDBDBDBDBDBDBDBDBDBDBDBF9F9F56BDB93A5A59FDBDBDBDBDBDBDBDBF9CA
+      A49EB8BFBFBCAB96DBDBDBDBDBDBDBDBA7B9BCBDBDBFC0CA93DBDBDBDBDBDBDB
+      A5B4BBBDBFC0C0C0A7DBDBDBDBDBDBA5B5ACBABEBFC0C0C0BA9CDBDBDBDBDBA5
+      B5AAB4BCBEBFBFBEBA9EDBDBDBDBDB9EB9ACADB8BCBEBDBEB897DBDBDBDBDBDB
+      ABBFB8ADB1B9BBBC99DBDBDBDBDBDBDB96CAC0B1ACB0B9A999DBDBDBDBDBDBDB
+      DB93A7B8B7AE9999DBDBDBDBDBDBDBDBDBDBDB9D9E9ADBDBDBDB}
+    Layout = blGlyphTop
+    OnClick = SpeedButton1Click
+  end
+  object Panel1: TPanel
+    Left = 1
+    Top = 44
+    Width = 705
+    Height = 177
+    Enabled = False
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 3
+      Top = 2
+      Width = 29
+      Height = 13
+      Caption = 'Grupo'
+      FocusControl = DBEdit1
+    end
+    object Label2: TLabel
+      Left = 3
+      Top = 40
+      Width = 33
+      Height = 13
+      Caption = 'C'#243'digo'
+      FocusControl = DBEdit2
+    end
+    object Label3: TLabel
+      Left = 99
+      Top = 40
+      Width = 47
+      Height = 13
+      Caption = 'C'#243'd.Barra'
+      FocusControl = DBEdit3
+    end
+    object Label4: TLabel
+      Left = 273
+      Top = 40
+      Width = 48
+      Height = 13
+      Caption = 'Descri'#231#227'o'
+      FocusControl = DBEdit4
+    end
+    object Label5: TLabel
+      Left = 3
+      Top = 80
+      Width = 40
+      Height = 13
+      Caption = 'Unidade'
+      FocusControl = DBEdit5
+    end
+    object Label6: TLabel
+      Left = 139
+      Top = 80
+      Width = 55
+      Height = 13
+      Caption = 'Embalagem'
+      FocusControl = DBEdit6
+    end
+    object Label7: TLabel
+      Left = 275
+      Top = 80
+      Width = 39
+      Height = 13
+      Caption = 'Estoque'
+      FocusControl = DBEdit7
+    end
+    object Label8: TLabel
+      Left = 415
+      Top = 80
+      Width = 54
+      Height = 13
+      Caption = 'Valor Custo'
+      FocusControl = DBEdit8
+    end
+    object Label9: TLabel
+      Left = 555
+      Top = 80
+      Width = 42
+      Height = 13
+      Caption = 'Entradas'
+      FocusControl = DBEdit9
+    end
+    object Label10: TLabel
+      Left = 3
+      Top = 120
+      Width = 32
+      Height = 13
+      Caption = 'Saidas'
+      FocusControl = DBEdit10
+    end
+    object Label11: TLabel
+      Left = 144
+      Top = 120
+      Width = 41
+      Height = 13
+      Caption = 'Total R$'
+      FocusControl = DBEdit11
+    end
+    object DBEdit1: TDBEdit
+      Left = 3
+      Top = 16
+      Width = 394
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'GRUPO'
+      DataSource = dsConsultaEstoque
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object DBEdit2: TDBEdit
+      Left = 3
+      Top = 56
+      Width = 95
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'CODIGO'
+      DataSource = dsConsultaEstoque
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object DBEdit3: TDBEdit
+      Left = 99
+      Top = 56
+      Width = 173
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'CD_BARRA'
+      DataSource = dsConsultaEstoque
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 2
+    end
+    object DBEdit4: TDBEdit
+      Left = 273
+      Top = 56
+      Width = 431
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'DESCRICAO'
+      DataSource = dsConsultaEstoque
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 3
+    end
+    object DBEdit5: TDBEdit
+      Left = 3
+      Top = 96
+      Width = 134
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'UNIDADE'
+      DataSource = dsConsultaEstoque
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 4
+    end
+    object DBEdit6: TDBEdit
+      Left = 139
+      Top = 96
+      Width = 134
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'EMBALGEM'
+      DataSource = dsConsultaEstoque
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 5
+    end
+    object DBEdit7: TDBEdit
+      Left = 275
+      Top = 96
+      Width = 138
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Color = clMoneyGreen
+      Ctl3D = False
+      DataField = 'ESTOQUE'
+      DataSource = dsConsultaEstoque
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentCtl3D = False
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 6
+    end
+    object DBEdit8: TDBEdit
+      Left = 415
+      Top = 96
+      Width = 138
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Color = clInfoBk
+      Ctl3D = False
+      DataField = 'VL_CUSTO'
+      DataSource = dsConsultaEstoque
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentCtl3D = False
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 7
+    end
+    object DBEdit9: TDBEdit
+      Left = 555
+      Top = 96
+      Width = 138
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'ENTRADA'
+      DataSource = dsConsultaEstoque
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 8
+    end
+    object DBEdit10: TDBEdit
+      Left = 3
+      Top = 134
+      Width = 138
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'SAIDAS'
+      DataSource = dsConsultaEstoque
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentCtl3D = False
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 9
+    end
+    object DBEdit11: TDBEdit
+      Left = 144
+      Top = 134
+      Width = 138
+      Height = 19
+      BevelInner = bvNone
+      BorderStyle = bsNone
+      Ctl3D = False
+      DataField = 'TOTAL'
+      DataSource = dsConsultaEstoque
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 10
+    end
+  end
+  object BitBtn1: TBitBtn
+    Left = 626
+    Top = 222
+    Width = 75
+    Height = 25
+    Caption = '&Fechar'
+    Glyph.Data = {
+      36030000424D3603000000000000360000002800000010000000100000000100
+      18000000000000030000120B0000120B00000000000000000000FF00FFFF00FF
+      FF00FFFF00FFFF00FFFF00FFFF00FF824B4B4E1E1FFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF824B4B824B4BA64B4BA9
+      4D4D4E1E1FFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      824B4B824B4BB64F50C24F50C54D4EB24D4E4E1E1F824B4B824B4B824B4B824B
+      4B824B4B824B4BFF00FFFF00FFFF00FF824B4BD45859CB5556C95455C95253B7
+      4F524E1E1FFE8B8CFB9A9CF8AAABF7B5B6F7B5B6824B4BFF00FFFF00FFFF00FF
+      824B4BD75C5DD05A5BCF595ACF5758BD53564E1E1F23B54A13C14816BD480CBC
+      41F7B5B6824B4BFF00FFFF00FFFF00FF824B4BDD6364D75F60D55E5FD55C5DC2
+      575A4E1E1F2AB44D1CBF4C1EBC4C13BC45F7B5B6824B4BFF00FFFF00FFFF00FF
+      824B4BE36869DD6566DA6364DE6667C6595B4E1E1F26B14916BC481BBB4910BB
+      43F7B5B6824B4BFF00FFFF00FFFF00FF824B4BEB6D6EE26768E67E7FFAD3D4CC
+      6E704E1E1FA5D89750D16F42C9662DC758F7B5B6824B4BFF00FFFF00FFFF00FF
+      824B4BF27374E96C6DEB8182FCD1D3CF6E704E1E1FFFF2CCFFFFD7FFFFD4E6FC
+      C7F7B5B6824B4BFF00FFFF00FFFF00FF824B4BF87879F07576EE7273F07374D1
+      65664E1E1FFCEFC7FFFFD5FFFFD3FFFFD7F7B5B6824B4BFF00FFFF00FFFF00FF
+      824B4BFE7F80F77A7BF6797AF77779D76B6B4E1E1FFCEFC7FFFFD5FFFFD3FFFF
+      D5F7B5B6824B4BFF00FFFF00FFFF00FF824B4BFF8384FC7F80FB7E7FFE7F80DA
+      6E6F4E1E1FFCEFC7FFFFD5FFFFD3FFFFD5F7B5B6824B4BFF00FFFF00FFFF00FF
+      824B4BFF8889FF8283FF8182FF8283E073744E1E1FFCEFC7FFFFD5FFFFD3FFFF
+      D5F7B5B6824B4BFF00FFFF00FFFF00FF824B4B824B4BE27576FE8182FF8687E5
+      76774E1E1FFAEBC5FCFBD1FCFBCFFCFBD1F7B5B6824B4BFF00FFFF00FFFF00FF
+      FF00FFFF00FF824B4B9C5657CB6C6DCF6E6E4E1E1F824B4B824B4B824B4B824B
+      4B824B4B824B4BFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF824B4B82
+      4B4B4E1E1FFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
+    TabOrder = 1
+    OnClick = BitBtn1Click
+  end
+  object P_PESQUISA: TPanel
+    Left = -1
+    Top = 1
+    Width = 706
+    Height = 253
+    TabOrder = 2
+    Visible = False
+    object Label12: TLabel
+      Left = 8
+      Top = 1
+      Width = 83
+      Height = 13
+      Caption = 'Pesquisa Produto'
+    end
+    object DBGrid1: TDBGrid
+      Left = 8
+      Top = 40
+      Width = 689
+      Height = 177
+      Color = 14155775
+      Ctl3D = False
+      DataSource = dsConsultaEstoque
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      OnDrawColumnCell = DBGrid1DrawColumnCell
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'CODIGO'
+          Width = 70
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DESCRICAO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'UNIDADE'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'EMBALGEM'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ESTOQUE'
+          Width = 65
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'GRUPO'
+          Visible = True
+        end>
+    end
+    object BB_OK: TBitBtn
+      Left = 507
+      Top = 222
+      Width = 75
+      Height = 25
+      Caption = 'OK'
+      Glyph.Data = {
+        DE010000424DDE01000000000000760000002800000024000000120000000100
+        0400000000006801000000000000000000001000000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+        3333333333333333333333330000333333333333333333333333F33333333333
+        00003333344333333333333333388F3333333333000033334224333333333333
+        338338F3333333330000333422224333333333333833338F3333333300003342
+        222224333333333383333338F3333333000034222A22224333333338F338F333
+        8F33333300003222A3A2224333333338F3838F338F33333300003A2A333A2224
+        33333338F83338F338F33333000033A33333A222433333338333338F338F3333
+        0000333333333A222433333333333338F338F33300003333333333A222433333
+        333333338F338F33000033333333333A222433333333333338F338F300003333
+        33333333A222433333333333338F338F00003333333333333A22433333333333
+        3338F38F000033333333333333A223333333333333338F830000333333333333
+        333A333333333333333338330000333333333333333333333333333333333333
+        0000}
+      NumGlyphs = 2
+      TabOrder = 1
+      OnClick = BB_OKClick
+    end
+    object edtProduto: TEdit
+      Left = 8
+      Top = 20
+      Width = 393
+      Height = 19
+      CharCase = ecUpperCase
+      Ctl3D = False
+      ParentCtl3D = False
+      TabOrder = 2
+      OnChange = edtProdutoChange
+      OnExit = edtProdutoExit
+      OnKeyPress = FormKeyPress
+    end
+    object BB_CANCELAR: TBitBtn
+      Left = 584
+      Top = 222
+      Width = 75
+      Height = 25
+      Cancel = True
+      Caption = '&Cancelar'
+      Glyph.Data = {
+        DE010000424DDE01000000000000760000002800000024000000120000000100
+        0400000000006801000000000000000000001000000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+        333333333333333333333333000033338833333333333333333F333333333333
+        0000333911833333983333333388F333333F3333000033391118333911833333
+        38F38F333F88F33300003339111183911118333338F338F3F8338F3300003333
+        911118111118333338F3338F833338F3000033333911111111833333338F3338
+        3333F8330000333333911111183333333338F333333F83330000333333311111
+        8333333333338F3333383333000033333339111183333333333338F333833333
+        00003333339111118333333333333833338F3333000033333911181118333333
+        33338333338F333300003333911183911183333333383338F338F33300003333
+        9118333911183333338F33838F338F33000033333913333391113333338FF833
+        38F338F300003333333333333919333333388333338FFF830000333333333333
+        3333333333333333333888330000333333333333333333333333333333333333
+        0000}
+      NumGlyphs = 2
+      TabOrder = 3
+      OnClick = BB_CANCELARClick
+    end
+  end
+  object dspConsultaEstoque: TDataSetProvider
+    DataSet = qConsultaEstoque
+    Options = [poIncFieldProps, poReadOnly, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 595
+    Top = 8
+  end
+  object cdsConsultaEstoque: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsultaEstoque'
+    Left = 627
+    Top = 8
+    object cdsConsultaEstoqueGRUPO: TStringField
+      DisplayLabel = 'Grupo'
+      FieldName = 'GRUPO'
+      Size = 30
+    end
+    object cdsConsultaEstoqueCODIGO: TStringField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Size = 7
+    end
+    object cdsConsultaEstoqueCD_BARRA: TStringField
+      DisplayLabel = 'C'#243'd.Barra'
+      FieldName = 'CD_BARRA'
+      Size = 13
+    end
+    object cdsConsultaEstoqueDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object cdsConsultaEstoqueUNIDADE: TStringField
+      DisplayLabel = 'Unidade'
+      FieldName = 'UNIDADE'
+      Size = 10
+    end
+    object cdsConsultaEstoqueEMBALGEM: TStringField
+      DisplayLabel = 'Embalagem'
+      FieldName = 'EMBALGEM'
+      Size = 10
+    end
+    object cdsConsultaEstoqueESTOQUE: TFMTBCDField
+      DisplayLabel = 'Estoque'
+      FieldName = 'ESTOQUE'
+      DisplayFormat = '###,###0.000'
+      EditFormat = '###,###0.000'
+      Precision = 18
+      Size = 3
+    end
+    object cdsConsultaEstoqueVL_CUSTO: TFMTBCDField
+      DisplayLabel = 'Vl.Custo'
+      FieldName = 'VL_CUSTO'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsConsultaEstoqueENTRADA: TFMTBCDField
+      DisplayLabel = 'Entradas'
+      FieldName = 'ENTRADA'
+      ReadOnly = True
+      DisplayFormat = '###,###0.000'
+      EditFormat = '###,###0.000'
+      Precision = 18
+      Size = 2
+    end
+    object cdsConsultaEstoqueSAIDAS: TFMTBCDField
+      DisplayLabel = 'Saidas'
+      FieldName = 'SAIDAS'
+      ReadOnly = True
+      DisplayFormat = '###,###0.000'
+      EditFormat = '###,###0.000'
+      Precision = 18
+      Size = 3
+    end
+    object cdsConsultaEstoqueTOTAL: TFMTBCDField
+      DisplayLabel = 'Total (R$)'
+      FieldName = 'TOTAL'
+      ReadOnly = True
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 5
+    end
+  end
+  object dsConsultaEstoque: TDataSource
+    DataSet = cdsConsultaEstoque
+    Left = 659
+    Top = 8
+  end
+  object qConsultaEstoque: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      ' GP.DESCRICAO AS GRUPO,'
+      ' p.CODIGO,'
+      ' p.CD_BARRA,'
+      ' p.DESCRICAO,'
+      ' P.UNIDADE,'
+      ' P.EMBALGEM,'
+      ' P.ESTOQUE,'
+      ' P.VL_CUSTO,'
+      '  (select SUM(N.QUANTIDADE) FROM TB_ITEM_ENTRADA_NF N'
+      '   WHERE N.ID_GRUPO_PRODUTO = P.ID_GRUPO_PRODUTO'
+      '   AND N.ID_PRODUTO = P.ID_PRODUTO) AS ENTRADA,'
+      '  (select SUM(I.QTDVENDA) FROM TB_ITEMVENDADTO I'
+      '   WHERE I.ID_GRUPO_PRODUTO = P.ID_GRUPO_PRODUTO'
+      '   AND I.ID_PRODUTO = P.ID_PRODUTO) as saidas,'
+      ''
+      '   (select SUM(N.QUANTIDADE) FROM TB_ITEM_ENTRADA_NF N'
+      '   WHERE N.ID_GRUPO_PRODUTO = P.ID_GRUPO_PRODUTO'
+      '   AND N.ID_PRODUTO = P.ID_PRODUTO)-'
+      '   (select SUM(I.QTDVENDA) FROM TB_ITEMVENDADTO I'
+      '   WHERE I.ID_GRUPO_PRODUTO = P.ID_GRUPO_PRODUTO'
+      '   AND I.ID_PRODUTO = P.ID_PRODUTO) as saldo,'
+      '   P.ESTOQUE * P.VL_CUSTO AS TOTAL'
+      'FROM TB_PRODUTO P'
+      
+        'LEFT OUTER JOIN TB_GRUPO_PRODUTO GP ON (GP.ID_GRUPO_PRODUTO = P.' +
+        'ID_GRUPO_PRODUTO)'
+      'ORDER BY P.DESCRICAO')
+    SQLConnection = DM.conexao
+    Left = 563
+    Top = 8
+    object qConsultaEstoqueGRUPO: TStringField
+      FieldName = 'GRUPO'
+      Size = 30
+    end
+    object qConsultaEstoqueCODIGO: TStringField
+      FieldName = 'CODIGO'
+      Size = 7
+    end
+    object qConsultaEstoqueCD_BARRA: TStringField
+      FieldName = 'CD_BARRA'
+      Size = 13
+    end
+    object qConsultaEstoqueDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object qConsultaEstoqueUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 10
+    end
+    object qConsultaEstoqueEMBALGEM: TStringField
+      FieldName = 'EMBALGEM'
+      Size = 10
+    end
+    object qConsultaEstoqueESTOQUE: TFMTBCDField
+      FieldName = 'ESTOQUE'
+      Precision = 18
+      Size = 3
+    end
+    object qConsultaEstoqueVL_CUSTO: TFMTBCDField
+      FieldName = 'VL_CUSTO'
+      Precision = 18
+      Size = 2
+    end
+    object qConsultaEstoqueENTRADA: TFMTBCDField
+      FieldName = 'ENTRADA'
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object qConsultaEstoqueSAIDAS: TFMTBCDField
+      FieldName = 'SAIDAS'
+      ReadOnly = True
+      Precision = 18
+      Size = 3
+    end
+    object qConsultaEstoqueTOTAL: TFMTBCDField
+      FieldName = 'TOTAL'
+      ReadOnly = True
+      Precision = 18
+      Size = 5
+    end
+  end
+end

@@ -1,0 +1,1088 @@
+unit uPrecoTinturaria;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, DBCtrls, Mask, Buttons, ExtCtrls, Grids, DBGrids,Db,
+  FMTBcd, SqlExpr, DBClient, Provider,ComCtrls, QRCtrls, QuickRpt, Vcl.Menus,
+  Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnPopup, qrpctrls ;
+
+type
+  TfrmPrecoTinturaria = class(TForm)
+    PCUPOM: TPanel;
+    DBEdit1: TDBEdit;
+    Label1: TLabel;
+    DBEdit2: TDBEdit;
+    Label2: TLabel;
+    BB_NOVO: TBitBtn;
+    BB_EDITAR: TBitBtn;
+    BB_GRAVAR: TBitBtn;
+    BB_EXCLUIR: TBitBtn;
+    BB_PESQUISAR: TBitBtn;
+    BB_SAIR: TBitBtn;
+    DBNavigator1: TDBNavigator;
+    BB_CANCELAR: TBitBtn;
+    Panel1: TPanel;
+    DBText1: TDBText;
+    Label5: TLabel;
+    Label22: TLabel;
+    SpeedButton3: TSpeedButton;
+    Panel2: TPanel;
+    Label12: TLabel;
+    P_PRODUTOS: TPanel;
+    Label3: TLabel;
+    Label4: TLabel;
+    DBEdit3: TDBEdit;
+    DBEdit4: TDBEdit;
+    DBGrid1: TDBGrid;
+    qMateriaPrima: TSQLQuery;
+    dspMateriaPrima: TDataSetProvider;
+    cdsMateriaPrima: TClientDataSet;
+    dsMateriaPrima: TDataSource;
+    P_BOTOES2: TPanel;
+    BB_NOVO2: TBitBtn;
+    BB_ALTERAR2: TBitBtn;
+    BB_CANCELAR2: TBitBtn;
+    BB_GRAVAR2: TBitBtn;
+    BB_EXCLUIR2: TBitBtn;
+    qMateriaPrimaID_ARTIGO: TIntegerField;
+    qMateriaPrimaNOME_ARTIGO: TStringField;
+    cdsMateriaPrimaID_ARTIGO: TIntegerField;
+    cdsMateriaPrimaNOME_ARTIGO: TStringField;
+    DBEdit6: TDBEdit;
+    DBEdit7: TDBEdit;
+    Label7: TLabel;
+    Label8: TLabel;
+    SpeedButton2: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    DBEdit8: TDBEdit;
+    Label9: TLabel;
+    DBEdit12: TDBEdit;
+    Label14: TLabel;
+    DBEdit5: TDBEdit;
+    DBEdit9: TDBEdit;
+    DBEdit10: TDBEdit;
+    Label6: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Panel3: TPanel;
+    Label13: TLabel;
+    SpeedButton1: TSpeedButton;
+    P_CORES_B: TPanel;
+    BB_INCLUIR: TBitBtn;
+    BitBtn2: TBitBtn;
+    BB_CANCELA: TBitBtn;
+    BB_SALVA: TBitBtn;
+    BB_EXCLUI: TBitBtn;
+    DBGrid2: TDBGrid;
+    P_CORES: TPanel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    SpeedButton4: TSpeedButton;
+    DBEdit11: TDBEdit;
+    DBEdit13: TDBEdit;
+    DBEdit14: TDBEdit;
+    BB_IMPRIMIR: TBitBtn;
+    Panel4: TPanel;
+    QR_TINTURARIA: TQuickRep;
+    QRBand1: TQRBand;
+    QRDBText1: TQRDBText;
+    QRLabel1: TQRLabel;
+    QRShape1: TQRShape;
+    QRLabel2: TQRLabel;
+    QRDBText2: TQRDBText;
+    QRLabel3: TQRLabel;
+    QRDBText3: TQRDBText;
+    QRLabel4: TQRLabel;
+    QRDBText4: TQRDBText;
+    QRGroup2: TQRGroup;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRLabel20: TQRLabel;
+    QRLabel21: TQRLabel;
+    QRBand6: TQRBand;
+    QRDBText7: TQRDBText;
+    QRDBText8: TQRDBText;
+    QRDBText10: TQRDBText;
+    QRDBText14: TQRDBText;
+    QRDBText15: TQRDBText;
+    QRBand7: TQRBand;
+    QRBand8: TQRBand;
+    QRLabel17: TQRLabel;
+    QRShape2: TQRShape;
+    QRLabel5: TQRLabel;
+    QRShape3: TQRShape;
+    QRLabel6: TQRLabel;
+    QRShape4: TQRShape;
+    QRLabel7: TQRLabel;
+    DBEdit15: TDBEdit;
+    Label18: TLabel;
+    QRSysData1: TQRSysData;
+    QRLabel8: TQRLabel;
+    QRDBText5: TQRDBText;
+    QRLabel9: TQRLabel;
+    QRDBText6: TQRDBText;
+    QRLabel11: TQRLabel;
+    QRLabel14: TQRLabel;
+    DBEdit16: TDBEdit;
+    Label19: TLabel;
+    DBEdit17: TDBEdit;
+    Label20: TLabel;
+    SpeedButton5: TSpeedButton;
+    DBEdit18: TDBEdit;
+    Label21: TLabel;
+    PopupActionBar1: TPopupActionBar;
+    Visualizar1: TMenuItem;
+    N1: TMenuItem;
+    Imprimir1: TMenuItem;
+    QRPShape1: TQRPShape;
+    QRPShape2: TQRPShape;
+    MemoCodigo: TQRMemo;
+    QRPShape3: TQRPShape;
+    MemoCor: TQRMemo;
+    MemoPreco: TQRMemo;
+    Panel5: TPanel;
+    Label23: TLabel;
+    P_SERVICO: TPanel;
+    BitBtn1: TBitBtn;
+    BitBtn3: TBitBtn;
+    BitBtn4: TBitBtn;
+    BB_SALVA_SERV: TBitBtn;
+    BB_EXC_SERV: TBitBtn;
+    DBGrid3: TDBGrid;
+    Panel6: TPanel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    SpeedButton7: TSpeedButton;
+    DBEdit19: TDBEdit;
+    DBEdit20: TDBEdit;
+    DBEdit21: TDBEdit;
+    procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BB_NOVOClick(Sender: TObject);
+    procedure BB_EDITARClick(Sender: TObject);
+    procedure BB_CANCELARClick(Sender: TObject);
+    procedure BB_GRAVARClick(Sender: TObject);
+    procedure BB_EXCLUIRClick(Sender: TObject);
+    procedure BB_PESQUISARClick(Sender: TObject);
+    procedure BB_SAIRClick(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure BB_NOVO2Click(Sender: TObject);
+    procedure BB_ALTERAR2Click(Sender: TObject);
+    procedure BB_CANCELAR2Click(Sender: TObject);
+    procedure BB_GRAVAR2Click(Sender: TObject);
+    procedure BB_EXCLUIR2Click(Sender: TObject);
+    procedure DBEdit3Exit(Sender: TObject);
+    procedure DBEdit3KeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure DBEdit1Exit(Sender: TObject);
+    procedure SpeedButton6Click(Sender: TObject);
+    procedure DBEdit6Exit(Sender: TObject);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure DBEdit11Exit(Sender: TObject);
+    procedure BB_CANCELAClick(Sender: TObject);
+    procedure DBEdit11KeyPress(Sender: TObject; var Key: Char);
+    procedure BB_INCLUIRClick(Sender: TObject);
+    procedure BB_SALVAClick(Sender: TObject);
+    procedure BB_EXCLUIClick(Sender: TObject);
+    procedure DBEdit14Exit(Sender: TObject);
+    procedure DBEdit1KeyPress(Sender: TObject; var Key: Char);
+    procedure DBEdit6KeyPress(Sender: TObject; var Key: Char);
+    procedure QRBand7BeforePrint(Sender: TQRCustomBand; var PrintBand: Boolean);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure DBEdit16Exit(Sender: TObject);
+    procedure DBEdit16KeyPress(Sender: TObject; var Key: Char);
+    procedure Visualizar1Click(Sender: TObject);
+    procedure Imprimir1Click(Sender: TObject);
+    procedure BB_IMPRIMIRClick(Sender: TObject);
+  private
+    { Private declarations }
+    Procedure GerenciaBotoes;
+    Procedure GerenciaBotoes2;
+    Procedure GerenciaBotoes3;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrecoTinturaria: TfrmPrecoTinturaria;
+  Tipo,Acao,Acao1 : String;
+
+
+implementation
+
+uses U_LIB, UD_PESQUISA, uDm, uCadGrupo, uPesquisaPadrao;
+
+{$R *.dfm}
+
+{ TfrmCadRota }
+
+procedure TfrmPrecoTinturaria.GerenciaBotoes;
+begin
+  BB_NOVO.Enabled       := not (DM.cdsPrecoTinturaria.State in dsEditModes);
+  BB_GRAVAR.Enabled     := NOT BB_NOVO.Enabled;
+  BB_EXCLUIR.Enabled    := BB_NOVO.Enabled and not (DM.cdsPrecoTinturaria.IsEmpty);
+  BB_CANCELAR.Enabled   := BB_GRAVAR.Enabled;
+  BB_EDITAR.Enabled     := BB_EXCLUIR.Enabled;
+  BB_SAIR.Enabled       := BB_NOVO.Enabled;
+  BB_PESQUISAR.Enabled  := BB_NOVO.Enabled;
+  BB_IMPRIMIR.Enabled   := BB_NOVO.Enabled;
+  PCUPOM.Enabled        := not BB_NOVO.Enabled;
+end;
+
+procedure TfrmPrecoTinturaria.GerenciaBotoes2;
+begin
+  BB_NOVO2.Enabled := not (DM.cdsArtigoTinturaria.State in dsEditModes);
+  BB_GRAVAR2.Enabled := NOT BB_NOVO2.Enabled;
+  BB_EXCLUIR2.Enabled := BB_NOVO2.Enabled and not (DM.cdsArtigoTinturaria.IsEmpty);
+  BB_CANCELAR2.Enabled := BB_GRAVAR2.Enabled;
+ // BB_ALTERAR2.Enabled := BB_EXCLUIR2.Enabled;
+  P_PRODUTOS.Enabled := not BB_NOVO2.Enabled;
+end;
+
+procedure TfrmPrecoTinturaria.GerenciaBotoes3;
+begin
+  BB_INCLUIR.Enabled := not (DM.cdsCoresTinturaria.State in dsEditModes);
+  BB_SALVA.Enabled := NOT BB_INCLUIR.Enabled;
+  BB_EXCLUI.Enabled := BB_INCLUIR.Enabled and not (DM.cdsCoresTinturaria.IsEmpty);
+  BB_CANCELA.Enabled := BB_SALVA.Enabled;
+//  BB_ALTERAR2.Enabled := BB_EXCLUIR2.Enabled;
+  P_CORES.Enabled := not BB_INCLUIR.Enabled;
+end;
+
+procedure TfrmPrecoTinturaria.Imprimir1Click(Sender: TObject);
+begin
+  QR_TINTURARIA.Prepare;
+  QR_TINTURARIA.Print;
+end;
+
+procedure TfrmPrecoTinturaria.QRBand7BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+  MemoCodigo.Lines.Clear;
+  MemoCor.Lines.Clear;
+  MemoPreco.Lines.Clear;
+
+
+  DM.cdsCoresTinturaria.First;
+  while not DM.cdsCoresTinturaria.Eof do
+  begin
+    MemoCodigo.Lines.Add(DM.cdsCoresTinturariaCODIGO.AsString);
+    MemoCor.Lines.Add(DM.cdsCoresTinturariaCOR.AsString);
+    MemoPreco.Lines.Add(' R$ '+FormatFloat('###,###0.00',StrToFloat(DM.cdsCoresTinturariaVALOR.AsString)));
+
+
+    DM.cdsCoresTinturaria.Next;
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.SpeedButton1Click(Sender: TObject);
+begin
+  DM.cdsArtigo.Close;
+  DM.cdsArtigo.CommandText:= ' SELECT A.ID_ARTIGO, A.NOME_ARTIGO, A.COMPOSICAO, A.LARGURA, A.GRAMATURA, A.TOTAL_PERC, '+
+                             ' A.id_grupo_empresa, A.TUBULAR, A.FELPAR, A.CORTA_AUREOLAS, GE.nome_do_grupo, ge.responsavel '+
+                             ' FROM TB_ARTIGO A '+
+                             ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = A.id_grupo_empresa)'+
+                             ' WHERE A.ID_GRUPO_EMPRESA ='+QuotedStr(DBEdit16.Text);
+  DM.cdsArtigo.Open;
+  Pesquisa(DM.cdsArtigo,['NOME_ARTIGO','ID_ARTIGO'],['Descrição Artigo','Código'],[40,4],'','','','','Artigo','Artigo');
+    DM.cdsArtigoTinturariaID_ARTIGO.AsInteger       := DM.cdsArtigoID_ARTIGO.AsInteger;
+    DM.cdsArtigoTinturariaNOME_ARTIGO.AsString      := DM.cdsArtigoNOME_ARTIGO.AsString;
+    DM.cdsArtigoTinturariaCOMPOSICAO.AsString       := DM.cdsArtigoCOMPOSICAO.AsString;
+    DM.cdsArtigoTinturariaLARGURA.AsString          := DM.cdsArtigoLARGURA.AsString;
+    DM.cdsArtigoTinturariaGRAMATURA.AsString        := DM.cdsArtigoGRAMATURA.AsString;
+    BB_GRAVAR2.SetFocus;
+end;
+
+procedure TfrmPrecoTinturaria.SpeedButton2Click(Sender: TObject);
+begin
+  DM.cdsFornecedor.Close;
+  DM.cdsFornecedor.CommandText := ' SELECT  F.ID_FORNECEDOR, F.CODIGO_MUNIC, F.DT_CADASTRO, F.NOME, F.TP_LOGRADOURO, F.ENDERECO,'+
+                                  ' F.COMPLEMENTO, F.NUMERO, F.BAIRRO, F.CEP, F.TELFONE, F.FAX, F.CELULAR, F.EMAIL, F.CNPJ, F.INS_EST,'+
+                                  ' F.CONTATO, F.SITE, F.FANTASIA, F.SITUACAO, F.DT_ABERTURA, F.CNAE_PRINCIPAL, F.CNAE_SECUNDARIO, F.ID_CATEGORIA,'+
+                                  ' M.NOME AS CIDADE, M.UF AS UF, M.DDD, C.NOME_CATEGORIA FROM TB_FORNECEDOR F '+
+                                  ' JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = F.CODIGO_MUNIC)'+
+                                  ' LEFT JOIN TB_CATEGORIA  C ON (C.ID_CATEGORIA = F.ID_CATEGORIA)'+
+                                  ' WHERE F.ID_CATEGORIA = 2';
+
+  DM.cdsFornecedor.Open;
+  Pesquisa(DM.cdsFornecedor,['NOME','ID_FORNECEDOR'],['Nome do Fornecedor','Código'],[40,4],'','','','','Fornecedor','Fornecedor');
+  DM.cdsPrecoTinturariaID_FORNECEDOR.AsInteger := DM.cdsFornecedorID_FORNECEDOR.AsInteger;
+  DM.cdsPrecoTinturariaFORNECEDOR.AsString     := DM.cdsFornecedorNOME.AsString;
+  DM.cdsPrecoTinturariaCNPJ.AsString           := DM.cdsFornecedorCNPJ.AsString;
+  DM.cdsPrecoTinturariaTEL_FOR.AsString        := DM.cdsFornecedorTELFONE.AsString;
+
+  DBEdit16.SetFocus;
+
+end;
+
+procedure TfrmPrecoTinturaria.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmPrecoTinturaria.SpeedButton4Click(Sender: TObject);
+begin
+  DM.cdsCores.Close;
+  DM.cdsCores.CommandText := ' SELECT C.ID_CORES, C.ID_FORNECEDOR, C.CODIGO, C.DESCRICAO, F.NOME AS TINTURARIAA '+
+                             ' FROM TB_CORES C '+
+                             ' LEFT OUTER JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = C.ID_FORNECEDOR) '+
+                             ' WHERE C.ID_FORNECEDOR = '+QuotedStr(DBEdit1.Text);
+  DM.cdsCores.Open;
+
+  if DM.cdsCores.RecordCount > 0 then
+  begin
+    Pesquisa(DM.cdsCores,['DESCRICAO','CODIGO'],['Cor','Código'],[40,6],'','','','','Cores','Cores');
+    DM.cdsCoresTinturariaID_ARTIGO.AsInteger            := DM.cdsArtigoTinturariaID_ARTIGO.AsInteger;
+    DM.cdsCoresTinturariaID_CORES.AsInteger             := DM.cdsCoresID_CORES.AsInteger;
+    DM.cdsCoresTinturariaID_PRECO_TINTURARIA.AsInteger  := DM.cdsPrecoTinturariaID_PRECO_TINTURARIA.AsInteger;
+    DM.cdsCoresTinturariaID_ARTIGO_TINTURARIA.AsInteger := DM.cdsArtigoTinturariaID_ARTIGO_TINTURARIA.AsInteger;
+    DM.cdsCoresTinturariaCOR.AsString                   := DM.cdsCoresDESCRICAO.AsString;
+    DM.cdsCoresTinturariaCODIGO.AsInteger               := DM.cdsCoresCODIGO.AsInteger;
+    DBEdit14.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('Nehuma Cor Cadastrada Para Este Fornecedor.');
+    BB_CANCELAClick(Self);
+  end;
+end;
+
+procedure TfrmPrecoTinturaria.SpeedButton5Click(Sender: TObject);
+begin
+  DM.cdsGrupoEmpresa.Open;
+  Pesquisa(DM.cdsGrupoEmpresa,['NOME_DO_GRUPO','ID_GRUPO_EMPRESA'],['Nome do Grupo','Código'],[40,4],'','','','','Grupo Empresa','Grupo Empresa');
+
+  DM.cdsPrecoTinturariaID_GRUPO_EMPRESA.AsInteger  := DM.cdsGrupoEmpresaID_GRUPO_EMPRESA.AsInteger;
+  DM.cdsPrecoTinturariaNOME_DO_GRUPO.AsString      := DM.cdsGrupoEmpresaNOME_DO_GRUPO.AsString;
+  DM.cdsPrecoTinturariaRESPONSAVEL.AsString        := DM.cdsGrupoEmpresaRESPONSAVEL.AsString;
+  BB_GRAVAR.SetFocus;
+
+end;
+
+procedure TfrmPrecoTinturaria.SpeedButton6Click(Sender: TObject);
+Var
+ sSql : string;
+begin
+  sSql := ' SELECT C.ID_CLIENTE,C.CODIGO_MUNIC,C.DT_CADASTRO, C.TP_CLIENTE,C.CNPJ_CPF,C.INSC_RG, '+
+          ' C.R_SOCIAL, C.FANTASIA,C.ENDERECO,C.COMPLEMENTO,C.NUMERO,C.BAIRRO,C.CEP, '+
+          ' C.DT_NASCIMENTO,C.SEXO,C.ESTADO_CIVIL,C.VL_LIMITE,C.EMAIL,C.TELEFONE,C.CELULAR,'+
+          ' C.WHATSAPP,C.CONTATO,C.OBS,C.ATIVO,C.SPC,C.DT_CONSULTA_SPC,C.VL_ULT_DESC,C.DT_ULT_COMPRA,'+
+          ' C.VL_ULT_COMPRA,C.INFORMACOES,C.BLOQUEIO,C.PONTO_REF,C.id_grupo_empresa,M.uf, M.nome AS CIDADE,'+
+          ' M.ddd,GE.nome_do_grupo'+
+          ' FROM tb_cliente C'+
+          ' JOIN tb_municipios M ON (M.codigo_munic = C.codigo_munic)'+
+          ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = C.id_grupo_empresa)'+
+          ' WHERE C.id_grupo_empresa = '+DM.cdsPrecoTinturariaID_GRUPO_EMPRESA.AsString;
+
+  DM.cdsCliente.Close;
+  DM.cdsCliente.CommandText :=sSql;
+  DM.cdsCliente.Open;
+  Pesquisa(DM.cdsCliente,['R_SOCIAL','ID_CLIENTE'],['Código','Nome do cliente'],[40,4],'','','','','Fornecedor','Fornecedor');
+
+  DM.cdsPrecoTinturariaID_CLIENTE.AsInteger  := DM.cdsClienteID_CLIENTE.AsInteger;
+  DM.cdsPrecoTinturariaR_SOCIAL.AsString     := DM.cdsClienteR_SOCIAL.AsString;
+  DM.cdsPrecoTinturariaCNPJ_CPF.AsString     := DM.cdsClienteCNPJ_CPF.AsString;
+  DM.cdsPrecoTinturariaTEL_CLI.AsString      := DM.cdsClienteTELEFONE.AsString;
+  BB_GRAVAR.SetFocus;
+
+end;
+
+procedure TfrmPrecoTinturaria.Visualizar1Click(Sender: TObject);
+begin
+  QR_TINTURARIA.PreviewModal;
+end;
+
+procedure TfrmPrecoTinturaria.FormShow(Sender: TObject);
+begin
+  DM.cdsPrecoTinturaria.Close;
+  DM.cdsPrecoTinturaria.Open;
+
+  DM.cdsArtigoTinturaria.Close;
+  DM.cdsArtigoTinturaria.Open;
+
+  DM.cdsCoresTinturaria.Close;
+  DM.cdsCoresTinturaria.Open;
+
+  if DM.cdsPrecoTinturaria.RecordCount > 0 then
+  begin
+    DM.cdsArtigoTinturaria.Close;
+    DM.cdsArtigoTinturaria.Params[0].AsInteger := DM.cdsPrecoTinturariaID_PRECO_TINTURARIA.AsInteger;
+    DM.cdsArtigoTinturaria.Open;
+  end;
+
+  if DM.cdsArtigoTinturaria.RecordCount > 0 then
+  begin
+    DM.cdsCoresTinturaria.Close;
+    DM.cdsCoresTinturaria.Params[0].AsInteger := DM.cdsPrecoTinturariaID_PRECO_TINTURARIA.AsInteger;
+    DM.cdsCoresTinturaria.Open;
+  end;
+
+  GerenciaBotoes;
+  GerenciaBotoes2;
+  GerenciaBotoes3;
+
+end;
+
+procedure TfrmPrecoTinturaria.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit11Exit(Sender: TObject);
+begin
+  DM.cdsCores.Close;
+  DM.cdsCores.CommandText := ' SELECT C.ID_CORES, C.ID_FORNECEDOR, C.CODIGO, C.DESCRICAO, F.NOME AS TINTURARIAA '+
+                             ' FROM TB_CORES C '+
+                             ' LEFT OUTER JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = C.ID_FORNECEDOR) '+
+                             ' WHERE C.ID_FORNECEDOR = '+QuotedStr(DBEdit1.Text);
+  DM.cdsCores.Open;
+
+  if DM.cdsCores.RecordCount > 0 then
+  begin
+    if DBEdit11.Text <> '' then
+    begin
+      if DM.cdsCores.Locate('ID_CORES',DM.cdsCoresTinturariaID_CORES.AsInteger,[]) then
+      begin
+        DM.cdsCoresTinturariaID_ARTIGO.AsInteger            := DM.cdsArtigoTinturariaID_ARTIGO.AsInteger;
+        DM.cdsCoresTinturariaID_CORES.AsInteger             := DM.cdsCoresID_CORES.AsInteger;
+        DM.cdsCoresTinturariaID_PRECO_TINTURARIA.AsInteger  := DM.cdsPrecoTinturariaID_PRECO_TINTURARIA.AsInteger;
+        DM.cdsCoresTinturariaID_ARTIGO_TINTURARIA.AsInteger := DM.cdsArtigoTinturariaID_ARTIGO_TINTURARIA.AsInteger;
+        DM.cdsCoresTinturariaCOR.AsString                   := DM.cdsCoresDESCRICAO.AsString;
+        DM.cdsCoresTinturariaCODIGO.AsInteger               := DM.cdsCoresCODIGO.AsInteger;
+        DBEdit14.SetFocus;
+      end
+      else
+      begin
+        ShowMessage('Código Não Encontrado');
+        SpeedButton4Click(self);
+      end;
+    end;
+
+    if DBEdit3.Text ='' then
+    begin
+      ShowMessage('Nehum Código Informado!');
+      BB_CANCELAClick(Self);
+    end;
+  end
+  else
+  begin
+    ShowMessage('Nehuma Cor Cadastrada Para Este Fornecedor.');
+    BB_CANCELAClick(Self);
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit11KeyPress(Sender: TObject; var Key: Char);
+begin
+  If Key = #27 Then
+   BB_CANCELAClick(Self);
+
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton4Click(self);
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit14Exit(Sender: TObject);
+begin
+  BB_SALVA.SetFocus;
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit16Exit(Sender: TObject);
+begin
+  if DBEdit16.Text = '' Then
+  begin
+//    BB_CANC.SetFocus;
+    exit;
+  end;
+  DM.cdsGrupoEmpresa.Open;
+  if DM.cdsGrupoEmpresa.Locate('ID_GRUPO_EMPRESA',DBEdit16.Text,[]) then
+  begin
+    DM.cdsPrecoTinturariaID_GRUPO_EMPRESA.AsInteger  := DM.cdsGrupoEmpresaID_GRUPO_EMPRESA.AsInteger;
+    DM.cdsPrecoTinturariaNOME_DO_GRUPO.AsString      := DM.cdsGrupoEmpresaNOME_DO_GRUPO.AsString;
+    DM.cdsPrecoTinturariaRESPONSAVEL.AsString        := DM.cdsGrupoEmpresaRESPONSAVEL.AsString;
+    BB_GRAVAR.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('          A T E N Ç Ã O  !!!!!!!!!   '+#13+
+                '                                     '+#13+
+                '  Grupo Não Encontrado         '+#13+
+                '                                     ');
+    SpeedButton5Click(Self);
+  end;
+
+
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit16KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton5Click(self);
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit1Exit(Sender: TObject);
+begin
+  if DBEdit1.Text = '' Then
+  begin
+//    BB_CANC.SetFocus;
+    exit;
+  end;
+  DM.cdsFornecedor.Close;
+  DM.cdsFornecedor.CommandText := ' SELECT  F.ID_FORNECEDOR, F.CODIGO_MUNIC, F.DT_CADASTRO, F.NOME, F.TP_LOGRADOURO, F.ENDERECO,'+
+                                  ' F.COMPLEMENTO, F.NUMERO, F.BAIRRO, F.CEP, F.TELFONE, F.FAX, F.CELULAR, F.EMAIL, F.CNPJ, F.INS_EST,'+
+                                  ' F.CONTATO, F.SITE, F.FANTASIA, F.SITUACAO, F.DT_ABERTURA, F.CNAE_PRINCIPAL, F.CNAE_SECUNDARIO, F.ID_CATEGORIA,'+
+                                  ' M.NOME AS CIDADE, M.UF AS UF, M.DDD, C.NOME_CATEGORIA FROM TB_FORNECEDOR F '+
+                                  ' JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = F.CODIGO_MUNIC)'+
+                                  ' LEFT JOIN TB_CATEGORIA  C ON (C.ID_CATEGORIA = F.ID_CATEGORIA)'+
+                                  ' WHERE F.ID_CATEGORIA = 2';
+
+  DM.cdsFornecedor.Open;
+
+  if DM.cdsFornecedor.Locate('ID_FORNECEDOR',DBEdit1.Text,[]) then
+  begin
+    DM.cdsPrecoTinturariaID_FORNECEDOR.AsInteger := DM.cdsFornecedorID_FORNECEDOR.AsInteger;
+    DM.cdsPrecoTinturariaFORNECEDOR.AsString     := DM.cdsFornecedorNOME.AsString;
+    DM.cdsPrecoTinturariaCNPJ.AsString           := DM.cdsFornecedorCNPJ.AsString;
+    DM.cdsPrecoTinturariaTEL_FOR.AsString        := DM.cdsFornecedorTELFONE.AsString;
+    DBEdit16.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('          A T E N Ç Ã O  !!!!!!!!!   '+#13+
+                '                                     '+#13+
+                '   Fornecedor Não Encontrado         '+#13+
+                '                                     ');
+    SpeedButton2Click(Self);
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit1KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton2Click(self);
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit3Exit(Sender: TObject);
+begin
+  DM.cdsArtigo.Close;
+  DM.cdsArtigo.CommandText:= ' SELECT A.ID_ARTIGO, A.NOME_ARTIGO, A.COMPOSICAO, A.LARGURA, A.GRAMATURA, A.TOTAL_PERC, '+
+                             ' A.id_grupo_empresa, A.TUBULAR, A.FELPAR, A.CORTA_AUREOLAS, GE.nome_do_grupo, ge.responsavel '+
+                             ' FROM TB_ARTIGO A '+
+                             ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = A.id_grupo_empresa)'+
+                             ' WHERE A.ID_GRUPO_EMPRESA ='+QuotedStr(DBEdit16.Text);
+  DM.cdsArtigo.Open;
+
+  if DBEdit3.Text <> '' then
+  begin
+    if DM.cdsArtigo.Locate('ID_ARTIGO',DM.cdsArtigoTinturariaID_ARTIGO.AsInteger,[]) then
+    begin
+      DM.cdsArtigoTinturariaID_ARTIGO.AsInteger       := DM.cdsArtigoID_ARTIGO.AsInteger;
+      DM.cdsArtigoTinturariaNOME_ARTIGO.AsString      := DM.cdsArtigoNOME_ARTIGO.AsString;
+      DM.cdsArtigoTinturariaCOMPOSICAO.AsString       := DM.cdsArtigoCOMPOSICAO.AsString;
+      DM.cdsArtigoTinturariaLARGURA.AsString          := DM.cdsArtigoLARGURA.AsString;
+      DM.cdsArtigoTinturariaGRAMATURA.AsString        := DM.cdsArtigoGRAMATURA.AsString;
+      BB_GRAVAR2.SetFocus;
+    end
+    else
+    begin
+      ShowMessage('Código Não Encontrado');
+      SpeedButton1Click(self);
+    end;
+  end;
+
+  if DBEdit3.Text ='' then
+  begin
+    ShowMessage('Nehum Código Informado!');
+    BB_CANCELAR2Click(Self);
+  end;
+
+
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit3KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton1Click(self);
+  end;
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit6Exit(Sender: TObject);
+Var
+ sSql : string;
+begin
+  sSql := ' SELECT C.ID_CLIENTE,C.CODIGO_MUNIC,C.DT_CADASTRO, C.TP_CLIENTE,C.CNPJ_CPF,C.INSC_RG, '+
+          ' C.R_SOCIAL, C.FANTASIA,C.ENDERECO,C.COMPLEMENTO,C.NUMERO,C.BAIRRO,C.CEP, '+
+          ' C.DT_NASCIMENTO,C.SEXO,C.ESTADO_CIVIL,C.VL_LIMITE,C.EMAIL,C.TELEFONE,C.CELULAR,'+
+          ' C.WHATSAPP,C.CONTATO,C.OBS,C.ATIVO,C.SPC,C.DT_CONSULTA_SPC,C.VL_ULT_DESC,C.DT_ULT_COMPRA,'+
+          ' C.VL_ULT_COMPRA,C.INFORMACOES,C.BLOQUEIO,C.PONTO_REF,C.id_grupo_empresa,M.uf, M.nome AS CIDADE,'+
+          ' M.ddd,GE.nome_do_grupo'+
+          ' FROM tb_cliente C'+
+          ' JOIN tb_municipios M ON (M.codigo_munic = C.codigo_munic)'+
+          ' LEFT OUTER JOIN tb_grupo_empresa GE ON (GE.id_grupo_empresa = C.id_grupo_empresa)'+
+          ' WHERE C.id_grupo_empresa = '+DM.cdsPrecoTinturariaID_GRUPO_EMPRESA.AsString;
+  if DBEdit6.Text = '' Then
+  begin
+//    BB_CANC.SetFocus;
+    exit;
+  end;
+  DM.cdsCliente.Close;
+  DM.cdsCliente.CommandText := sSql;
+  DM.cdsCliente.Open;
+  if DM.cdsCliente.Locate('ID_CLIENTE',DBEdit6.Text,[]) then
+  begin
+    DM.cdsPrecoTinturariaID_CLIENTE.AsInteger  := DM.cdsClienteID_CLIENTE.AsInteger;
+    DM.cdsPrecoTinturariaR_SOCIAL.AsString     := DM.cdsClienteR_SOCIAL.AsString;
+    DM.cdsPrecoTinturariaCNPJ_CPF.AsString     := DM.cdsClienteCNPJ_CPF.AsString;
+    DM.cdsPrecoTinturariaTEL_CLI.AsString      := DM.cdsClienteTELEFONE.AsString;
+    BB_GRAVAR.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('          A T E N Ç Ã O  !!!!!!!!!   '+#13+
+                '                                     '+#13+
+                '   Nenhum Cliente Encontrado Para o Grupo Informado '+#13+
+                '                                     ');
+    SpeedButton6Click(Self);
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.DBEdit6KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton6Click(self);
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.DBGrid1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  TDbGrid(Sender).Canvas.font.Color:= clBlack; //aqui é definida a cor da fonte
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
+    Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+    Font.Style := [fsBold];
+    FillRect(Rect);
+  end;
+
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+
+end;
+
+procedure TfrmPrecoTinturaria.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  if DM.cdsPrecoTinturaria.State in [dsEdit,dsInsert] then
+  begin
+    ShowMessage('Favor Salve ou Cancele o Registro Para Sair');
+    Abort;
+  end
+  else
+  begin
+    DM.cdsCliente.Close;
+    Action := caFree;
+    frmPrecoTinturaria := nil;
+  end;
+  if DM.cdsArtigoTinturaria.State in [dsEdit,dsInsert] then
+  begin
+    ShowMessage('Favor Salve ou Cancele o Registro Para Sair');
+    Abort;
+  end
+  else
+  begin
+    DM.cdsCliente.Close;
+    Action := caFree;
+    frmPrecoTinturaria := nil;
+  end;
+  if DM.cdsCoresTinturaria.State in [dsEdit,dsInsert] then
+  begin
+    ShowMessage('Favor Salve ou Cancele o Registro Para Sair');
+    Abort;
+  end
+  else
+  begin
+    DM.cdsCliente.Close;
+    Action := caFree;
+    frmPrecoTinturaria := nil;
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_NOVO2Click(Sender: TObject);
+begin
+  if DM.cdsPrecoTinturaria.RecordCount = 0 then
+  begin
+    ShowMessage('Nenhuma Tabela Cadastrada Para Inserir Registro ');
+    Exit;
+  end;
+
+  Acao := 'Insert';
+  DM.cdsArtigoTinturaria.Open;
+  DM.cdsArtigoTinturaria.Insert;
+  GerenciaBotoes2;
+  DBEDIT3.SetFocus;
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_NOVOClick(Sender: TObject);
+begin
+  Tipo := 'Insert';
+  DM.cdsPrecoTinturaria.Insert;
+
+  GerenciaBotoes;
+  DBEdit15.SetFocus;
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_EDITARClick(Sender: TObject);
+begin
+  Tipo := 'Edit';
+  DM.cdsPrecoTinturaria.Edit;
+  GerenciaBotoes;
+  DBEdit15.SetFocus;
+end;
+
+procedure TfrmPrecoTinturaria.BB_ALTERAR2Click(Sender: TObject);
+begin
+  Acao := 'Edit';
+  DM.cdsItemPreco.Open;
+  DM.cdsItemPreco.Edit;
+  GerenciaBotoes2;
+  DBEdit3.SetFocus;
+end;
+
+procedure TfrmPrecoTinturaria.BB_CANCELAClick(Sender: TObject);
+begin
+//  DM.cdsCoresTinturaria.Open;
+  DM.cdsCoresTinturaria.Cancel;
+  GerenciaBotoes3;
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_CANCELAR2Click(Sender: TObject);
+begin
+  DM.cdsArtigoTinturaria.Open;
+  DM.cdsArtigoTinturaria.Cancel;
+  GerenciaBotoes2;
+end;
+
+procedure TfrmPrecoTinturaria.BB_CANCELARClick(Sender: TObject);
+begin
+  DM.cdsPrecoTinturaria.Cancel;
+  GerenciaBotoes;
+end;
+
+procedure TfrmPrecoTinturaria.BB_EXCLUIClick(Sender: TObject);
+begin
+  if Application.MessageBox('Deseja Realmente excluir este registro ? ','Confirmação', MB_ICONQUESTION+MB_YESNO ) = idyes then
+  begin
+     DM.cdsCoresTinturaria.Delete;
+     DM.cdsCoresTinturaria.ApplyUpdates(0);
+     GerenciaBotoes3;
+     GerenciaBotoes;
+     GerenciaBotoes2;
+
+  end
+  else
+  begin
+    ShowMessage('Exclusão não Confirmada');
+    BB_CANCELAClick(Self);
+    GerenciaBotoes3;
+    GerenciaBotoes;
+    GerenciaBotoes2;
+
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_EXCLUIR2Click(Sender: TObject);
+begin
+  if Application.MessageBox('Deseja Realmente excluir este registro ? ','Confirmação', MB_ICONQUESTION+MB_YESNO ) = idyes then
+  begin
+     DM.cdsArtigoTinturaria.Delete;
+     DM.cdsArtigoTinturaria.ApplyUpdates(0);
+     GerenciaBotoes2;
+     GerenciaBotoes;
+     GerenciaBotoes3;
+  end
+  else
+  begin
+    ShowMessage('Exclusão não Confirmada');
+    BB_CANCELAR2Click(Self);
+    GerenciaBotoes2;
+    GerenciaBotoes;
+    GerenciaBotoes3;
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_EXCLUIRClick(Sender: TObject);
+begin
+  if DM.cdsArtigoTinturaria.RecordCount > 0 then
+  begin
+    ShowMessage('Impossivél Excluir. Exite(m) Artigo(s) Vinculado(s) na Tabela.');
+    Exit;
+  end;
+
+  if DM.cdsCoresTinturaria.RecordCount > 0 then
+  begin
+    ShowMessage('Impossivél Excluir. Exite(m) Cor(es) Vinculado(s) na Tabela.');
+    Exit;
+  end;
+
+  if Application.MessageBox('Deseja Excluir Este Registro ?','Confirmação',MB_ICONQUESTION+MB_YESNO ) = idyes then
+  begin
+    DM.cdsPrecoTinturaria.Delete;
+    DM.cdsPrecoTinturaria.ApplyUpdates(0);
+    GerenciaBotoes;
+  end
+  else
+  begin
+    ShowMessage('Registro Não Excluído');
+  end;
+    GerenciaBotoes;
+end;
+
+procedure TfrmPrecoTinturaria.BB_PESQUISARClick(Sender: TObject);
+begin
+  frmPesquisaPadrao := TfrmPesquisaPadrao.Create(self);
+  frmPesquisaPadrao.TB_PESQUISA := 'Preço-Tinturaria';
+  frmPesquisaPadrao.CDS := DM.cdsPrecoTinturaria;
+  frmPesquisaPadrao.Tabela := 'TB_PRECO_TINTURARIA PT';
+  frmPesquisaPadrao.CampoBusca := 'F.NOME';
+  frmPesquisaPadrao.CampoBusca2 := 'PT.DESCRICAO';
+  frmPesquisaPadrao.CampoChave  := 'F.NOME';
+  frmPesquisaPadrao.LegendaGrouBox := 'Consulta de Preço-Tinturaria';
+  frmPesquisaPadrao.Sql            := ' SELECT PT.ID_PRECO_TINTURARIA, PT.ID_CLIENTE, PT.ID_FORNECEDOR, PT.DESCRICAO, PT.id_grupo_empresa,'+
+                                      ' C.R_SOCIAL, C.CNPJ_CPF, C.TELEFONE AS TEL_CLI, F.NOME AS FORNECEDOR, F.CNPJ, F.TELFONE AS TEL_FOR, '+
+                                      ' GE.nome_do_grupo, GE.responsavel ';
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].Title.Caption := 'Tinturaria';
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].FieldName:= 'FORNECEDOR';
+  frmPesquisaPadrao.dbgPesquisa.Columns[0].Width:= 200;
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].Title.Caption := 'Descricao';
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].FieldName:= 'DESCRICAO';
+  frmPesquisaPadrao.dbgPesquisa.Columns[1].Width:= 130;
+
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].Title.Caption := 'Grupo';
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].FieldName:= 'NOME_DO_GRUPO';
+  frmPesquisaPadrao.dbgPesquisa.Columns[2].Width:= 200;
+
+  frmPesquisaPadrao.ShowModal;
+  FreeAndNil(frmPesquisaPadrao);
+
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_SAIRClick(Sender: TObject);
+begin
+  Close;
+//  DM.cdsDinamica.Close;
+//  DM.cdsDinamica.IndexFieldNames:='';
+//  DM.cdsDinamica.CommandText := ' SELECT EXPORTADO FROM TB_GRUPO_PRODUTO WHERE EXPORTADO = ''N''';
+//  DM.cdsDinamica.Open;
+//
+//  if DM.cdsDinamica.IsEmpty then
+//  begin
+//    DM.cdsPrecoTinturaria.Close;
+//    Close;
+//  end
+//  else
+//  begin
+//    if Application.MessageBox('Existe(m) Grupo(s) de Produto(s) sem importar, Deseja Importar Grupo(s) de Produto(s) Agora?','Atenção',MB_OK+MB_YESNO)= idyes then
+//    begin
+//      BB_EXPORTARClick(Self);
+//    end
+//    else
+//    begin
+//      DM.cdsPrecoTinturaria.Close;
+//      Close;
+//    end;
+//  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_SALVAClick(Sender: TObject);
+begin
+  if DM.cdsCoresTinturariaVALOR.IsNull then
+  begin
+    ShowMessage('Favor Informar um Valor. ');
+    DBEdit14.SetFocus;
+    Exit;
+  end
+  else
+  begin
+    if Acao1 = 'Insert' then
+    begin
+       DM.cdsDinamica.Close;
+       DM.cdsDinamica.IndexFieldNames:='';
+       DM.cdsDinamica.CommandText := ' SELECT MAX(ID_CORES_TINTURARIA) FROM TB_CORES_TINTURARIA';
+       DM.cdsDinamica.Open;
+
+       DM.cdsCoresTinturariaID_CORES_TINTURARIA.AsInteger   := DM.cdsDinamica.Fields[0].AsInteger+1;
+       DM.cdsCoresTinturariaID_CORES.AsInteger              := DM.cdsCoresTinturariaID_CORES.AsInteger;
+       DM.cdsCoresTinturariaID_PRECO_TINTURARIA.AsInteger   := DM.cdsCoresTinturariaID_PRECO_TINTURARIA.AsInteger;
+       DM.cdsCoresTinturariaID_ARTIGO_TINTURARIA.AsInteger  := DM.cdsCoresTinturariaID_ARTIGO_TINTURARIA.AsInteger;
+       DM.cdsCoresTinturariaID_ARTIGO.AsInteger             := DM.cdsCoresTinturariaID_ARTIGO.AsInteger;
+       DM.cdsCoresTinturaria.ApplyUpdates(0);
+       GerenciaBotoes3;
+       BB_INCLUIRClick(Self);
+    end;
+
+    if Acao1 = 'Edit'  then
+    begin
+       DM.cdsCoresTinturaria.ApplyUpdates(0);
+       GerenciaBotoes3;
+    end;
+  end;
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_GRAVAR2Click(Sender: TObject);
+begin
+  if Acao = 'Insert' then
+  begin
+     DM.cdsDinamica.Close;
+     DM.cdsDinamica.IndexFieldNames:='';
+     DM.cdsDinamica.CommandText := ' SELECT MAX(T.ID_ARTIGO_TINTURARIA) FROM TB_ARTIGO_TINTURARIA T';
+     DM.cdsDinamica.Open;
+
+     DM.cdsArtigoTinturariaID_ARTIGO_TINTURARIA.AsInteger := DM.cdsDinamica.Fields[0].AsInteger+1;
+     DM.cdsArtigoTinturariaID_ARTIGO.AsInteger            := DM.cdsArtigoID_ARTIGO.AsInteger;
+     DM.cdsArtigoTinturariaID_PRECO_TINTURARIA.AsInteger  := DM.cdsPrecoTinturariaID_PRECO_TINTURARIA.AsInteger;
+
+     DM.cdsArtigoTinturaria.ApplyUpdates(0);
+     GerenciaBotoes2;
+  end;
+
+  if Acao = 'Edit'  then
+  begin
+     DM.cdsArtigoTinturaria.ApplyUpdates(0);
+     GerenciaBotoes2;
+  end;
+end;
+
+procedure TfrmPrecoTinturaria.BB_GRAVARClick(Sender: TObject);
+begin
+  if Tipo = 'Insert' then
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT MAX(ID_PRECO_TINTURARIA) FROM TB_PRECO_TINTURARIA ';
+    DM.cdsDinamica.Open;
+
+    DM.cdsPrecoTinturariaID_PRECO_TINTURARIA.AsInteger := DM.cdsDinamica.Fields[0].AsInteger + 1;
+    if DM.cdsPrecoTinturaria.ApplyUpdates(0) <> 0 then
+    begin
+      ShowMessage('O Sistema não conseguiu gravar este Registro. Tente novamente ou contate o Suporte.');
+      BB_GRAVAR.SetFocus;
+    end
+    else
+    begin
+      DM.cdsPrecoTinturaria.ApplyUpdates(0);
+      GerenCiaBotoes;
+    end;
+  end;
+
+  if Tipo = 'Edit' then
+  begin
+    if DM.cdsPrecoTinturaria.ApplyUpdates(0) <> 0 then
+    begin
+      ShowMessage('O Sistema não conseguiu gravar este Registro. Tente novamente ou contate o Suporte.');
+      BB_GRAVAR.SetFocus;
+    end
+    else
+    begin
+      DM.cdsPrecoTinturaria.ApplyUpdates(0);
+      GerenCiaBotoes;
+    end;
+  end;
+
+
+
+end;
+
+procedure TfrmPrecoTinturaria.BB_IMPRIMIRClick(Sender: TObject);
+begin
+  PopupActionBar1.Popup(254+BB_IMPRIMIR.Left,105+BB_IMPRIMIR.Top);
+end;
+
+procedure TfrmPrecoTinturaria.BB_INCLUIRClick(Sender: TObject);
+begin
+  if DM.cdsPrecoTinturaria.RecordCount = 0 then
+  begin
+    ShowMessage('Nenhuma Tabela Cadastrada Para Inserir Registro ');
+    Exit;
+  end;
+  if DM.cdsartigoTinturaria.RecordCount = 0 then
+  begin
+    ShowMessage('Nenhum Artigo Cadastrado Para Inserir Registro ');
+    Exit;
+  end;
+
+  Acao1 := 'Insert';
+  DM.cdsCoresTinturaria.Open;
+  DM.cdsCoresTinturaria.Insert;
+  GerenciaBotoes3;
+  DBEDIT11.SetFocus;
+end;
+
+end.

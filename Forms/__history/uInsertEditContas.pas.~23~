@@ -1,0 +1,229 @@
+unit uInsertEditContas;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.DBCtrls, Vcl.Mask, DB;
+
+type
+  TfrmInsertEditContas = class(TForm)
+    Panel1: TPanel;
+    L_TITULO: TLabel;
+    SpeedButton3: TSpeedButton;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Label3: TLabel;
+    DBEdit3: TDBEdit;
+    Label7: TLabel;
+    DBEdit7: TDBEdit;
+    Label8: TLabel;
+    DBEdit8: TDBEdit;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    Label5: TLabel;
+    DBEdit5: TDBEdit;
+    Label10: TLabel;
+    DBEdit10: TDBEdit;
+    Label11: TLabel;
+    DBEdit11: TDBEdit;
+    Label13: TLabel;
+    DBEdit13: TDBEdit;
+    Label14: TLabel;
+    DBEdit14: TDBEdit;
+    Label16: TLabel;
+    DBEdit16: TDBEdit;
+    Label17: TLabel;
+    DBEdit17: TDBEdit;
+    Label20: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
+    DBEdit22: TDBEdit;
+    Label23: TLabel;
+    DBEdit23: TDBEdit;
+    Label24: TLabel;
+    DBEdit24: TDBEdit;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
+    DBMemo1: TDBMemo;
+    DBLookupComboBox1: TDBLookupComboBox;
+    Label6: TLabel;
+    BB_GRAVAR: TBitBtn;
+    BB_CANCELAR: TBitBtn;
+    BB_EXCLUIR: TBitBtn;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure BB_CANCELARClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure DBEdit2Exit(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure DBEdit7Exit(Sender: TObject);
+    procedure DBEdit7KeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmInsertEditContas: TfrmInsertEditContas;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM, uManutencaoContasPagar;
+
+procedure TfrmInsertEditContas.BB_CANCELARClick(Sender: TObject);
+begin
+  frmManutencaoContasPagar.cdsContasPagar.Cancel;
+end;
+
+procedure TfrmInsertEditContas.DBEdit2Exit(Sender: TObject);
+begin
+  if not ( frmManutencaoContasPagar.cdsContasPagarDT_EMISSAO.IsNull ) then
+  begin
+    frmManutencaoContasPagar.cdsContasPagarQT_DIAS.AsInteger :=
+
+      round(frmManutencaoContasPagar.cdsContasPagarDT_VENCIMENTO.AsDateTime - frmManutencaoContasPagar.cdsContasPagarDT_EMISSAO.AsDateTime);
+  end;
+
+end;
+
+procedure TfrmInsertEditContas.DBEdit7Exit(Sender: TObject);
+begin
+  if DBEdit7.Text = '' Then
+  begin
+//    BB_CANC.SetFocus;
+    exit;
+  end;
+  DM.cdsFornecedor.Close;
+  DM.cdsFornecedor.CommandText := ' SELECT  F.ID_FORNECEDOR, F.CODIGO_MUNIC, F.DT_CADASTRO, F.NOME, F.TP_LOGRADOURO, F.ENDERECO,'+
+                                  ' F.COMPLEMENTO, F.NUMERO, F.BAIRRO, F.CEP, F.TELFONE, F.FAX, F.CELULAR, F.EMAIL, F.CNPJ, F.INS_EST,'+
+                                  ' F.CONTATO, F.SITE, F.FANTASIA, F.SITUACAO, F.DT_ABERTURA, F.CNAE_PRINCIPAL, F.CNAE_SECUNDARIO, F.ID_CATEGORIA,'+
+                                  ' M.NOME AS CIDADE, M.UF AS UF, M.DDD, C.NOME_CATEGORIA FROM TB_FORNECEDOR F '+
+                                  ' JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = F.CODIGO_MUNIC)'+
+                                  ' LEFT JOIN TB_CATEGORIA  C ON (C.ID_CATEGORIA = F.ID_CATEGORIA)'+
+                                  ' WHERE F.ID_CATEGORIA = 1';
+
+  DM.cdsFornecedor.Open;
+
+  if DM.cdsFornecedor.Locate('ID_FORNECEDOR',DBEdit7.Text,[]) then
+  begin
+    frmManutencaoContasPagar.cdsContasPagarID_FORNECEDOR.AsInteger := DM.cdsFornecedorID_FORNECEDOR.AsInteger;
+    frmManutencaoContasPagar.cdsContasPagarFORNECEDOR.AsString     := DM.cdsFornecedorNOME.AsString;
+    DBEdit8.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('          A T E N Ç Ã O  !!!!!!!!!   '+#13+
+                '                                     '+#13+
+                '   Fornecedor Não Encontrado         '+#13+
+                '                                     ');
+    SpeedButton1Click(Self);
+  end;
+
+end;
+
+procedure TfrmInsertEditContas.DBEdit7KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton1Click(self);
+  end;
+
+end;
+
+procedure TfrmInsertEditContas.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  if frmManutencaoContasPagar.cdsContasPagar.State in [dsEdit,dsInsert] then
+  begin
+    ShowMessage('Favor Salve ou Cancele o Registro Para Sair');
+    Abort;
+  end
+  else
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    Action := caFree;
+    frmInsertEditContas := nil;
+  end;
+end;
+
+procedure TfrmInsertEditContas.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmInsertEditContas.FormShow(Sender: TObject);
+begin
+  if frmManutencaoContasPagar.tpMov = 'Insert' then
+  begin
+    L_TITULO.Caption := ' Inclusão de Título.';
+    BB_EXCLUIR.Visible := False;
+    frmManutencaoContasPagar.cdsContasPagar.Open;
+    frmManutencaoContasPagar.cdsContasPagar.Insert;
+    frmManutencaoContasPagar.cdsContasPagarID_CLIENTE.AsInteger := StrToInt(frmManutencaoContasPagar.edtCli.Text);
+    DBEdit22.Text := frmManutencaoContasPagar.lblCliente.Caption ;
+    DBEdit1.SetFocus;
+
+    DM.cdsFormaPagamento.Close;
+    DM.cdsFormaPagamento.Open;
+
+
+  end;
+  if frmManutencaoContasPagar.tpMov = 'Edit' then
+  begin
+    L_TITULO.Caption := ' Alteração de Título.';
+    BB_EXCLUIR.Visible := True;
+    frmManutencaoContasPagar.cdsContasPagar.Open;
+    frmManutencaoContasPagar.cdsContasPagar.Edit;
+    DBEdit1.SetFocus;
+    DM.cdsPlanoPagamento.Close;
+    DM.cdsPlanoPagamento.Open;
+  end;
+
+end;
+
+procedure TfrmInsertEditContas.SpeedButton1Click(Sender: TObject);
+begin
+  DM.cdsFornecedor.Close;
+  DM.cdsFornecedor.CommandText := ' SELECT  F.ID_FORNECEDOR, F.CODIGO_MUNIC, F.DT_CADASTRO, F.NOME, F.TP_LOGRADOURO, F.ENDERECO,'+
+                                  ' F.COMPLEMENTO, F.NUMERO, F.BAIRRO, F.CEP, F.TELFONE, F.FAX, F.CELULAR, F.EMAIL, F.CNPJ, F.INS_EST,'+
+                                  ' F.CONTATO, F.SITE, F.FANTASIA, F.SITUACAO, F.DT_ABERTURA, F.CNAE_PRINCIPAL, F.CNAE_SECUNDARIO, F.ID_CATEGORIA,'+
+                                  ' M.NOME AS CIDADE, M.UF AS UF, M.DDD, C.NOME_CATEGORIA FROM TB_FORNECEDOR F '+
+                                  ' JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = F.CODIGO_MUNIC)'+
+                                  ' LEFT JOIN TB_CATEGORIA  C ON (C.ID_CATEGORIA = F.ID_CATEGORIA)'+
+                               //   ' WHERE F.ID_CATEGORIA = 3';
+
+  DM.cdsFornecedor.Open;
+  Pesquisa(DM.cdsFornecedor,['NOME','ID_FORNECEDOR'],['Nome do Fornecedor','Código'],[40,4],'','','','','Fornecedor','Fornecedor');
+  frmManutencaoContasPagar.cdsContasPagarID_FORNECEDOR.AsInteger := DM.cdsFornecedorID_FORNECEDOR.AsInteger;
+  frmManutencaoContasPagar.cdsContasPagarFORNECEDOR.AsString     := DM.cdsFornecedorNOME.AsString;
+  DBEdit8.SetFocus;
+
+end;
+
+procedure TfrmInsertEditContas.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

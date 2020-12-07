@@ -1,0 +1,903 @@
+unit uContasPagarLista;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.DBCtrls,
+  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Mask, Data.FMTBcd, Data.DB,
+  Data.SqlExpr, Datasnap.Provider, Datasnap.DBClient, Vcl.ComCtrls;
+
+type
+  TfrmContasPagarLista = class(TForm)
+    Panel1: TPanel;
+    Label17: TLabel;
+    SpeedButton3: TSpeedButton;
+    P_DADOS: TPanel;
+    edtCli: TEdit;
+    Label1: TLabel;
+    Bevel1: TBevel;
+    Label2: TLabel;
+    Label3: TLabel;
+    lblCliente: TLabel;
+    SpeedButton1: TSpeedButton;
+    Bevel2: TBevel;
+    Label4: TLabel;
+    Label5: TLabel;
+    ME_INI: TMaskEdit;
+    Label6: TLabel;
+    ME_FIM: TMaskEdit;
+    Panel3: TPanel;
+    Panel5: TPanel;
+    CheckBox1: TCheckBox;
+    RadioGroup1: TRadioGroup;
+    DBGrid1: TDBGrid;
+    cdsContasPagar: TClientDataSet;
+    dspContasPagar: TDataSetProvider;
+    qContasPagar: TSQLDataSet;
+    dsContasPagar: TDataSource;
+    qContasPagarID_CONTAS_PAGAR: TIntegerField;
+    qContasPagarID_PRODUCAO: TIntegerField;
+    qContasPagarID_CLIENTE: TIntegerField;
+    qContasPagarID_PLANO_PAGAMENTO: TIntegerField;
+    qContasPagarID_USUARIO: TIntegerField;
+    qContasPagarID_LOJA: TIntegerField;
+    qContasPagarID_FORNECEDOR: TIntegerField;
+    qContasPagarID_FORN_REM: TIntegerField;
+    qContasPagarDT_EMISSAO: TDateField;
+    qContasPagarDT_VENCIMENTO: TDateField;
+    qContasPagarDT_PAGAMENTO: TDateField;
+    qContasPagarQT_DIAS: TIntegerField;
+    qContasPagarQT_DIAS_ATRAZO: TIntegerField;
+    qContasPagarQT_PARCELA: TIntegerField;
+    qContasPagarNR_DOC: TStringField;
+    qContasPagarVL_COMPRA: TFMTBCDField;
+    qContasPagarVL_PARCELA: TFMTBCDField;
+    qContasPagarNR_PARCELA: TStringField;
+    qContasPagarSTATUS: TStringField;
+    qContasPagarNR_NOTA_FISCAL: TIntegerField;
+    qContasPagarNR_NF_REMESSA: TIntegerField;
+    qContasPagarORIGEM: TStringField;
+    qContasPagarVL_PAGO: TFMTBCDField;
+    qContasPagarOBS: TStringField;
+    qContasPagarDESCRICAO_PAGAMENTO: TStringField;
+    qContasPagarCLIENTE: TStringField;
+    qContasPagarFORNECEDOR: TStringField;
+    qContasPagarFORN_REMESSA: TStringField;
+    qContasPagarNOME_USUARIO: TStringField;
+    qContasPagarEMPRESA: TStringField;
+    cdsContasPagarID_CONTAS_PAGAR: TIntegerField;
+    cdsContasPagarID_PRODUCAO: TIntegerField;
+    cdsContasPagarID_CLIENTE: TIntegerField;
+    cdsContasPagarID_PLANO_PAGAMENTO: TIntegerField;
+    cdsContasPagarID_USUARIO: TIntegerField;
+    cdsContasPagarID_LOJA: TIntegerField;
+    cdsContasPagarID_FORNECEDOR: TIntegerField;
+    cdsContasPagarID_FORN_REM: TIntegerField;
+    cdsContasPagarDT_EMISSAO: TDateField;
+    cdsContasPagarDT_VENCIMENTO: TDateField;
+    cdsContasPagarDT_PAGAMENTO: TDateField;
+    cdsContasPagarQT_DIAS: TIntegerField;
+    cdsContasPagarQT_DIAS_ATRAZO: TIntegerField;
+    cdsContasPagarQT_PARCELA: TIntegerField;
+    cdsContasPagarNR_DOC: TStringField;
+    cdsContasPagarVL_COMPRA: TFMTBCDField;
+    cdsContasPagarVL_PARCELA: TFMTBCDField;
+    cdsContasPagarNR_PARCELA: TStringField;
+    cdsContasPagarSTATUS: TStringField;
+    cdsContasPagarNR_NOTA_FISCAL: TIntegerField;
+    cdsContasPagarNR_NF_REMESSA: TIntegerField;
+    cdsContasPagarORIGEM: TStringField;
+    cdsContasPagarVL_PAGO: TFMTBCDField;
+    cdsContasPagarOBS: TStringField;
+    cdsContasPagarDESCRICAO_PAGAMENTO: TStringField;
+    cdsContasPagarCLIENTE: TStringField;
+    cdsContasPagarFORNECEDOR: TStringField;
+    cdsContasPagarFORN_REMESSA: TStringField;
+    cdsContasPagarNOME_USUARIO: TStringField;
+    cdsContasPagarEMPRESA: TStringField;
+    SB_LOCALIZAR: TSpeedButton;
+    qContasPagarDIAS_ATRASO: TIntegerField;
+    cdsContasPagarDIAS_ATRASO: TIntegerField;
+    dspFornecedor: TDataSetProvider;
+    cdsFornecedor: TClientDataSet;
+    dsFornecedor: TDataSource;
+    qFornecedor: TSQLDataSet;
+    qFornecedorID_FORNECEDOR: TIntegerField;
+    qFornecedorCODIGO_MUNIC: TStringField;
+    qFornecedorDT_CADASTRO: TDateField;
+    qFornecedorNOME: TStringField;
+    qFornecedorTP_LOGRADOURO: TStringField;
+    qFornecedorENDERECO: TStringField;
+    qFornecedorCOMPLEMENTO: TStringField;
+    qFornecedorNUMERO: TStringField;
+    qFornecedorBAIRRO: TStringField;
+    qFornecedorCEP: TStringField;
+    qFornecedorTELFONE: TStringField;
+    qFornecedorFAX: TStringField;
+    qFornecedorCELULAR: TStringField;
+    qFornecedorEMAIL: TStringField;
+    qFornecedorCNPJ: TStringField;
+    qFornecedorINS_EST: TStringField;
+    qFornecedorCONTATO: TStringField;
+    qFornecedorSITE: TStringField;
+    qFornecedorFANTASIA: TStringField;
+    qFornecedorSITUACAO: TStringField;
+    qFornecedorDT_ABERTURA: TDateField;
+    qFornecedorCNAE_PRINCIPAL: TStringField;
+    qFornecedorCNAE_SECUNDARIO: TStringField;
+    qFornecedorID_CATEGORIA: TIntegerField;
+    qFornecedorCIDADE: TStringField;
+    qFornecedorUF: TStringField;
+    qFornecedorDDD: TStringField;
+    qFornecedorNOME_CATEGORIA: TStringField;
+    cdsFornecedorID_FORNECEDOR: TIntegerField;
+    cdsFornecedorCODIGO_MUNIC: TStringField;
+    cdsFornecedorDT_CADASTRO: TDateField;
+    cdsFornecedorNOME: TStringField;
+    cdsFornecedorTP_LOGRADOURO: TStringField;
+    cdsFornecedorENDERECO: TStringField;
+    cdsFornecedorCOMPLEMENTO: TStringField;
+    cdsFornecedorNUMERO: TStringField;
+    cdsFornecedorBAIRRO: TStringField;
+    cdsFornecedorCEP: TStringField;
+    cdsFornecedorTELFONE: TStringField;
+    cdsFornecedorFAX: TStringField;
+    cdsFornecedorCELULAR: TStringField;
+    cdsFornecedorEMAIL: TStringField;
+    cdsFornecedorCNPJ: TStringField;
+    cdsFornecedorINS_EST: TStringField;
+    cdsFornecedorCONTATO: TStringField;
+    cdsFornecedorSITE: TStringField;
+    cdsFornecedorFANTASIA: TStringField;
+    cdsFornecedorSITUACAO: TStringField;
+    cdsFornecedorDT_ABERTURA: TDateField;
+    cdsFornecedorCNAE_PRINCIPAL: TStringField;
+    cdsFornecedorCNAE_SECUNDARIO: TStringField;
+    cdsFornecedorID_CATEGORIA: TIntegerField;
+    cdsFornecedorCIDADE: TStringField;
+    cdsFornecedorUF: TStringField;
+    cdsFornecedorDDD: TStringField;
+    cdsFornecedorNOME_CATEGORIA: TStringField;
+    DBLookupComboBox1: TDBLookupComboBox;
+    P_valores: TPanel;
+    Panel7: TPanel;
+    L_AVENCER: TLabel;
+    L_VENCIDOS: TLabel;
+    L_VENCEHOJE: TLabel;
+    L_VLVENCER: TLabel;
+    L_VLVENCIDOS: TLabel;
+    L_VLVENCEHOJE: TLabel;
+    P_INFORMACOES: TPanel;
+    Panel9: TPanel;
+    Label7: TLabel;
+    DBEdit1: TDBEdit;
+    Label8: TLabel;
+    DBEdit2: TDBEdit;
+    Label9: TLabel;
+    DBEdit3: TDBEdit;
+    Label10: TLabel;
+    DBEdit4: TDBEdit;
+    Label11: TLabel;
+    DBEdit5: TDBEdit;
+    Label12: TLabel;
+    DBEdit6: TDBEdit;
+    Label13: TLabel;
+    DBEdit7: TDBEdit;
+    Label14: TLabel;
+    DBEdit8: TDBEdit;
+    Label15: TLabel;
+    DBEdit9: TDBEdit;
+    Label16: TLabel;
+    DBEdit10: TDBEdit;
+    Label18: TLabel;
+    DBEdit11: TDBEdit;
+    DBNavigator1: TDBNavigator;
+    BB_BAIXA: TBitBtn;
+    qContasPagarTP_MOV: TStringField;
+    cdsContasPagarTP_MOV: TStringField;
+    Panel10: TPanel;
+    ClientDataSet1: TClientDataSet;
+    DataSource1: TDataSource;
+    BitBtn1: TBitBtn;
+    P_BAIXA_LOTE: TPanel;
+    Panel11: TPanel;
+    Edit1: TEdit;
+    EdtValorParcial: TEdit;
+    LvlSelecionado: TLabel;
+    EdtValorParcial1: TEdit;
+    Label19: TLabel;
+    Label20: TLabel;
+    Memo1: TMemo;
+    Label21: TLabel;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    Label22: TLabel;
+    edtTotalRegistros: TEdit;
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure edtCliExit(Sender: TObject);
+    procedure edtCliKeyPress(Sender: TObject; var Key: Char);
+    procedure SB_LOCALIZARClick(Sender: TObject);
+    procedure DBLookupComboBox1Exit(Sender: TObject);
+    procedure ME_INIExit(Sender: TObject);
+    procedure ME_FIMExit(Sender: TObject);
+    procedure CheckBox1Click(Sender: TObject);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure BB_BAIXAClick(Sender: TObject);
+    procedure DBGrid1DblClick(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmContasPagarLista: TfrmContasPagarLista;
+  sSql : String;
+  vlTotalSelecionado, vlAcumulado, vlSaldo : Double;
+  vIni, vFin : Integer;
+  Soma: Currency;
+
+
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM, uBaixaConPag, Math;
+
+
+procedure TfrmContasPagarLista.BB_BAIXAClick(Sender: TObject);
+begin
+  if DBLookupComboBox1.Text = '' then
+  begin
+    ShowMessage('Favor Informar um Fornecedor.');
+    DBLookupComboBox1.Color := clYellow;
+    DBLookupComboBox1.SetFocus;
+    Exit;
+  end;
+
+  if edtCli.Text = '' then
+  begin
+    ShowMessage('Favor Informar um Cliente.');
+    edtCli.Color := clYellow;
+    edtCli.SetFocus;
+    Exit;
+  end;
+
+  if DBEdit1.Text = '' then
+  begin
+    ShowMessage('Nenhum Registro Selecionado Para Baixar.');
+    Exit;
+  end;
+
+  if DBGrid1.SelectedRows.Count > 1 then
+  begin
+    P_BAIXA_LOTE.Visible := True;
+    DBGrid1.Enabled := False;
+    P_INFORMACOES.Enabled := False;
+    P_DADOS.Enabled := False;
+    P_valores.Enabled := False;
+
+  end
+  else if DBGrid1.SelectedRows.Count = 1 then
+  begin
+    if cdsContasPagarSTATUS.Value ='B' then
+    begin
+      ShowMessage('Título Já Baixado!');
+    end
+    else
+    begin
+      if frmBaixaConPag = nil then
+      begin
+        frmBaixaConPag :=TfrmBaixaConPag.Create(Application);
+        frmBaixaConPag.ShowModal;
+      end;
+    end;
+  end
+  else if DBGrid1.SelectedRows.Count = 0 then
+  begin
+      ShowMessage('Nenhum Registro Selecionado');
+      Exit;
+  end;
+
+end;
+
+procedure TfrmContasPagarLista.BitBtn1Click(Sender: TObject);
+var
+  I, idProducao, idCliente, idPlanoPagamento, idUsuario, idFornRem,
+  idFornecedor, idLoja, qtDias, qtAtrazo, qtParcelas, nrNotaFical, nrNFremessa : Integer;
+  dtEmissao,dtVencimento : TDate;
+  sTexto, nrDoc, sTatus, tpMov, oRigem, Obs, nrParcela     : string;
+  vv,y, vlcompra     : Double;
+begin
+
+  idProducao       := cdsContasPagarID_PRODUCAO.AsInteger;
+  idCliente        := cdsContasPagarID_CLIENTE.AsInteger;
+  idPlanoPagamento := cdsContasPagarID_PLANO_PAGAMENTO.AsInteger;
+  idUsuario        := cdsContasPagarID_USUARIO.AsInteger;
+  idFornRem        := cdsContasPagarID_FORN_REM.AsInteger;
+  idFornecedor     := cdsContasPagarID_FORNECEDOR.AsInteger;
+  idLoja           := cdsContasPagarID_LOJA.AsInteger;
+  qtDias           := cdsContasPagarQT_DIAS.AsInteger;
+  qtAtrazo         := cdsContasPagarQT_DIAS_ATRAZO.AsInteger;
+  qtParcelas       := cdsContasPagarQT_PARCELA.AsInteger;
+  nrNotaFical      := cdsContasPagarNR_NOTA_FISCAL.AsInteger;
+  nrNFremessa      := cdsContasPagarNR_NF_REMESSA.AsInteger;
+
+  dtEmissao        := cdsContasPagarDT_EMISSAO.AsDateTime;
+  dtVencimento     := cdsContasPagarDT_VENCIMENTO.AsDateTime;
+
+  nrDoc            := cdsContasPagarNR_DOC.AsString;
+  sTatus           := cdsContasPagarSTATUS.AsString;
+  tpMov            := cdsContasPagarTP_MOV.AsString;
+  oRigem           := cdsContasPagarORIGEM.AsString;
+  Obs              := cdsContasPagarOBS.AsString;
+  nrParcela        := cdsContasPagarNR_PARCELA.AsString;
+  vlcompra         := cdsContasPagarVL_COMPRA.AsFloat;
+
+  vIni := 0;
+  vFin := DBGrid1.SelectedRows.Count -1 ;
+
+  vlTotalSelecionado := Soma;
+  vlAcumulado        := 0;
+  vv                 := StrToFloat(Edit1.Text);
+  if Soma < vv then
+  begin
+    ShowMessage('Valor Informado Maior Que o Valor Selecionado');
+    Exit;
+  end;
+  for I := vIni to vFin do
+  begin
+    vlSaldo := (vlTotalSelecionado-vlAcumulado);
+    DBGrid1.DataSource.DataSet.GotoBookmark(pointer(DBGrid1.SelectedRows.Items[vIni]));
+    sTexto := ' Nº Documento :'+cdsContasPagarNR_DOC.AsString+'R$ '+cdsContasPagarVL_PARCELA.AsString;
+    vlAcumulado := vlAcumulado+cdsContasPagarVL_PARCELA.AsFloat;
+//    vv          := (vv - cdsContasPagarVL_PARCELA.AsFloat);
+    vlSaldo := (vlTotalSelecionado-vlAcumulado);
+    cdsContasPagar.Open;
+    cdsContasPagar.Edit;
+    cdsContasPagarSTATUS.Value :='B';
+    cdsContasPagarOBS.AsString := Memo1.Text;
+    cdsContasPagarDT_PAGAMENTO.AsDateTime := Date;
+    cdsContasPagarVL_PAGO.AsFloat := cdsContasPagarVL_PARCELA.AsFloat;
+    cdsContasPagar.ApplyUpdates(0);
+    ShowMessage(sTexto);
+    if vv < cdsContasPagarVL_PARCELA.AsFloat then
+    begin
+      y:= (vv - cdsContasPagarVL_PARCELA.AsFloat) * -1;
+      ShowMessage( ' Titulo Será Baixado Parcialmente, Valor do Titulo '+cdsContasPagarVL_PARCELA.AsString + ' Valor do Saldo Acumulado '+FloatToStr(y));
+        cdsContasPagar.Close;
+        cdsContasPagar.Open;
+        cdsContasPagar.Insert;
+
+        DM.cdsDinamica.Close;
+        DM.cdsDinamica.IndexFieldNames:='';
+        DM.cdsDinamica.CommandText :=' SELECT MAX(CP.ID_CONTAS_PAGAR) FROM TB_CONTAS_PAGAR CP';
+        DM.cdsDinamica.Open;
+
+        cdsContasPagarID_CONTAS_PAGAR.AsInteger     := DM.cdsDinamica.Fields[0].AsInteger + 1;
+        cdsContasPagarID_PRODUCAO.AsInteger         := idProducao;
+        cdsContasPagarID_CLIENTE.AsInteger          := idCliente;
+        cdsContasPagarID_PLANO_PAGAMENTO.AsInteger  := idPlanoPagamento;
+        cdsContasPagarID_USUARIO.AsInteger          := idUsuario;
+        cdsContasPagarID_LOJA.AsInteger             := idLoja;
+        cdsContasPagarID_FORNECEDOR.AsInteger       := idFornecedor;
+        cdsContasPagarID_FORN_REM.AsInteger         := idFornRem;
+        cdsContasPagarDT_EMISSAO.AsDateTime         := dtEmissao;
+        cdsContasPagarDT_VENCIMENTO.AsDateTime      := dtVencimento;
+        cdsContasPagarQT_DIAS.AsInteger             := qtDias;
+        cdsContasPagarQT_DIAS_ATRAZO.AsInteger      := qtAtrazo;
+        cdsContasPagarQT_PARCELA.AsInteger          := qtParcelas;
+        cdsContasPagarNR_DOC.AsString               := nrDoc+'C';
+        cdsContasPagarVL_COMPRA.AsFloat             := vlcompra;
+        cdsContasPagarVL_PARCELA.AsFloat            := Y;//(frmContasPagarLista.cdsContasPagarVL_PARCELA.AsFloat - frmContasPagarLista.cdsContasPagarVL_PAGO.AsFloat);
+        cdsContasPagarNR_PARCELA.AsString           := nrParcela;
+        cdsContasPagarSTATUS.AsString               := 'A';
+        cdsContasPagarTP_MOV.AsString               := tpMov;
+        cdsContasPagarNR_NOTA_FISCAL.AsInteger      := nrNotaFical;
+        cdsContasPagarNR_NF_REMESSA.AsInteger       := nrNFremessa;
+        cdsContasPagarORIGEM.AsString               := oRigem;
+        cdsContasPagarOBS.AsString                  := ' Título Referente Baixa Parcial Doc '+cdsContasPagarNR_DOC.AsString;
+        cdsContasPagar.ApplyUpdates(0);
+        ShowMessage('Título Baixado Parcialmente Com Sucesso!');
+
+    end;
+    vv          := (vv - cdsContasPagarVL_PARCELA.AsFloat);
+    inc(vIni);
+  end;
+end;
+
+procedure TfrmContasPagarLista.BitBtn3Click(Sender: TObject);
+begin
+  P_BAIXA_LOTE.Visible := False;
+  DBGrid1.Enabled := True;
+  P_INFORMACOES.Enabled := True;
+  P_DADOS.Enabled := True;
+  P_valores.Enabled := True;
+
+end;
+
+procedure TfrmContasPagarLista.CheckBox1Click(Sender: TObject);
+begin
+  sSql :=' SELECT CP.ID_CONTAS_PAGAR,CP.ID_PRODUCAO,CP.ID_CLIENTE,CP.ID_PLANO_PAGAMENTO ,'+
+         ' CP.ID_USUARIO,CP.ID_LOJA,CP.ID_FORNECEDOR,CP.ID_FORN_REM,CP.DT_EMISSAO,CP.DT_VENCIMENTO,'+
+         ' CP.DT_PAGAMENTO,CP.QT_DIAS,CP.QT_DIAS_ATRAZO,CP.QT_PARCELA,CP.NR_DOC,CP.VL_COMPRA,CP.VL_PARCELA,'+
+         ' CP.NR_PARCELA,CP.STATUS,CP.NR_NOTA_FISCAL,CP.NR_NF_REMESSA, CP.ORIGEM,CP.VL_PAGO, CP.OBS, CP.TP_MOV, PP.DESCRICAO_PAGAMENTO,'+
+         ' C.R_SOCIAL AS CLIENTE , F.NOME AS FORNECEDOR ,FR.NOME AS FORN_REMESSA,U.NOME_USUARIO,L.R_SOCIAL AS EMPRESA,'+
+         ' (current_date - CP.DT_VENCIMENTO) AS DIAS_ATRASO '+
+         ' FROM TB_CONTAS_PAGAR CP '+
+         ' JOIN TB_PLANO_PAGAMENTO PP ON (PP.ID_PLANO_PAGAMENTO = CP.ID_PLANO_PAGAMENTO)'+
+         ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = CP.ID_CLIENTE)'+
+         ' JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = CP.ID_FORNECEDOR)'+
+         ' JOIN TB_FORNECEDOR FR ON (FR.ID_FORNECEDOR = CP.ID_FORN_REM)'+
+         ' JOIN TB_PRODUCAO P ON (P.ID_PRODUCAO = CP.ID_PRODUCAO)'+
+         ' JOIN TB_USUARIO U ON (U.ID_USUARIO = CP.ID_USUARIO)'+
+         ' JOIN TB_LOJAS L ON (L.ID_LOJA = CP.ID_LOJA)';
+
+  if CheckBox1.Checked = True then
+  begin
+    edtCli.Text := '';
+    lblCliente.Caption := 'CLIENTE';
+    ME_INI.Text := '  /  /    ';
+    ME_FIM.Text := '  /  /    ';
+    cdsFornecedor.Close;
+    cdsContasPagar.Close;
+    cdsContasPagar.CommandText :=sSql;
+    cdsContasPagar.Open;
+    DM.cdsDinamica.Open;
+
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                  ' WHERE CP.STATUS = ''A'''+
+                                  ' AND CP.DT_VENCIMENTO > '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date)))) ;
+    DM.cdsDinamica.Open;
+
+    L_VLVENCER.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                  ' WHERE CP.STATUS = ''A'''+
+                                  ' AND CP.DT_VENCIMENTO < '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date)))) ;
+    DM.cdsDinamica.Open;
+
+    L_VLVENCIDOS.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                  ' WHERE CP.STATUS = ''A'''+
+                                  ' AND CP.DT_VENCIMENTO = '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date)))) ;
+    DM.cdsDinamica.Open;
+
+    L_VLVENCEHOJE.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+  end;
+
+end;
+
+procedure TfrmContasPagarLista.DBGrid1CellClick(Column: TColumn);
+var
+  i: Integer;
+begin
+  if DBGrid1.SelectedRows.Count > 1 then
+  begin
+    EdtValorParcial.Visible := True;
+    LvlSelecionado.Visible := True;
+  end
+  else
+  begin
+    EdtValorParcial.Visible := False;
+    LvlSelecionado.Visible := False;
+  end;
+
+  Soma := 0;
+  for i := 1 to DBGrid1.SelectedRows.Count do
+  begin
+    cdsContasPagar.GotoBookMark(Pointer(DBGrid1.SelectedRows.Items[i-1]));
+    Soma := Soma +  cdsContasPagar.FieldByName('vl_parcela').AsFloat;
+  end;
+  EdtValorParcial.Text := FormatFloat('R$ ###,##0.00', Soma);
+  EdtValorParcial1.Text := FormatFloat('R$ ###,##0.00', Soma);
+  edtTotalRegistros.Text := IntToStr(DBGrid1.SelectedRows.Count);
+
+end;
+
+procedure TfrmContasPagarLista.DBGrid1DblClick(Sender: TObject);
+begin
+  BB_BAIXAClick(Self);
+end;
+
+procedure TfrmContasPagarLista.DBGrid1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  If (cdsContasPagarSTATUS.Value = 'A') and (cdsContasPagarDT_VENCIMENTO.AsDateTime > Date)  then // condição
+  begin
+    DBGrid1.Canvas.Font.Color:= clBlue; // coloque aqui a cor desejada
+    DBGrid1.DefaultDrawDataCell(Rect, DBGrid1.columns[datacol].field, State);
+    DBGrid1.Canvas.Font.Style :=(Sender as TDBGrid).Canvas.Font.Style + [FSBOLD]; //Deixa em negrito
+
+  end
+  else if (cdsContasPagarSTATUS.Value = 'A') and (cdsContasPagarDT_VENCIMENTO.AsDateTime < Date)  then // condição
+  begin
+    DBGrid1.Canvas.Font.Color:= clRed; // coloque aqui a cor desejada
+    DBGrid1.DefaultDrawDataCell(Rect, DBGrid1.columns[datacol].field, State);
+    DBGrid1.Canvas.Font.Style :=(Sender as TDBGrid).Canvas.Font.Style + [FSBOLD]; //Deixa em negrito
+  end
+
+  else if (cdsContasPagarSTATUS.Value = 'A') and (cdsContasPagarDT_VENCIMENTO.AsDateTime = Date)  then // condição
+  begin
+    DBGrid1.Canvas.Font.Color:= clGreen; // coloque aqui a cor desejada
+    DBGrid1.DefaultDrawDataCell(Rect, DBGrid1.columns[datacol].field, State);
+    DBGrid1.Canvas.Font.Style :=(Sender as TDBGrid).Canvas.Font.Style + [FSBOLD]; //Deixa em negrito
+  end
+
+  else if (cdsContasPagarSTATUS.Value = 'B')   then // condição
+  begin
+   DBGrid1.Canvas.Font.Color:= clBlack; // coloque aqui a cor desejada
+   DBGrid1.DefaultDrawDataCell(Rect, DBGrid1.columns[datacol].field, State);
+   DBGrid1.Canvas.Font.Style :=(Sender as TDBGrid).Canvas.Font.Style + [FSBOLD]; //Deixa em negrito
+  end;
+
+end;
+
+procedure TfrmContasPagarLista.DBLookupComboBox1Exit(Sender: TObject);
+begin
+  ME_INI.SetFocus;
+end;
+
+procedure TfrmContasPagarLista.edtCliExit(Sender: TObject);
+begin
+  if edtCli.Text = '' Then
+  begin
+    exit;
+  end;
+  DM.cdsCliente.Open;
+  if DM.cdsCliente.Locate('ID_CLIENTE',edtCli.Text,[]) then
+  begin
+    edtCli.Text        := DM.cdsClienteID_CLIENTE.AsString;
+    lblCliente.Caption := DM.cdsClienteR_SOCIAL.AsString;
+    ME_INI.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('          A T E N Ç Ã O  !!!!!!!!!   '+#13+
+                '                                     '+#13+
+                '   Cliente Não Encontrado         '+#13+
+                '                                     ');
+    SpeedButton1Click(Self);
+  end;
+
+end;
+
+procedure TfrmContasPagarLista.edtCliKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton1Click(self);
+  end;
+end;
+
+procedure TfrmContasPagarLista.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmContasPagarLista := nil;
+end;
+
+procedure TfrmContasPagarLista.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmContasPagarLista.FormShow(Sender: TObject);
+begin
+  cdsFornecedor.Open;
+end;
+
+procedure TfrmContasPagarLista.ME_FIMExit(Sender: TObject);
+var
+ Data : TDate;
+begin
+  if ME_FIM.Text <> '  /  /    '  then
+  begin
+    try
+      data := strtodate(ME_FIM.text);
+    except
+      showmessage('Data Inválida.');
+      ME_FIM.SetFocus;
+    end
+  end;
+
+end;
+
+procedure TfrmContasPagarLista.ME_INIExit(Sender: TObject);
+var
+ Data : TDate;
+begin
+  if ME_INI.Text <> '  /  /    ' then
+  begin
+    try
+      data := strtodate(ME_INI.text);
+      ME_FIM.SetFocus;
+    except
+      showmessage('Data Inválida.');
+      ME_INI.SetFocus;
+    end;
+  end;
+end;
+
+procedure TfrmContasPagarLista.SB_LOCALIZARClick(Sender: TObject);
+var
+ sSql : String;
+begin
+  sSql :=' SELECT CP.ID_CONTAS_PAGAR,CP.ID_PRODUCAO,CP.ID_CLIENTE,CP.ID_PLANO_PAGAMENTO ,'+
+         ' CP.ID_USUARIO,CP.ID_LOJA,CP.ID_FORNECEDOR,CP.ID_FORN_REM,CP.DT_EMISSAO,CP.DT_VENCIMENTO, CP.TP_MOV,'+
+         ' CP.DT_PAGAMENTO,CP.QT_DIAS,CP.QT_DIAS_ATRAZO,CP.QT_PARCELA,CP.NR_DOC,CP.VL_COMPRA,CP.VL_PARCELA,'+
+         ' CP.NR_PARCELA,CP.STATUS,CP.NR_NOTA_FISCAL,CP.NR_NF_REMESSA, CP.ORIGEM,CP.VL_PAGO, CP.OBS, PP.DESCRICAO_PAGAMENTO,'+
+         ' C.R_SOCIAL AS CLIENTE , F.NOME AS FORNECEDOR ,FR.NOME AS FORN_REMESSA,U.NOME_USUARIO,L.R_SOCIAL AS EMPRESA,'+
+         ' (current_date - CP.DT_VENCIMENTO) AS DIAS_ATRASO '+
+         ' FROM TB_CONTAS_PAGAR CP '+
+         ' JOIN TB_PLANO_PAGAMENTO PP ON (PP.ID_PLANO_PAGAMENTO = CP.ID_PLANO_PAGAMENTO)'+
+         ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = CP.ID_CLIENTE)'+
+         ' JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = CP.ID_FORNECEDOR)'+
+         ' JOIN TB_FORNECEDOR FR ON (FR.ID_FORNECEDOR = CP.ID_FORN_REM)'+
+         ' JOIN TB_PRODUCAO P ON (P.ID_PRODUCAO = CP.ID_PRODUCAO)'+
+         ' JOIN TB_USUARIO U ON (U.ID_USUARIO = CP.ID_USUARIO)'+
+         ' JOIN TB_LOJAS L ON (L.ID_LOJA = CP.ID_LOJA)';
+
+
+  if (edtCli.Text ='')and (DBLookupComboBox1.Text ='') and (ME_INI.Text ='  /  /    ') and (ME_FIM.Text ='  /  /    ') then
+  begin
+    cdsContasPagar.Close;
+    cdsContasPagar.CommandText :=sSql+' ORDER BY CP.DT_VENCIMENTO';
+    cdsContasPagar.Open;
+    if cdsContasPagar.IsEmpty then
+    begin
+      ShowMessage('Nehum Registro Encontrado.');
+    end
+    else
+    begin
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO > '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date)))) ;
+      DM.cdsDinamica.Open;
+
+      L_VLVENCER.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO < '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date)))) ;
+      DM.cdsDinamica.Open;
+
+      L_VLVENCIDOS.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO = '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date)))) ;
+      DM.cdsDinamica.Open;
+
+      L_VLVENCEHOJE.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DBGrid1.SetFocus;
+    end;
+  end;
+  if (edtCli.Text <>'')and (DBLookupComboBox1.Text ='') and (ME_INI.Text ='  /  /    ') and (ME_FIM.Text ='  /  /    ') then
+  begin
+    ShowMessage('Só Cliente Selecionado');
+    cdsContasPagar.Close;
+    cdsContasPagar.CommandText :=sSql+'WHERE CP.ID_CLIENTE ='+QuotedStr(edtCli.Text)+' ORDER BY CP.DT_VENCIMENTO';
+    cdsContasPagar.Open;
+
+    if cdsContasPagar.IsEmpty then
+    begin
+      ShowMessage('Nehum Registro Encontrado.');
+    end
+    else
+    begin
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO > '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text) ;
+
+      DM.cdsDinamica.Open;
+
+      L_VLVENCER.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO < '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text) ;
+      DM.cdsDinamica.Open;
+
+      L_VLVENCIDOS.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO = '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text) ;
+      DM.cdsDinamica.Open;
+
+      L_VLVENCEHOJE.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DBGrid1.SetFocus;
+    end;
+  end;
+  if (edtCli.Text <>'')and (DBLookupComboBox1.Text <>'') and (ME_INI.Text ='  /  /    ') and (ME_FIM.Text ='  /  /    ') then
+  begin
+    ShowMessage('Só Cliente e Fornecedor Selecionado');
+    cdsContasPagar.Close;
+    cdsContasPagar.CommandText :=sSql+' WHERE CP.ID_CLIENTE  = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.ID_FORNECEDOR = '+cdsFornecedorID_FORNECEDOR.AsString
+                                     +' OR CP.ID_FORN_REM    = '+cdsFornecedorID_FORNECEDOR.AsString
+                                     +' ORDER BY CP.DT_VENCIMENTO';
+    cdsContasPagar.Open;
+
+    if cdsContasPagar.IsEmpty then
+    begin
+      ShowMessage('Nehum Registro Encontrado.');
+    end
+    else
+    begin
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO > '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text)+
+                                    ' AND CP.ID_FORNECEDOR = '+cdsFornecedorID_FORNECEDOR.AsString+
+                                    ' OR CP.ID_FORN_REM    = '+cdsFornecedorID_FORNECEDOR.AsString;
+
+
+      DM.cdsDinamica.Open;
+
+      L_VLVENCER.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO < '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text)+
+                                    ' AND CP.ID_FORNECEDOR = '+cdsFornecedorID_FORNECEDOR.AsString+
+                                    ' OR CP.ID_FORN_REM    = '+cdsFornecedorID_FORNECEDOR.AsString;
+
+      DM.cdsDinamica.Open;
+
+      L_VLVENCIDOS.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO = '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text)+
+                                    ' AND CP.ID_FORNECEDOR = '+cdsFornecedorID_FORNECEDOR.AsString+
+                                    ' OR CP.ID_FORN_REM    = '+cdsFornecedorID_FORNECEDOR.AsString;
+
+      DM.cdsDinamica.Open;
+
+      L_VLVENCEHOJE.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DBGrid1.SetFocus;
+    end;
+  end;
+  if (edtCli.Text <>'')and (DBLookupComboBox1.Text <>'') and (ME_INI.Text <>'  /  /    ') and (ME_FIM.Text <>'  /  /    ') then
+  begin
+    ShowMessage('Cliente, Fornecedor e Periodo Selecionados');
+    cdsContasPagar.Close;
+    cdsContasPagar.CommandText :=sSql+' WHERE CP.ID_CLIENTE  = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.ID_FORNECEDOR = '+cdsFornecedorID_FORNECEDOR.AsString
+//                                     +' OR CP.ID_FORN_REM    = '+cdsFornecedorID_FORNECEDOR.AsString
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))
+                                     +' ORDER BY CP.DT_VENCIMENTO';
+    cdsContasPagar.Open;
+
+    if cdsContasPagar.IsEmpty then
+    begin
+      ShowMessage('Nehum Registro Encontrado.');
+    end
+    else
+    begin
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO > '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text)+
+                                    ' AND CP.ID_FORNECEDOR = '+cdsFornecedorID_FORNECEDOR.AsString+
+                                    ' AND CP.ID_CLIENTE  = '+QuotedStr(edtCli.Text)+
+                                    ' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))+
+                                    ' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)));
+
+      DM.cdsDinamica.Open;
+
+      L_VLVENCER.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO < '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text)+
+                                    ' AND CP.ID_FORNECEDOR = '+cdsFornecedorID_FORNECEDOR.AsString+
+                                    ' AND CP.ID_CLIENTE  = '+QuotedStr(edtCli.Text)+
+                                    ' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))+
+                                    ' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)));
+
+
+      DM.cdsDinamica.Open;
+
+      L_VLVENCIDOS.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                    ' WHERE CP.STATUS = ''A'''+
+                                    ' AND CP.DT_VENCIMENTO = '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(DateToStr(Date))))+
+                                    ' AND CP.ID_CLIENTE ='+QuotedStr(edtCli.Text)+
+                                    ' AND CP.ID_FORNECEDOR = '+cdsFornecedorID_FORNECEDOR.AsString+
+                                    ' AND CP.ID_CLIENTE  = '+QuotedStr(edtCli.Text)+
+                                    ' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))+
+                                    ' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)));
+
+
+      DM.cdsDinamica.Open;
+
+      L_VLVENCEHOJE.Caption := 'R$ '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+
+      DBGrid1.SetFocus;
+    end;
+  end;
+
+end;
+
+procedure TfrmContasPagarLista.SpeedButton1Click(Sender: TObject);
+begin
+  DM.cdsCliente.Close;
+  DM.cdsCliente.Open;
+  Pesquisa(DM.cdsCliente,['R_SOCIAL','ID_CLIENTE'],['Nome do Cliente','Código'],[40,4],'','','','','Cliente','Cliente');
+  edtCli.Text        := DM.cdsClienteID_CLIENTE.AsString;
+  lblCliente.Caption := DM.cdsClienteR_SOCIAL.AsString;
+  ME_INI.SetFocus;
+end;
+
+procedure TfrmContasPagarLista.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

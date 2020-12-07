@@ -1,0 +1,187 @@
+unit uRelatorios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, DB, DBClient, Provider, SqlExpr, ExtCtrls, QuickRpt,
+  ComCtrls, QRCtrls, frxClass, frxDBSet, frxExportDBF;
+
+type
+  TfrmRelatorios = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    QR_SaldoEstoque: TQuickRep;
+    qSaldoEstoque: TSQLQuery;
+    dspSaldoEstoque: TDataSetProvider;
+    cdsSaldoEstoque: TClientDataSet;
+    dsSaldoEstoque: TDataSource;
+    QRBand1: TQRBand;
+    QRDBText1: TQRDBText;
+    QRLabel1: TQRLabel;
+    QRLabel2: TQRLabel;
+    QRSysData1: TQRSysData;
+    QRLabel3: TQRLabel;
+    QRGroup1: TQRGroup;
+    QRBand2: TQRBand;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRDBText2: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRLabel7: TQRLabel;
+    QRDBText5: TQRDBText;
+    QRBand3: TQRBand;
+    QRBand4: TQRBand;
+    QRLabel8: TQRLabel;
+    QRSysData2: TQRSysData;
+    QRLabel105: TQRLabel;
+    QRDBText88: TQRDBText;
+    TabSheet2: TTabSheet;
+    QR_INVENTARIO: TQuickRep;
+    QRBand5: TQRBand;
+    QRDBText6: TQRDBText;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRSysData3: TQRSysData;
+    QRLabel11: TQRLabel;
+    QRGroup2: TQRGroup;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel14: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRBand6: TQRBand;
+    QRDBText7: TQRDBText;
+    QRDBText8: TQRDBText;
+    QRDBText9: TQRDBText;
+    QRDBText10: TQRDBText;
+    QRBand7: TQRBand;
+    QRBand8: TQRBand;
+    QRLabel17: TQRLabel;
+    QRDBText11: TQRDBText;
+    qInventario: TSQLQuery;
+    dspInventario: TDataSetProvider;
+    cdsInventario: TClientDataSet;
+    dsInventario: TDataSource;
+    QRLabel18: TQRLabel;
+    QRLabel19: TQRLabel;
+    QRDBText12: TQRDBText;
+    QRDBText13: TQRDBText;
+    QRLabel20: TQRLabel;
+    QRDBText14: TQRDBText;
+    qInventarioCODIGO: TStringField;
+    qInventarioDESCRICAO: TStringField;
+    qInventarioUNIDADE: TStringField;
+    qInventarioESTOQUE: TFMTBCDField;
+    qInventarioCD_BARRA: TStringField;
+    qInventarioREFERENCIA: TStringField;
+    qInventarioVL_CUSTO: TFMTBCDField;
+    qInventarioTOTAL: TFMTBCDField;
+    cdsInventarioCODIGO: TStringField;
+    cdsInventarioDESCRICAO: TStringField;
+    cdsInventarioUNIDADE: TStringField;
+    cdsInventarioESTOQUE: TFMTBCDField;
+    cdsInventarioCD_BARRA: TStringField;
+    cdsInventarioREFERENCIA: TStringField;
+    cdsInventarioVL_CUSTO: TFMTBCDField;
+    cdsInventarioTOTAL: TFMTBCDField;
+    QRLabel21: TQRLabel;
+    QRDBText15: TQRDBText;
+    QRLabel22: TQRLabel;
+    QRL_TOTAL_GERAL: TQRLabel;
+    qInventarioESTOQUE_1: TFMTBCDField;
+    qInventarioTOTAL1: TFMTBCDField;
+    cdsInventarioESTOQUE_1: TFMTBCDField;
+    cdsInventarioTOTAL1: TFMTBCDField;
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    frxDBDataset2: TfrxDBDataset;
+    frxReport2: TfrxReport;
+    frxDBDataset3: TfrxDBDataset;
+    qSaldoEstoqueID_LOJA: TIntegerField;
+    qSaldoEstoqueCODIGO: TStringField;
+    qSaldoEstoqueDESCRICAO: TStringField;
+    qSaldoEstoqueESTOQUE: TFMTBCDField;
+    qSaldoEstoqueUNIDADE: TStringField;
+    cdsSaldoEstoqueID_LOJA: TIntegerField;
+    cdsSaldoEstoqueCODIGO: TStringField;
+    cdsSaldoEstoqueDESCRICAO: TStringField;
+    cdsSaldoEstoqueESTOQUE: TFMTBCDField;
+    cdsSaldoEstoqueUNIDADE: TStringField;
+    procedure QR_SaldoEstoqueBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
+    procedure QR_SaldoEstoqueAfterPrint(Sender: TObject);
+    procedure QR_INVENTARIOBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
+    procedure QRBand7BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure QR_INVENTARIOAfterPrint(Sender: TObject);
+    procedure QRBand8BeforePrint(Sender: TQRCustomBand; var PrintBand: Boolean);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmRelatorios: TfrmRelatorios;
+  I : Integer;
+
+implementation
+
+uses U_LIB, UD_PESQUISA, uDM;
+
+{$R *.dfm}
+
+procedure TfrmRelatorios.QR_SaldoEstoqueBeforePrint(
+  Sender: TCustomQuickRep; var PrintReport: Boolean);
+begin
+  DM.cdsEmpresa.Open;
+  cdsSaldoEstoque.Close;
+  cdsSaldoEstoque.Open;
+end;
+
+procedure TfrmRelatorios.QR_SaldoEstoqueAfterPrint(Sender: TObject);
+begin
+  DM.cdsEmpresa.Close;
+  cdsSaldoEstoque.Close;
+end;
+
+procedure TfrmRelatorios.QR_INVENTARIOBeforePrint(Sender: TCustomQuickRep;
+  var PrintReport: Boolean);
+begin
+  DM.cdsEmpresa.Open;
+  cdsInventario.Close;
+  cdsInventario.Open;
+
+end;
+
+procedure TfrmRelatorios.QRBand7BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames :='';
+  DM.cdsDinamica.CommandText := ' SELECT  sum(p.ESTOQUE * p.VL_CUSTO) as TOTAL FROM tb_produto P WHERE P.ESTOQUE > 0 ';
+  DM.cdsDinamica.Open;
+
+  QRL_TOTAL_GERAL.Caption := FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat+0.08);
+end;
+
+procedure TfrmRelatorios.QRBand8BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+  i := i+1;
+  qrl_pag.Caption := IntToStr(i+1);
+  qrl_pag.Visible := False;
+
+end;
+
+procedure TfrmRelatorios.QR_INVENTARIOAfterPrint(Sender: TObject);
+begin
+  cdsInventario.Close;
+  DM.cdsEmpresa.Close;
+  i:=0;
+end;
+
+end.

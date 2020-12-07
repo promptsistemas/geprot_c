@@ -1,0 +1,72 @@
+program SFC;
+
+uses
+  Vcl.Forms,
+  uMenu in 'Forms\uMenu.pas' {frmMenu},
+  uDM in 'Forms\uDM.pas' {DM: TDataModule},
+  uCadFor in 'Forms\uCadFor.pas' {frmCadfor},
+  U_LIB in 'Forms\U_LIB.pas',
+  UD_PESQUISA in 'Forms\UD_PESQUISA.pas' {FD_PESQUISA},
+  uCadGrupo in 'Forms\uCadGrupo.pas' {frmCadGrupo},
+  uCadPro in 'Forms\uCadPro.pas' {frmCadPro},
+  uEntradaProduto in 'Forms\uEntradaProduto.pas' {frmEntradaProduto},
+  uConsultaEstoque in 'Forms\uConsultaEstoque.pas' {frmConsultaEstoque},
+  uRelatorios in 'Forms\uRelatorios.pas' {frmRelatorios},
+  uVendaFiscal in 'Forms\uVendaFiscal.pas' {frmVendaFiscal},
+  uPrincipal in 'Forms\uPrincipal.pas' {frmPrincipal},
+  uDmFiscal in 'Forms\uDmFiscal.pas' {DM_FISCAL: TDataModule},
+  uCadCliente in 'Forms\uCadCliente.pas' {frmCadCliente},
+  uConsultaCNPJ in 'Forms\uConsultaCNPJ.pas' {frmConsultaCNPJ},
+  uConsultaCPF in 'Forms\uConsultaCPF.pas' {frmConsultaCPF},
+  Vcl.Themes,
+  Vcl.Styles,
+  Windows,
+  uCadVendendor in 'Forms\uCadVendendor.pas' {frmCadVendedor},
+  uCadEmpresa in 'Forms\uCadEmpresa.pas' {frmCadEmpresa},
+  uCadPlanoPagto in 'Forms\uCadPlanoPagto.pas' {frmCadPlanosPagto},
+  uCadFormaPagto in 'Forms\uCadFormaPagto.pas' {frmCadFormaPagto},
+  uPesquisaPadrao in 'Forms\uPesquisaPadrao.pas' {frmPesquisaPadrao},
+  uConfigParamentros in 'Forms\uConfigParamentros.pas' {frmConfigParametros},
+  uConfiguraArquivoNfe in 'Forms\uConfiguraArquivoNfe.pas' {frmConfiguraArquivoNFe},
+  uSelecionarCertificado in 'Forms\uSelecionarCertificado.pas' {frSelecionarCertificado},
+  uLogin in 'Forms\uLogin.pas' {frmLogin},
+  uSenha in 'Forms\uSenha.pas' {frmSenha},
+  uNFe in 'Forms\uNFe.pas' {frmNotaFiscalEletronica},
+  ufrmStatus in 'Forms\ufrmStatus.pas' {frmStatus},
+  uComanda in 'Forms\uComanda.pas' {frmComanda},
+  uCaixaDiarioAnalitico in 'Forms\uCaixaDiarioAnalitico.pas' {frmCaixaDiarioAnalitico};
+
+var
+  Hand: THandle;
+
+
+{$R *.res}
+
+begin
+ Hand := FindWindow('TfrmMenu', nil);
+  if Hand <> 0 then
+  begin { Já está aberto }
+    Application.MessageBox('Sistema Já Está Sendo Executado.' , 'Aviso.', MB_OK);
+    if not IsWindowVisible(Hand) then
+      ShowWindow(Hand, SW_RESTORE);
+      SetForegroundWindow(Hand);
+      Application.Terminate;
+  end;
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'SFC - Sistema de Faturamento Comercial.';
+  Application.CreateForm(TfrmMenu, frmMenu);
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TFD_PESQUISA, FD_PESQUISA);
+  Application.CreateForm(TfrmRelatorios, frmRelatorios);
+  Application.CreateForm(TDM_FISCAL, DM_FISCAL);
+  Application.CreateForm(TfrmConsultaCNPJ, frmConsultaCNPJ);
+  Application.CreateForm(TfrmConsultaCPF, frmConsultaCPF);
+  Application.CreateForm(TfrmPesquisaPadrao, frmPesquisaPadrao);
+  Application.CreateForm(TfrSelecionarCertificado, frSelecionarCertificado);
+  Application.CreateForm(TfrmSenha, frmSenha);
+  Application.CreateForm(TfrmStatus, frmStatus);
+  Application.Run;
+end;
+end.

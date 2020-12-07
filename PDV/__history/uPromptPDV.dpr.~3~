@@ -1,0 +1,37 @@
+program uPromptPDV;
+
+uses
+  Vcl.Forms,
+  uDM in 'uDM.pas' {DM: TDataModule},
+  U_LIB in 'U_LIB.pas',
+  UD_PESQUISA in 'UD_PESQUISA.pas' {FD_PESQUISA},
+  uPagamentoPdv in 'uPagamentoPdv.pas' {frmPagamentoPdv},
+  uPdv in 'uPdv.pas' {frmPdv},
+  uSenha in 'uSenha.pas' {frmSenha},
+  uMenuCaixa in 'uMenuCaixa.pas' {frmMenuCaixa},
+  uDesconto in 'uDesconto.pas' {frmDesconto},
+  uCadCliente in 'uCadCliente.pas' {frmCadCliente},
+  uConsultaCNPJ in 'uConsultaCNPJ.pas' {frmConsultaCNPJ},
+  uConsultaCPF in 'uConsultaCPF.pas' {frmConsultaCPF},
+  uCadEmpresa in 'uCadEmpresa.pas' {frmCadEmpresa},
+  uCadFor in 'uCadFor.pas' {frmCadfor};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TFD_PESQUISA, FD_PESQUISA);
+  Application.CreateForm(TfrmPagamentoPdv, frmPagamentoPdv);
+  Application.CreateForm(TfrmPdv, frmPdv);
+  Application.CreateForm(TfrmSenha, frmSenha);
+  Application.CreateForm(TfrmMenuCaixa, frmMenuCaixa);
+  Application.CreateForm(TfrmDesconto, frmDesconto);
+  Application.CreateForm(TfrmCadCliente, frmCadCliente);
+  Application.CreateForm(TfrmConsultaCNPJ, frmConsultaCNPJ);
+  Application.CreateForm(TfrmConsultaCPF, frmConsultaCPF);
+  Application.CreateForm(TfrmCadEmpresa, frmCadEmpresa);
+  Application.CreateForm(TfrmCadfor, frmCadfor);
+  Application.Run;
+end.

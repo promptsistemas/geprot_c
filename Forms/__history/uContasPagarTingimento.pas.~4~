@@ -1,0 +1,776 @@
+unit uContasPagarTingimento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Grids, Vcl.DBGrids, Data.FMTBcd, Data.DB,
+  Data.SqlExpr, Datasnap.DBClient, Datasnap.Provider, DateUtils;
+
+type
+  TfrmContasPagarTingimento = class(TForm)
+    Panel1: TPanel;
+    Label5: TLabel;
+    Panel2: TPanel;
+    Shape1: TShape;
+    Label2: TLabel;
+    Label10: TLabel;
+    DBText1: TDBText;
+    DBText2: TDBText;
+    Label3: TLabel;
+    Label11: TLabel;
+    DBText3: TDBText;
+    DBText4: TDBText;
+    Label4: TLabel;
+    Label1: TLabel;
+    Label7: TLabel;
+    DBText5: TDBText;
+    DBText6: TDBText;
+    DBText7: TDBText;
+    BB_SAIR: TBitBtn;
+    Panel3: TPanel;
+    Label6: TLabel;
+    Shape2: TShape;
+    Label9: TLabel;
+    Label12: TLabel;
+    DBLookupComboBox1: TDBLookupComboBox;
+    BitBtn2: TBitBtn;
+    Panel4: TPanel;
+    Label13: TLabel;
+    DBGrid1: TDBGrid;
+    dspContasPagar: TDataSetProvider;
+    cdsContasPagar: TClientDataSet;
+    dsContasPagar: TDataSource;
+    qContasPagar: TSQLDataSet;
+    qContasPagarID_CONTAS_PAGAR: TIntegerField;
+    qContasPagarID_PRODUCAO: TIntegerField;
+    qContasPagarID_CLIENTE: TIntegerField;
+    qContasPagarID_PLANO_PAGAMENTO: TIntegerField;
+    qContasPagarID_USUARIO: TIntegerField;
+    qContasPagarID_LOJA: TIntegerField;
+    qContasPagarDT_EMISSAO: TDateField;
+    qContasPagarDT_VENCIMENTO: TDateField;
+    qContasPagarDT_PAGAMENTO: TDateField;
+    qContasPagarQT_DIAS: TIntegerField;
+    qContasPagarQT_DIAS_ATRAZO: TIntegerField;
+    qContasPagarQT_PARCELA: TIntegerField;
+    qContasPagarNR_DOC: TStringField;
+    qContasPagarVL_COMPRA: TFMTBCDField;
+    qContasPagarVL_PARCELA: TFMTBCDField;
+    qContasPagarNR_PARCELA: TStringField;
+    qContasPagarSTATUS: TStringField;
+    qContasPagarDESCRICAO_PAGAMENTO: TStringField;
+    qContasPagarCLIENTE: TStringField;
+    qContasPagarFORNECEDOR: TStringField;
+    qContasPagarFORN_REMESSA: TStringField;
+    qContasPagarNOME_USUARIO: TStringField;
+    qContasPagarEMPRESA: TStringField;
+    cdsContasPagarID_CONTAS_PAGAR: TIntegerField;
+    cdsContasPagarID_PRODUCAO: TIntegerField;
+    cdsContasPagarID_CLIENTE: TIntegerField;
+    cdsContasPagarID_PLANO_PAGAMENTO: TIntegerField;
+    cdsContasPagarID_USUARIO: TIntegerField;
+    cdsContasPagarID_LOJA: TIntegerField;
+    cdsContasPagarDT_EMISSAO: TDateField;
+    cdsContasPagarDT_VENCIMENTO: TDateField;
+    cdsContasPagarDT_PAGAMENTO: TDateField;
+    cdsContasPagarQT_DIAS: TIntegerField;
+    cdsContasPagarQT_DIAS_ATRAZO: TIntegerField;
+    cdsContasPagarQT_PARCELA: TIntegerField;
+    cdsContasPagarNR_DOC: TStringField;
+    cdsContasPagarVL_COMPRA: TFMTBCDField;
+    cdsContasPagarVL_PARCELA: TFMTBCDField;
+    cdsContasPagarNR_PARCELA: TStringField;
+    cdsContasPagarSTATUS: TStringField;
+    cdsContasPagarDESCRICAO_PAGAMENTO: TStringField;
+    cdsContasPagarCLIENTE: TStringField;
+    cdsContasPagarFORNECEDOR: TStringField;
+    cdsContasPagarFORN_REMESSA: TStringField;
+    cdsContasPagarNOME_USUARIO: TStringField;
+    cdsContasPagarEMPRESA: TStringField;
+    qContasPagarID_FORNECEDOR: TIntegerField;
+    qContasPagarID_FORN_REM: TIntegerField;
+    cdsContasPagarID_FORNECEDOR: TIntegerField;
+    cdsContasPagarID_FORN_REM: TIntegerField;
+    qContasPagarNR_NOTA_FISCAL: TIntegerField;
+    qContasPagarNR_NF_REMESSA: TIntegerField;
+    cdsContasPagarNR_NOTA_FISCAL: TIntegerField;
+    cdsContasPagarNR_NF_REMESSA: TIntegerField;
+    BB_INCLUIR: TBitBtn;
+    BB_ALTERAR: TBitBtn;
+    BB_EXCLUIR: TBitBtn;
+    P_PAGAMENTOS: TPanel;
+    Label14: TLabel;
+    DBEdit1: TDBEdit;
+    Label15: TLabel;
+    DBEdit2: TDBEdit;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    DBEdit5: TDBEdit;
+    DBText12: TDBText;
+    DBText13: TDBText;
+    DBText14: TDBText;
+    Label19: TLabel;
+    Label22: TLabel;
+    DBText15: TDBText;
+    qContasPagarTP_MOV: TStringField;
+    cdsContasPagarTP_MOV: TStringField;
+    GB_SALDO: TGroupBox;
+    L_SALDO: TLabel;
+    BB_CANCELAR: TBitBtn;
+    BB_DEL: TBitBtn;
+    qContasPagarORIGEM: TStringField;
+    cdsContasPagarORIGEM: TStringField;
+    DBEdit3: TDBEdit;
+    Label8: TLabel;
+    DBText8: TDBText;
+    Label20: TLabel;
+    DBText9: TDBText;
+    procedure BB_SAIRClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    function UltimoDia: integer;
+    procedure BB_INCLUIRClick(Sender: TObject);
+    procedure BB_ALTERARClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure DBEdit5Exit(Sender: TObject);
+    procedure DBEdit1Exit(Sender: TObject);
+    procedure DBEdit2Exit(Sender: TObject);
+    procedure DBEdit5Enter(Sender: TObject);
+    procedure BB_CANCELARClick(Sender: TObject);
+    procedure BB_EXCLUIRClick(Sender: TObject);
+    procedure BB_DELClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure DBEdit3Exit(Sender: TObject);
+  private
+    { Private declarationfs }
+    Procedure GerarParcela;
+    Procedure GerenciaBotoes;
+    Procedure SomaPagamentos;
+    Procedure VerificaTotais;
+  public
+    { Public declarations }
+
+  end;
+
+var
+  frmContasPagarTingimento: TfrmContasPagarTingimento;
+  DiasDoMes : TDate;
+  Tipo: string;
+  Count : Integer;
+  SaldoPagamento : Double;
+  qtParcelas, Parcelas : Integer;
+  iCont : Integer;
+  Totais : Boolean;
+
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM, uMenu, uProducao, uContasPagarComplementar,
+  uCadEmpresa;
+
+procedure TfrmContasPagarTingimento.BB_ALTERARClick(Sender: TObject);
+begin
+  Tipo := 'Edit';
+  cdsContasPagar.Edit;
+  GerenciaBotoes;
+  DBEdit1.SetFocus;
+end;
+
+procedure TfrmContasPagarTingimento.BB_CANCELARClick(Sender: TObject);
+begin
+  if Tipo = 'Insert' then
+  begin
+    cdsContasPagar.Cancel;
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' delete from TB_CONTAS_PAGAR CP '+
+                                  ' WHERE CP.ID_CLIENTE = '+DM.cdsTingimentoID_CLIENTE.AsString+
+                                  ' AND   CP.ID_PRODUCAO = '+DM.cdsTingimentoID_PRODUCAO.AsString+
+                                  ' AND CP.TP_MOV=''D''';
+    DM.cdsDinamica.Execute;
+    cdsContasPagar.ApplyUpdates(0);
+    cdsContasPagar.Refresh;
+    SomaPagamentos;
+    qtParcelas := 0;
+    Parcelas   := 0;
+    GerenciaBotoes;
+  end
+  else
+  begin
+    cdsContasPagar.Cancel;
+    GerenciaBotoes;
+  end;
+end;
+
+procedure TfrmContasPagarTingimento.BB_DELClick(Sender: TObject);
+begin
+  if Application.MessageBox('Deseja Excluir Este Registro ?','Confirmação',MB_ICONQUESTION+MB_YESNO ) = idyes then
+  begin
+    cdsContasPagar.Delete;
+    cdsContasPagar.ApplyUpdates(0);
+    cdsContasPagar.Refresh;
+    ShowMessage('Registro Excluído Com Sucesso.');
+    SomaPagamentos;
+  end
+  else
+  begin
+    ShowMessage('Registro Não Excluído');
+  end;
+end;
+
+procedure TfrmContasPagarTingimento.BB_EXCLUIRClick(Sender: TObject);
+begin
+  if Application.MessageBox('Deseja Excluir Este(s) Registro(s) ?','Confirmação',MB_ICONQUESTION+MB_YESNO ) = idyes then
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' delete from TB_CONTAS_PAGAR CP '+
+                                  ' WHERE CP.ID_CLIENTE = '+DM.cdsTingimentoID_CLIENTE.AsString+
+                                  ' AND   CP.ID_PRODUCAO = '+DM.cdsTingimentoID_PRODUCAO.AsString+
+                                  ' AND   CP.TP_MOV =''D''';
+    DM.cdsDinamica.Execute;
+    cdsContasPagar.ApplyUpdates(0);
+    cdsContasPagar.Refresh;
+    ShowMessage('Registro(s) Excluído(s) Com Sucesso.');
+    qtParcelas := 0;
+    Parcelas   := 0;
+  end
+  else
+  begin
+    ShowMessage('Registro(s) Não Excluído(s)');
+  end;
+
+end;
+
+procedure TfrmContasPagarTingimento.BB_INCLUIRClick(Sender: TObject);
+begin
+  Tipo := 'Insert';
+  if cdsContasPagarQT_PARCELA.AsInteger = 0 then
+    qtParcelas := DM.cdsPlanoPagamentoQT_PARCELAS.AsInteger
+  else
+    qtParcelas := cdsContasPagarQT_PARCELA.AsInteger;
+  if cdsContasPagar.RecordCount = qtParcelas then
+  begin
+    ShowMessage('Quantidade de Parcelas Informadas Já Lançadas.');
+    Exit;
+  end;
+
+  if cdsContasPagar.RecordCount > qtParcelas then
+  begin
+    ShowMessage('Quantidade de Parcelas Já Lançadas, Maior que Informado no Plano de Pagamento.');
+    Exit;
+  end;
+
+  if DBLookupComboBox1.Text <> ''  then
+  begin
+    ShowMessage('Favor Informar Plano de Pagamento.');
+    DBLookupComboBox1.SetFocus;
+    DBLookupComboBox1.Color := clYellow;
+    Exit;
+  end
+  else
+  begin
+    cdsContasPagar.Open;
+    cdsContasPagar.Append;
+    cdsContasPagarDT_EMISSAO.AsDateTime := DM.cdsTingimentoDT_EMISSAO.AsDateTime;
+    if cdsContasPagar.RecordCount = 0 then
+       Parcelas:= qtParcelas
+    else
+       Parcelas := cdsContasPagar.RecordCount;
+
+    if cdsContasPagar.RecordCount = 0 then
+      cdsContasPagarNR_PARCELA.AsString := IntToStr(1)
+    else
+      cdsContasPagarNR_PARCELA.AsString := IntToStr(Parcelas+1);
+    GerenciaBotoes;
+    DBEdit1.SetFocus;
+  end;
+end;
+
+procedure TfrmContasPagarTingimento.BB_SAIRClick(Sender: TObject);
+begin
+  Close;
+  frmProducao.PageControl2Change(Self);
+end;
+
+procedure TfrmContasPagarTingimento.BitBtn2Click(Sender: TObject);
+begin
+  if DBLookupComboBox1.Text = ''  then
+  begin
+    ShowMessage('Favor Informar Plano de Pagamento.');
+    DBLookupComboBox1.SetFocus;
+    DBLookupComboBox1.Color := clYellow;
+    Exit;
+  end;
+
+  if cdsContasPagar.RecordCount > 0 then
+  begin
+    ShowMessage('Impossível Gerar Parcelas, Já Existe(m) Registro(s) Vindulado(s).');
+    Exit;
+  end;
+
+  if Application.MessageBox('Deseja Realmente Gerar Parcelas?','Confirmação',MB_ICONQUESTION+MB_YESNO) = idyes then
+  begin
+     GerarParcela;
+     SomaPagamentos;
+     GerenciaBotoes;
+  end;
+
+end;
+
+procedure TfrmContasPagarTingimento.DBEdit1Exit(Sender: TObject);
+begin
+
+  if Tipo = 'Insert' then
+  begin
+{    if cdsContasPagar.RecordCount > 0 then
+    begin
+      Parcelas := DM.cdsPlanoPagamentoQT_PARCELAS.AsInteger-cdsContasPagar.RecordCount;
+    end
+    else
+    begin
+      Parcelas := DM.cdsPlanoPagamentoQT_PARCELAS.AsInteger;
+    end;}
+    if not DM.cdsPlanoPagamentoQT_PARCELAS.IsNull then
+          cdsContasPagarVL_PARCELA.AsFloat :=
+        (DM.cdsTingimentoVL_NOTA.AsFloat / DM.cdsPlanoPagamentoQT_PARCELAS.AsInteger);
+
+    if QtParcelas = 0 then
+      QtParcelas := Parcelas;
+    if cdsContasPagar.RecordCount = 0 then
+       cdsContasPagarNR_PARCELA.AsString := IntToStr(1)+'/'+DM.cdsPlanoPagamentoQT_PARCELAS.AsString
+    else
+       cdsContasPagarNR_PARCELA.AsString := IntToStr(Parcelas+1)+'/'+DM.cdsPlanoPagamentoQT_PARCELAS.AsString;
+
+
+
+  end;
+
+
+end;
+
+procedure TfrmContasPagarTingimento.DBEdit2Exit(Sender: TObject);
+begin
+  if not(cdsContasPagarDT_VENCIMENTO.IsNull) then
+  begin
+    cdsContasPagarQT_DIAS.AsInteger := round(cdsContasPagarDT_VENCIMENTO.AsDateTime - cdsContasPagarDT_EMISSAO.AsDateTime);
+  end;
+
+end;
+
+procedure TfrmContasPagarTingimento.DBEdit3Exit(Sender: TObject);
+begin
+  if DM.cdsPlanoPagamentoQT_PARCELAS.AsInteger <= 0 then
+  begin
+    ShowMessage('Favor Informar Quantidade de Parcelas.');
+    DBEdit3.SetFocus;
+    Exit;
+  end
+  else
+  begin
+    BB_INCLUIRClick(Self);
+  end;
+end;
+
+procedure TfrmContasPagarTingimento.DBEdit5Enter(Sender: TObject);
+Var
+ vlParcelaEdit : Double;
+begin
+  if Tipo = 'Insert' then
+  begin
+    qtParcelas := StrToInt(DBEdit3.Text); //DM.cdsPlanoPagamentoQT_PARCELAS.AsInteger;
+    if qtParcelas = StrToInt(DBEdit3.Text) -1 then
+    begin
+      cdsContasPagarVL_PARCELA.AsFloat := SaldoPagamento;
+    end;
+  end;
+  if Tipo = 'Edit' then
+  begin
+    vlParcelaEdit := cdsContasPagarVL_PARCELA.AsFloat;
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT CP.VL_COMPRA, SUM(CP.VL_PARCELA), '+
+                                  ' CP.VL_COMPRA -SUM(CP.VL_PARCELA)  '+
+                                  ' FROM TB_CONTAS_PAGAR CP '+
+                                  ' WHERE CP.ID_PRODUCAO = '+DM.cdsTingimentoID_PRODUCAO.AsString+
+                                  ' AND CP.TP_MOV=''D'''+
+                                  ' GROUP BY CP.VL_COMPRA ';
+    DM.cdsDinamica.Open;
+
+
+
+    SaldoPagamento:= DM.cdsTingimentoVL_NOTA.AsFloat-(DM.cdsDinamica.Fields[1].AsFloat-vlParcelaEdit);
+    cdsContasPagarVL_PARCELA.AsFloat := SaldoPagamento;
+  end;
+
+end;
+
+procedure TfrmContasPagarTingimento.DBEdit5Exit(Sender: TObject);
+begin
+  if Application.MessageBox('Confirma Registro ?','Confirmação!',MB_YESNO+MB_ICONQUESTION) = idyes then
+  begin
+    if Tipo = 'Edit' then
+    begin
+     if iCont > qtParcelas - 1 then
+     begin
+       cdsContasPagar.ApplyUpdates(0);
+       VerificaTotais;
+       if Totais = False then
+       begin
+         cdsContasPagar.Edit;
+         GerenciaBotoes;
+         DBEdit1.SetFocus;
+       end
+       else
+       begin
+         Application.MessageBox('Lançamento(s) Concluido(s) com Sucesso.','ATENÇÃO!!!',MB_OK);
+         cdsContasPagar.ApplyUpdates(0);
+         SomaPagamentos;
+         QtParcelas := 0;
+         GerenciaBotoes;
+       end;
+     end
+     else
+     begin
+      cdsContasPagar.ApplyUpdates(0);
+      SomaPagamentos;
+      GerenciaBotoes;
+     end;
+
+    end;
+    if Tipo = 'Insert' then
+    begin
+      DM.cdsDinamica.Close;
+      DM.cdsDinamica.IndexFieldNames:='';
+      DM.cdsDinamica.CommandText := 'SELECT MAX(ID_CONTAS_PAGAR) FROM TB_CONTAS_PAGAR';
+      DM.cdsDinamica.Open;
+
+      cdsContasPagar.FieldByName('ID_CONTAS_PAGAR').Value     := DM.cdsDinamica.Fields[0].AsInteger+1;
+      cdsContasPagar.FieldByName('ID_PRODUCAO').Value         := DM.cdsTingimentoID_PRODUCAO.AsInteger;
+      cdsContasPagar.FieldByName('ID_FORNECEDOR').Value       := DM.cdsTingimentoID_FORNCEDOR.AsInteger;
+      cdsContasPagar.FieldByName('ID_FORN_REM').Value         := DM.cdsTingimentoID_FORN_REM.AsInteger;
+      cdsContasPagar.FieldByName('ID_USUARIO').Value          := frmMenu.recInformacoes.id_Usuario;
+      cdsContasPagar.FieldByName('ID_LOJA').Value             := 1;
+      cdsContasPagar.FieldByName('QT_PARCELA').Value      := DM.cdsPlanoPagamentoQT_PARCELAS.AsString;
+    if cdsContasPagar.RecordCount = 0 then
+      cdsContasPagar.FieldByName('NR_DOC').Value          := DM.cdsTingimentoNR_NF_REMESSA.AsString +'/'+IntToStr(1)+'-'+DM.cdsPlanoPagamentoQT_PARCELAS.AsString
+    else
+      cdsContasPagar.FieldByName('NR_DOC').Value          := DM.cdsTingimentoNR_NF_REMESSA.AsString +'/'+IntToStr(Parcelas+1)+'-'+DM.cdsPlanoPagamentoQT_PARCELAS.AsString;
+      cdsContasPagar.FieldByName('VL_COMPRA').Value       := DM.cdsTingimentoVL_NOTA.AsFloat ;
+      cdsContasPagar.FieldByName('ID_CLIENTE').Value      := StrToInt(DM.cdsTingimentoID_CLIENTE.AsString);
+      cdsContasPagar.FieldByName('ID_PLANO_PAGAMENTO').Value  := DM.cdsPlanoPagamentoID_PLANO_PAGAMENTO.AsInteger;
+      cdsContasPagar.FieldByName('STATUS').Value  := 'A';
+      cdsContasPagar.FieldByName('NR_NOTA_FISCAL').Value         := DM.cdsTingimentoNR_NOTA_FISCAL.AsInteger;
+      cdsContasPagar.FieldByName('NR_NF_REMESSA').Value         := DM.cdsTingimentoNR_NF_REMESSA.AsInteger;
+      cdsContasPagar.FieldByName('ORIGEM').Value         := 'TINGIMENTO';
+      cdsContasPagar.FieldByName('TP_MOV').Value   :='D';
+      iCont := iCont+1;
+      cdsContasPagar.ApplyUpdates(0);
+      SomaPagamentos;
+      GerenciaBotoes;
+
+     if iCont > qtParcelas - 1 then
+     begin
+       VerificaTotais;
+       if Totais = False then
+       begin
+         cdsContasPagar.Edit;
+         GerenciaBotoes;
+         DBEdit1.SetFocus;
+       end
+       else
+       begin
+         Application.MessageBox('Lançamento(s) Concluido(s) com Sucesso.','ATENÇÃO!!!',MB_OK);
+         cdsContasPagar.Cancel;
+         QtParcelas := 0;
+         SomaPagamentos;
+       end;
+     end
+     else
+     begin
+       BB_INCLUIRClick(Self);
+     end;
+    end;
+  end
+  else
+  begin
+    ShowMessage('Registro Cancelado.');
+    BB_CANCELARClick(Self);
+    GerenciaBotoes;
+  end;
+
+
+end;
+
+procedure TfrmContasPagarTingimento.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmContasPagar := nil;
+  iCont := 0;
+end;
+
+procedure TfrmContasPagarTingimento.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+    if key = vk_f4 then
+    begin
+      if frmContasPagarComplementar = nil then
+      begin
+        frmContasPagarComplementar := TfrmContasPagarComplementar.Create(Application);
+        frmContasPagarComplementar.ShowModal;
+      end;
+
+    end;
+
+end;
+
+procedure TfrmContasPagarTingimento.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+
+end;
+
+procedure TfrmContasPagarTingimento.FormShow(Sender: TObject);
+begin
+  DM.cdsPlanoPagamento.Close;
+  DM.cdsPlanoPagamento.Open;
+  cdsContasPagar.Close;
+  cdsContasPagar.Params[0].AsInteger := StrToInt(DM.cdsTingimentoID_CLIENTE.AsString);
+  cdsContasPagar.Params[1].AsDate    := StrToDate(DM.cdsTingimentoDT_EMISSAO.AsString);
+  cdsContasPagar.Params[2].AsInteger := StrToInt(DM.cdsTingimentoID_PRODUCAO.AsString);
+  cdsContasPagar.Open;
+  GerenciaBotoes;
+  SomaPagamentos;
+  DBEdit3.SetFocus;
+end;
+
+procedure TfrmContasPagarTingimento.GerarParcela;
+var
+i,dias: Byte;
+Valor : Double;
+ultimaData : Tdate;
+begin
+//Abro o Banco
+  cdsContasPagar.Close;
+  cdsContasPagar.Params[0].AsInteger := StrToInt(DM.cdsTingimentoID_CLIENTE.AsString);
+  cdsContasPagar.Params[1].AsDate    := StrToDate(DM.cdsTingimentoDT_EMISSAO.AsString);
+  cdsContasPagar.Params[2].AsInteger := StrToInt(DM.cdsTingimentoID_PRODUCAO.AsString);
+  cdsContasPagar.Open;
+  //Chamo um procedimento para verificar se tem prestação pendente
+  //verificaparcela;
+  // Minha variável no caso i inicialmente é 0
+  i:=0;
+  // minha variável recebe 1 do numero de parcelas no caso o digitado dentro de edParcela.Text
+  for i := 1 to StrToInt(DM.cdsPlanoPagamentoQT_PARCELAS.AsString) do
+  begin
+//  if cdsContasPagar.RecordCount < i then
+//     cdsContasPagar.Insert
+//  else
+    cdsContasPagar.Insert;
+
+    if i = 1 then
+    begin
+      dias := DM.cdsPlanoPagamentoQT_DIAS_PRIMEIRA_PARCELA.AsInteger;
+      if DiasDoMes <  now  then
+      begin
+       DiasDoMes := DM.cdsPdvDT_VENDA.AsDateTime+dias;
+      end;
+       if UltimoDia = 28 then
+       begin
+         if ultimaData <> DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+1;
+         end;
+       end;
+       if UltimoDia = 29 then
+       begin
+         if ultimaData <> DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+1;
+         end;
+
+       end;
+       if UltimoDia = 30 then
+       begin
+         if ultimaData <> DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+1;
+         end;
+       end;
+       if UltimoDia = 31 then
+       begin
+         if ultimaData <> DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+1;
+         end;
+       end;
+    end
+    else
+    begin
+      dias := DM.cdsPlanoPagamentoQT_DIAS_ENTRE_PARCELAS.AsInteger;
+      DiasDoMes := ultimaData;
+//      DiasDoMes := DiasDoMes+dias;
+      if DiasDoMes <  now  then
+      begin
+       //DiasDoMes := DM.cdsPdvDT_VENDA.AsDateTime+dias;
+      end;
+       if UltimoDia = 28then
+       begin
+         if ultimaData = DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+dias;
+         end;
+       end;
+       if UltimoDia = 29 then
+       begin
+         if ultimaData = DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+dias;
+         end;
+       end;
+       if UltimoDia = 30 then
+       begin
+         if ultimaData = DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+dias;
+         end;
+       end;
+       if UltimoDia = 31 then
+       begin
+         if ultimaData = DiasDoMes then
+         begin
+           DiasDoMes := DiasDoMes+dias+1;
+         end;
+       end;
+    end;
+
+
+    Valor := (StrToFloat(StringReplace(DM.cdsTingimentoVL_TOTAL.Text,'.','',[rfReplaceAll])));
+    //-(StrToFloat(EdtEntrada.Text)));
+    cdsContasPagar.FieldByName('ID_PRODUCAO').Value         := DM.cdsTingimentoID_PRODUCAO.AsInteger;
+    cdsContasPagar.FieldByName('ID_FORNECEDOR').Value       := DM.cdsTingimentoID_FORNCEDOR.AsInteger;
+    cdsContasPagar.FieldByName('ID_FORN_REM').Value         := DM.cdsTingimentoID_FORN_REM.AsInteger;
+    cdsContasPagar.FieldByName('ID_USUARIO').Value          := frmMenu.recInformacoes.id_Usuario;
+    cdsContasPagar.FieldByName('ID_LOJA').Value             := 1;
+    cdsContasPagar.FieldByName('DT_EMISSAO').Value          := DM.cdsTingimentoDT_EMISSAO.AsDateTime;
+    cdsContasPagar.FieldByName('DT_VENCIMENTO').Value   := IncMonth(DM.cdsTingimentoDT_EMISSAO.AsDateTime, i - 0);
+ //   cdsContasPagar.FieldByName('DT_VENCIMENTO').Value   := DiasDoMes; //DM.cdsPdvDT_VENDA.AsDateTime+dias;
+    cdsContasPagar.FieldByName('QT_DIAS').Value         := IncMonth(DM.cdsTingimentoDT_EMISSAO.AsDateTime, i - 0) -DM.cdsTingimentoDT_EMISSAO.AsDateTime;
+    cdsContasPagar.FieldByName('QT_PARCELA').Value      := DM.cdsPlanoPagamentoQT_PARCELAS.AsString;
+    if cdsContasPagar.RecordCount = 0 then
+      cdsContasPagar.FieldByName('NR_DOC').Value          := DM.cdsTingimentoNR_NF_REMESSA.AsString +'/'+IntToStr(1)+'-'+DM.cdsPlanoPagamentoQT_PARCELAS.AsString
+    else
+      cdsContasPagar.FieldByName('NR_DOC').Value          := DM.cdsTingimentoNR_NF_REMESSA.AsString +'/'+IntToStr(Parcelas+1)+'-'+DM.cdsPlanoPagamentoQT_PARCELAS.AsString;
+
+    cdsContasPagar.FieldByName('NR_PARCELA').Value      := IntToStr(i)+'/'+DM.cdsPlanoPagamentoQT_PARCELAS.AsString;
+    cdsContasPagar.FieldByName('VL_PARCELA').Value      := Valor /(StrToInt(DM.cdsPlanoPagamentoQT_PARCELAS.AsString));
+    cdsContasPagar.FieldByName('VL_COMPRA').Value       := DM.cdsTingimentoVL_NOTA.AsFloat ;
+    cdsContasPagar.FieldByName('ID_CLIENTE').Value      := StrToInt(DM.cdsTingimentoID_CLIENTE.AsString);
+    cdsContasPagar.FieldByName('ID_PLANO_PAGAMENTO').Value  := DM.cdsPlanoPagamentoID_PLANO_PAGAMENTO.AsInteger;
+    cdsContasPagar.FieldByName('STATUS').Value  := 'A';
+    cdsContasPagar.FieldByName('NR_NOTA_FISCAL').Value         := DM.cdsTingimentoNR_NOTA_FISCAL.AsInteger;
+    cdsContasPagar.FieldByName('NR_NF_REMESSA').Value         := DM.cdsTingimentoNR_NF_REMESSA.AsInteger;
+    cdsContasPagar.FieldByName('ORIGEM').Value         := 'TECELAGEM';
+    cdsContasPagar.FieldByName('TP_MOV').Value   :='D';
+
+
+    cdsContasPagar.Post;
+    DiasDoMes := cdsContasPagarDT_VENCIMENTO.AsDateTime;
+    ultimaData := DiasDoMes;
+    Next;
+    //bb_confirmar.Enabled := True;
+  end;
+    cdsContasPagar.ApplyUpdates(0);
+    cdsContasPagar.Refresh;
+    ShowMessage('Pagamentos Registrados Com Sucesso!');
+end;
+
+procedure TfrmContasPagarTingimento.GerenciaBotoes;
+begin
+  BB_INCLUIR.Enabled   := not (cdsContasPagar.State in dsEditModes);
+  BB_EXCLUIR.Enabled   := BB_INCLUIR.Enabled and not (cdsContasPagar.IsEmpty);
+  BB_DEL.Enabled       := BB_INCLUIR.Enabled and not (cdsContasPagar.IsEmpty);
+  BB_ALTERAR.Enabled   := BB_EXCLUIR.Enabled;
+  BB_SAIR.Enabled      := BB_INCLUIR.Enabled;
+  BB_CANCELAR.Enabled  := NOT BB_INCLUIR.Enabled;
+  P_PAGAMENTOS.Enabled := not BB_INCLUIR.Enabled;
+
+end;
+
+procedure TfrmContasPagarTingimento.SomaPagamentos;
+begin
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames:='';
+  DM.cdsDinamica.CommandText := ' SELECT CP.VL_COMPRA, SUM(CP.VL_PARCELA), '+
+                                ' CP.VL_COMPRA -SUM(CP.VL_PARCELA)  '+
+                                ' FROM TB_CONTAS_PAGAR CP '+
+                                ' WHERE CP.ID_PRODUCAO = '+DM.cdsTingimentoID_PRODUCAO.AsString+
+                                ' AND CP.TP_MOV=''D'''+
+                                ' GROUP BY CP.VL_COMPRA ';
+  DM.cdsDinamica.Open;
+
+
+  if DM.cdsDinamica.IsEmpty then
+  begin
+    GB_SALDO.Visible := False;
+  end
+  else
+  begin
+    GB_SALDO.Visible := True;
+    L_SALDO.Caption := 'R$ '+FormatFloat('###,###0.000',DM.cdsDinamica.Fields[2].AsFloat);
+    SaldoPagamento := DM.cdsDinamica.Fields[2].AsFloat;
+  end;
+
+
+end;
+
+function TfrmContasPagarTingimento.UltimoDia: integer;
+var Date: TDateTime;
+begin
+  Date:= EndOfTheMonth(DiasDoMes);
+  Result:= StrToInt(Copy(DateToStr(Date),0,2));
+end;
+
+procedure TfrmContasPagarTingimento.VerificaTotais;
+begin
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames:='';
+  DM.cdsDinamica.CommandText := ' SELECT CP.VL_COMPRA, SUM(CP.VL_PARCELA), '+
+                                ' CP.VL_COMPRA -SUM(CP.VL_PARCELA)  '+
+                                ' FROM TB_CONTAS_PAGAR CP '+
+                                ' WHERE CP.ID_PRODUCAO = '+DM.cdsTingimentoID_PRODUCAO.AsString+
+                                ' AND CP.TP_MOV=''D'''+
+                                ' GROUP BY CP.VL_COMPRA ';
+  DM.cdsDinamica.Open;
+  if iCont = 0 then
+  begin
+    if DM.cdsDinamica.Fields[1].AsFloat <> DM.cdsTingimentoVL_NOTA.AsFloat then
+    begin
+      Totais := False;
+      ShowMessage('A Soma das Parcelas Difere do Total da Nota Fiscal.');
+      cdsContasPagar.Edit;
+      Exit;
+    end
+    else
+    begin
+      Totais := True;
+    end;
+  end
+  else
+  begin
+    Totais := True;
+  end;
+
+end;
+
+end.

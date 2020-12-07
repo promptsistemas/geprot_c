@@ -1,0 +1,76 @@
+unit uCaixaDiarioAnalitico;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls,
+  Vcl.DBCtrls, Data.FMTBcd, Data.DB, Datasnap.DBClient, Datasnap.Provider,
+  Data.SqlExpr, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TfrmCaixaDiarioAnalitico = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    DateTimePicker1: TDateTimePicker;
+    Label1: TLabel;
+    DateTimePicker2: TDateTimePicker;
+    Label2: TLabel;
+    DateTimePicker3: TDateTimePicker;
+    Label3: TLabel;
+    Label4: TLabel;
+    GroupBox1: TGroupBox;
+    Label5: TLabel;
+    qUsuario: TSQLQuery;
+    dspUsuario: TDataSetProvider;
+    cdsUsuario: TClientDataSet;
+    dsUsuario: TDataSource;
+    SQLQuery2: TSQLQuery;
+    DataSetProvider2: TDataSetProvider;
+    ClientDataSet2: TClientDataSet;
+    DataSource2: TDataSource;
+    qUsuarioID_USUARIO: TIntegerField;
+    qUsuarioID_LOJA: TIntegerField;
+    qUsuarioNOME_USUARIO: TStringField;
+    qUsuarioNIVEL: TSmallintField;
+    qUsuarioCAIXA: TStringField;
+    cdsUsuarioID_USUARIO: TIntegerField;
+    cdsUsuarioID_LOJA: TIntegerField;
+    cdsUsuarioNOME_USUARIO: TStringField;
+    cdsUsuarioNIVEL: TSmallintField;
+    cdsUsuarioCAIXA: TStringField;
+    DBLookupComboBox1: TDBLookupComboBox;
+    procedure FormShow(Sender: TObject);
+    procedure DBComboBox1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCaixaDiarioAnalitico: TfrmCaixaDiarioAnalitico;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM;
+
+procedure TfrmCaixaDiarioAnalitico.DBComboBox1Click(Sender: TObject);
+begin
+ cdsUsuario.Close;
+ cdsUsuario.Open
+end;
+
+procedure TfrmCaixaDiarioAnalitico.FormShow(Sender: TObject);
+begin
+ DateTimePicker1.Date := Date;
+ DateTimePicker2.Time := Time;
+ DateTimePicker3.Time := Time;
+ cdsUsuario.Close;
+ cdsUsuario.Open
+
+end;
+
+end.

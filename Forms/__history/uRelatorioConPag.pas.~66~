@@ -1,0 +1,848 @@
+unit uRelatorioConPag;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.DBCtrls, Vcl.Mask, Vcl.Grids, Vcl.DBGrids, Data.FMTBcd, Data.DB,
+  Datasnap.DBClient, Datasnap.Provider, Data.SqlExpr,StrUtils, QuickRpt,
+  qrpctrls, qrpBaseCtrls, Vcl.ComCtrls, QRCtrls;
+
+type
+  TfrmRelatorioConPag = class(TForm)
+    Panel1: TPanel;
+    Label17: TLabel;
+    SpeedButton3: TSpeedButton;
+    Panel2: TPanel;
+    Label1: TLabel;
+    CBMOV: TComboBox;
+    Label4: TLabel;
+    DBLookupComboBox1: TDBLookupComboBox;
+    edtCli: TEdit;
+    Label2: TLabel;
+    lblCliente: TLabel;
+    Label3: TLabel;
+    SpeedButton1: TSpeedButton;
+    Label5: TLabel;
+    ME_INI: TMaskEdit;
+    Label6: TLabel;
+    ME_FIM: TMaskEdit;
+    L_DTHORA: TLabel;
+    Timer1: TTimer;
+    DBRadioGroup1: TDBRadioGroup;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    BB_LOCALIZAR: TBitBtn;
+    BB_IMPRIMIR: TBitBtn;
+    DBGrid1: TDBGrid;
+    DBNavigator1: TDBNavigator;
+    qContasPagar: TSQLDataSet;
+    qContasPagarID_CONTAS_PAGAR: TIntegerField;
+    qContasPagarID_PRODUCAO: TIntegerField;
+    qContasPagarID_CLIENTE: TIntegerField;
+    qContasPagarID_PLANO_PAGAMENTO: TIntegerField;
+    qContasPagarID_USUARIO: TIntegerField;
+    qContasPagarID_LOJA: TIntegerField;
+    qContasPagarID_FORNECEDOR: TIntegerField;
+    qContasPagarID_FORN_REM: TIntegerField;
+    qContasPagarDT_EMISSAO: TDateField;
+    qContasPagarDT_VENCIMENTO: TDateField;
+    qContasPagarDT_PAGAMENTO: TDateField;
+    qContasPagarQT_DIAS: TIntegerField;
+    qContasPagarQT_DIAS_ATRAZO: TIntegerField;
+    qContasPagarQT_PARCELA: TIntegerField;
+    qContasPagarNR_DOC: TStringField;
+    qContasPagarVL_COMPRA: TFMTBCDField;
+    qContasPagarVL_PARCELA: TFMTBCDField;
+    qContasPagarNR_PARCELA: TStringField;
+    qContasPagarSTATUS: TStringField;
+    qContasPagarNR_NOTA_FISCAL: TIntegerField;
+    qContasPagarNR_NF_REMESSA: TIntegerField;
+    qContasPagarORIGEM: TStringField;
+    qContasPagarVL_PAGO: TFMTBCDField;
+    qContasPagarOBS: TStringField;
+    qContasPagarDESCRICAO_PAGAMENTO: TStringField;
+    qContasPagarCLIENTE: TStringField;
+    qContasPagarFORNECEDOR: TStringField;
+    qContasPagarFORN_REMESSA: TStringField;
+    qContasPagarNOME_USUARIO: TStringField;
+    qContasPagarEMPRESA: TStringField;
+    qContasPagarDIAS_ATRASO: TIntegerField;
+    qContasPagarTP_MOV: TStringField;
+    dspContasPagar: TDataSetProvider;
+    cdsContasPagar: TClientDataSet;
+    cdsContasPagarID_CONTAS_PAGAR: TIntegerField;
+    cdsContasPagarID_PRODUCAO: TIntegerField;
+    cdsContasPagarID_CLIENTE: TIntegerField;
+    cdsContasPagarID_PLANO_PAGAMENTO: TIntegerField;
+    cdsContasPagarID_USUARIO: TIntegerField;
+    cdsContasPagarID_LOJA: TIntegerField;
+    cdsContasPagarID_FORNECEDOR: TIntegerField;
+    cdsContasPagarID_FORN_REM: TIntegerField;
+    cdsContasPagarDT_EMISSAO: TDateField;
+    cdsContasPagarDT_VENCIMENTO: TDateField;
+    cdsContasPagarDT_PAGAMENTO: TDateField;
+    cdsContasPagarQT_DIAS: TIntegerField;
+    cdsContasPagarQT_DIAS_ATRAZO: TIntegerField;
+    cdsContasPagarQT_PARCELA: TIntegerField;
+    cdsContasPagarNR_DOC: TStringField;
+    cdsContasPagarVL_COMPRA: TFMTBCDField;
+    cdsContasPagarVL_PARCELA: TFMTBCDField;
+    cdsContasPagarNR_PARCELA: TStringField;
+    cdsContasPagarSTATUS: TStringField;
+    cdsContasPagarNR_NOTA_FISCAL: TIntegerField;
+    cdsContasPagarNR_NF_REMESSA: TIntegerField;
+    cdsContasPagarORIGEM: TStringField;
+    cdsContasPagarVL_PAGO: TFMTBCDField;
+    cdsContasPagarOBS: TStringField;
+    cdsContasPagarDESCRICAO_PAGAMENTO: TStringField;
+    cdsContasPagarCLIENTE: TStringField;
+    cdsContasPagarFORNECEDOR: TStringField;
+    cdsContasPagarFORN_REMESSA: TStringField;
+    cdsContasPagarNOME_USUARIO: TStringField;
+    cdsContasPagarEMPRESA: TStringField;
+    cdsContasPagarDIAS_ATRASO: TIntegerField;
+    cdsContasPagarTP_MOV: TStringField;
+    dsContasPagar: TDataSource;
+    CBSTATUS: TComboBox;
+    Label7: TLabel;
+    Label8: TLabel;
+    qFornecedor: TSQLDataSet;
+    qFornecedorID_FORNECEDOR: TIntegerField;
+    qFornecedorCODIGO_MUNIC: TStringField;
+    qFornecedorDT_CADASTRO: TDateField;
+    qFornecedorNOME: TStringField;
+    qFornecedorTP_LOGRADOURO: TStringField;
+    qFornecedorENDERECO: TStringField;
+    qFornecedorCOMPLEMENTO: TStringField;
+    qFornecedorNUMERO: TStringField;
+    qFornecedorBAIRRO: TStringField;
+    qFornecedorCEP: TStringField;
+    qFornecedorTELFONE: TStringField;
+    qFornecedorFAX: TStringField;
+    qFornecedorCELULAR: TStringField;
+    qFornecedorEMAIL: TStringField;
+    qFornecedorCNPJ: TStringField;
+    qFornecedorINS_EST: TStringField;
+    qFornecedorCONTATO: TStringField;
+    qFornecedorSITE: TStringField;
+    qFornecedorFANTASIA: TStringField;
+    qFornecedorSITUACAO: TStringField;
+    qFornecedorDT_ABERTURA: TDateField;
+    qFornecedorCNAE_PRINCIPAL: TStringField;
+    qFornecedorCNAE_SECUNDARIO: TStringField;
+    qFornecedorID_CATEGORIA: TIntegerField;
+    qFornecedorCIDADE: TStringField;
+    qFornecedorUF: TStringField;
+    qFornecedorDDD: TStringField;
+    qFornecedorNOME_CATEGORIA: TStringField;
+    dspFornecedor: TDataSetProvider;
+    cdsFornecedor: TClientDataSet;
+    cdsFornecedorID_FORNECEDOR: TIntegerField;
+    cdsFornecedorCODIGO_MUNIC: TStringField;
+    cdsFornecedorDT_CADASTRO: TDateField;
+    cdsFornecedorNOME: TStringField;
+    cdsFornecedorTP_LOGRADOURO: TStringField;
+    cdsFornecedorENDERECO: TStringField;
+    cdsFornecedorCOMPLEMENTO: TStringField;
+    cdsFornecedorNUMERO: TStringField;
+    cdsFornecedorBAIRRO: TStringField;
+    cdsFornecedorCEP: TStringField;
+    cdsFornecedorTELFONE: TStringField;
+    cdsFornecedorFAX: TStringField;
+    cdsFornecedorCELULAR: TStringField;
+    cdsFornecedorEMAIL: TStringField;
+    cdsFornecedorCNPJ: TStringField;
+    cdsFornecedorINS_EST: TStringField;
+    cdsFornecedorCONTATO: TStringField;
+    cdsFornecedorSITE: TStringField;
+    cdsFornecedorFANTASIA: TStringField;
+    cdsFornecedorSITUACAO: TStringField;
+    cdsFornecedorDT_ABERTURA: TDateField;
+    cdsFornecedorCNAE_PRINCIPAL: TStringField;
+    cdsFornecedorCNAE_SECUNDARIO: TStringField;
+    cdsFornecedorID_CATEGORIA: TIntegerField;
+    cdsFornecedorCIDADE: TStringField;
+    cdsFornecedorUF: TStringField;
+    cdsFornecedorDDD: TStringField;
+    cdsFornecedorNOME_CATEGORIA: TStringField;
+    dsFornecedor: TDataSource;
+    CheckBox4: TCheckBox;
+    Panel3: TPanel;
+    Label10: TLabel;
+    SpeedButton2: TSpeedButton;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    QR_GERAL: TQRPQuickrep;
+    QRPBand1: TQRPBand;
+    QRPBand3: TQRPBand;
+    QRGroup1: TQRGroup;
+    QRPBand2: TQRPBand;
+    QRPBand4: TQRPBand;
+    QRLabel11: TQRLabel;
+    QRSysData1: TQRSysData;
+    QRSysData2: TQRSysData;
+    QRLabel1: TQRLabel;
+    QRLabel2: TQRLabel;
+    QRL_EMPRESA: TQRLabel;
+    QRDBText1: TQRDBText;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRDBText2: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRLabel14: TQRLabel;
+    QRLabel17: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRSysData3: TQRSysData;
+    QRL_TOTAL: TQRLabel;
+    QR_AGRUPADO: TQRPQuickrep;
+    QRPBand5: TQRPBand;
+    QRLabel10: TQRLabel;
+    QRSysData4: TQRSysData;
+    QRSysData5: TQRSysData;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRPBand6: TQRPBand;
+    QRDBText7: TQRDBText;
+    QRDBText8: TQRDBText;
+    QRDBText9: TQRDBText;
+    QRDBText10: TQRDBText;
+    QRDBText11: TQRDBText;
+    QRDBText12: TQRDBText;
+    QRGroup2: TQRGroup;
+    QRLabel16: TQRLabel;
+    QRLabel18: TQRLabel;
+    QRLabel19: TQRLabel;
+    QRLabel20: TQRLabel;
+    QRLabel21: TQRLabel;
+    QRLabel22: TQRLabel;
+    QRPBand7: TQRPBand;
+    QRLabel23: TQRLabel;
+    QRPBand8: TQRPBand;
+    QRLabel24: TQRLabel;
+    QRLabel25: TQRLabel;
+    QRLabel26: TQRLabel;
+    QRSysData6: TQRSysData;
+    QRChildBand1: TQRChildBand;
+    QRBand1: TQRBand;
+    QRLabel27: TQRLabel;
+    SpeedButton4: TSpeedButton;
+    procedure Timer1Timer(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure edtCliExit(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure edtCliKeyPress(Sender: TObject; var Key: Char);
+    procedure DBLookupComboBox1Enter(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BB_LOCALIZARClick(Sender: TObject);
+    procedure CBMOVChange(Sender: TObject);
+    procedure CBSTATUSChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure CheckBox1Click(Sender: TObject);
+    procedure CheckBox2Click(Sender: TObject);
+    procedure CheckBox3Click(Sender: TObject);
+    procedure CheckBox4Click(Sender: TObject);
+    procedure BB_IMPRIMIRClick(Sender: TObject);
+    procedure QRPBand7BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure SpeedButton4Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure SomaTotal;
+  end;
+
+var
+  frmRelatorioConPag: TfrmRelatorioConPag;
+  sSql, sMov, sStatus : string;
+  Total,TotPag, TotGeral : Double;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, UD_PESQUISA, uDM;
+
+procedure TfrmRelatorioConPag.BB_IMPRIMIRClick(Sender: TObject);
+begin
+  if DBLookupComboBox1.Text = '' then
+  begin
+    cdsContasPagar.IndexFieldNames:='ID_FORNECEDOR';
+    QRLabel27.Caption := LABEL10.Caption;
+    QRLabel15.Caption := 'Cliente : '+edtCli.Text + ' - '+lblCliente.Caption;
+    QR_AGRUPADO.Preview;
+
+  end
+  else
+  begin
+    QRL_TOTAL.Caption   := LABEL10.Caption;
+    QRL_EMPRESA.Caption := 'Cliente : '+edtCli.Text + ' - '+lblCliente.Caption;
+    QR_GERAL.Preview;
+  end;
+
+end;
+
+procedure TfrmRelatorioConPag.BB_LOCALIZARClick(Sender: TObject);
+begin
+  sSql :=' SELECT CP.ID_CONTAS_PAGAR,CP.ID_PRODUCAO,CP.ID_CLIENTE,CP.ID_PLANO_PAGAMENTO ,'+
+         ' CP.ID_USUARIO,CP.ID_LOJA,CP.ID_FORNECEDOR,CP.ID_FORN_REM,CP.DT_EMISSAO,CP.DT_VENCIMENTO, CP.TP_MOV,'+
+         ' CP.DT_PAGAMENTO,CP.QT_DIAS,CP.QT_DIAS_ATRAZO,CP.QT_PARCELA,CP.NR_DOC,CP.VL_COMPRA,CP.VL_PARCELA,'+
+         ' CP.NR_PARCELA,CP.STATUS,CP.NR_NOTA_FISCAL,CP.NR_NF_REMESSA, CP.ORIGEM,CP.VL_PAGO, CP.OBS, PP.DESCRICAO_PAGAMENTO,'+
+         ' C.ID_GRUPO_EMPRESA,C.R_SOCIAL AS CLIENTE , F.NOME AS FORNECEDOR ,FR.NOME AS FORN_REMESSA,U.NOME_USUARIO,L.R_SOCIAL AS EMPRESA,'+
+         ' (current_date - CP.DT_VENCIMENTO) AS DIAS_ATRASO '+
+         ' FROM TB_CONTAS_PAGAR CP '+
+         ' JOIN TB_PLANO_PAGAMENTO PP ON (PP.ID_PLANO_PAGAMENTO = CP.ID_PLANO_PAGAMENTO)'+
+         ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = CP.ID_CLIENTE)'+
+         ' JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = CP.ID_FORNECEDOR)'+
+         ' JOIN TB_FORNECEDOR FR ON (FR.ID_FORNECEDOR = CP.ID_FORN_REM)'+
+         ' JOIN TB_USUARIO U ON (U.ID_USUARIO = CP.ID_USUARIO)'+
+         ' JOIN TB_LOJAS L ON (L.ID_LOJA = CP.ID_LOJA)';
+
+
+  if edtCli.Text = '' then
+  begin
+    ShowMessage('Favor Informar Um Cliente. ');
+    edtCli.Color := clYellow;
+    edtCli.SetFocus;
+    Exit;
+  end;
+
+  // cliente - Movimento - Status - Fornecedor - Periodo
+
+  if (edtCli.Text <>'') and  (DBLookupComboBox1.Text ='') and (ME_INI.Text ='  /  /    ') and (ME_FIM.Text ='  /  /    ') then
+  begin
+    if (sMov = '') and (sStatus = '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV <>'+QuotedStr(sMov)+'AND CP.STATUS <>'+QuotedStr(sStatus)+'AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+      +' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end
+    else if (sMov <> '') and (sStatus <> '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV ='+QuotedStr(sMov)+'AND CP.STATUS ='+QuotedStr(sStatus)+'AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+      +' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end
+    else if (sMov <> '') and (sStatus = '')then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV ='+QuotedStr(sMov)+'AND CP.STATUS <>'+QuotedStr(sStatus)+'AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+      +' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end
+    end else if (sMov = '') and (sStatus <> '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV <>'+QuotedStr(sMov)+'AND CP.STATUS ='+QuotedStr(sStatus)+'AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+      +' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end;
+  end else if (edtCli.Text <>'') and  (DBLookupComboBox1.Text <>'') and (ME_INI.Text ='  /  /    ') and (ME_FIM.Text ='  /  /    ')  then
+  begin
+
+    if (sMov = '') and (sStatus = '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV <>'+QuotedStr(sMov)+'AND CP.STATUS <>'+QuotedStr(sStatus)+'AND CP.ID_FORNECEDOR ='+cdsFornecedorID_FORNECEDOR.AsString+'AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+      +' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end
+    else if (sMov <> '') and (sStatus <> '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV ='+QuotedStr(sMov)+'AND CP.STATUS ='+QuotedStr(sStatus)+'AND CP.ID_FORNECEDOR ='+cdsFornecedorID_FORNECEDOR.AsString+'AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+      +' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end
+    else if (sMov <> '') and (sStatus = '')then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV ='+QuotedStr(sMov)+'AND CP.STATUS <>'+QuotedStr(sStatus)+'AND CP.ID_FORNECEDOR ='+cdsFornecedorID_FORNECEDOR.AsString+'AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+      +' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end
+    end else if (sMov = '') and (sStatus <> '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV <>'+QuotedStr(sMov)+'AND CP.STATUS ='+QuotedStr(sStatus)+'AND CP.ID_FORNECEDOR ='+cdsFornecedorID_FORNECEDOR.AsString+'AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+      +' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end;
+  end else if (edtCli.Text <>'') and  (DBLookupComboBox1.Text <>'') and (ME_INI.Text <>'  /  /    ') and (ME_FIM.Text<>'  /  /    ')  then
+  begin
+    if (sMov = '') and (sStatus = '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV <>'+QuotedStr(sMov)+'AND CP.STATUS <>'+QuotedStr(sStatus)+'AND CP.ID_FORNECEDOR ='+cdsFornecedorID_FORNECEDOR.AsString
+                                     +' AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))+' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end
+    else if (sMov <> '') and (sStatus <> '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV ='+QuotedStr(sMov)+'AND CP.STATUS ='+QuotedStr(sStatus)+'AND CP.ID_FORNECEDOR ='+cdsFornecedorID_FORNECEDOR.AsString
+                                     +' AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))+' ORDER BY CP.DT_VENCIMENTO';
+
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end
+    else if (sMov <> '') and (sStatus = '')then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV ='+QuotedStr(sMov)+'AND CP.STATUS <>'+QuotedStr(sStatus)+'AND CP.ID_FORNECEDOR ='+cdsFornecedorID_FORNECEDOR.AsString
+                                     +' AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))+' ORDER BY CP.DT_VENCIMENTO';
+
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end
+    end else if (sMov = '') and (sStatus <> '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV <>'+QuotedStr(sMov)+'AND CP.STATUS ='+QuotedStr(sStatus)+'AND CP.ID_FORNECEDOR ='+cdsFornecedorID_FORNECEDOR.AsString
+                                     +' AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))+' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end;
+  end else if (edtCli.Text <>'') and  (DBLookupComboBox1.Text = '') and (ME_INI.Text <>'  /  /    ') and (ME_FIM.Text<>'  /  /    ')  then
+  begin
+    if (sMov = '') and (sStatus = '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV <>'+QuotedStr(sMov)+'AND CP.STATUS <>'+QuotedStr(sStatus)
+                                     +' AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))+' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end
+    else if (sMov <> '') and (sStatus <> '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV ='+QuotedStr(sMov)+'AND CP.STATUS ='+QuotedStr(sStatus)
+                                     +' AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))+' ORDER BY CP.DT_VENCIMENTO';
+
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end
+    else if (sMov <> '') and (sStatus = '')then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV ='+QuotedStr(sMov)+'AND CP.STATUS <>'+QuotedStr(sStatus)
+                                     +' AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))+' ORDER BY CP.DT_VENCIMENTO';
+
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end
+    end else if (sMov = '') and (sStatus <> '') then
+    begin
+      cdsContasPagar.Close;
+      cdsContasPagar.CommandText :=sSql+'WHERE CP.TP_MOV <>'+QuotedStr(sMov)+'AND CP.STATUS ='+QuotedStr(sStatus)
+                                     +' AND C.ID_GRUPO_EMPRESA = '+QuotedStr(edtCli.Text)
+                                     +' AND CP.DT_VENCIMENTO BETWEEN '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_INI.Text)))
+                                     +' AND '+QuotedStr(FormatDateTime('MM/DD/YYYY',StrToDate(ME_FIM.Text)))+' ORDER BY CP.DT_VENCIMENTO';
+      cdsContasPagar.Open;
+      if cdsContasPagar.IsEmpty then
+      begin
+        ShowMessage('Nehum Registro Encontrado.');
+        Label10.Caption := 'Total dos Registros R$ 0.00';
+      end
+      else
+      begin
+        DBGrid1.SetFocus;
+        SomaTotal;
+      end;
+    end;
+  end;
+
+end;
+
+procedure TfrmRelatorioConPag.CBMOVChange(Sender: TObject);
+begin
+  if CBMOV.Text = 'NF' then
+  begin
+    sMov := 'D';
+//    ShowMessage(sMov);
+  end;
+
+  if CBMOV.Text = 'Promo' then
+  begin
+    sMov := 'F';
+//    ShowMessage(sMov);
+  end;
+
+  if CBMOV.Text = 'Completo' then
+  begin
+    sMov := '';
+//    ShowMessage(sMov);
+  end;
+
+
+end;
+
+procedure TfrmRelatorioConPag.CBSTATUSChange(Sender: TObject);
+begin
+  if CBSTATUS.Text = 'Aberto' then
+  begin
+    sStatus := 'A';
+//    ShowMessage(sStatus);
+  end;
+
+  if CBSTATUS.Text = 'Pago' then
+  begin
+    sStatus := 'B';
+//    ShowMessage(sStatus);
+  end;
+
+  if CBSTATUS.Text = 'Todos' then
+  begin
+    sStatus := '';
+//    ShowMessage(sStatus);
+  end;
+
+end;
+
+procedure TfrmRelatorioConPag.CheckBox1Click(Sender: TObject);
+begin
+  if CheckBox1.Checked = True then
+  begin
+    cdsContasPagar.IndexFieldNames:='DT_VENCIMENTO';
+    CheckBox2.Checked := False;
+    CheckBox3.Checked := False;
+    CheckBox4.Checked := False;
+  end;
+end;
+
+procedure TfrmRelatorioConPag.CheckBox2Click(Sender: TObject);
+begin
+  if CheckBox2.Checked = True then
+  begin
+    cdsContasPagar.IndexFieldNames:='DT_EMISSAO';
+    CheckBox1.Checked := False;
+    CheckBox3.Checked := False;
+    CheckBox4.Checked := False;
+  end;
+
+end;
+
+procedure TfrmRelatorioConPag.CheckBox3Click(Sender: TObject);
+begin
+  if CheckBox3.Checked = True then
+  begin
+    cdsContasPagar.IndexFieldNames:='VL_PARCELA';
+    CheckBox1.Checked := False;
+    CheckBox2.Checked := False;
+    CheckBox4.Checked := False;
+  end;
+
+end;
+
+procedure TfrmRelatorioConPag.CheckBox4Click(Sender: TObject);
+begin
+  if CheckBox4.Checked = True then
+  begin
+    cdsContasPagar.IndexFieldNames:='FORNECEDOR';
+    CheckBox1.Checked := False;
+    CheckBox2.Checked := False;
+    CheckBox3.Checked := False;
+  end;
+
+end;
+
+procedure TfrmRelatorioConPag.DBLookupComboBox1Enter(Sender: TObject);
+begin
+  cdsFornecedor.Open;
+end;
+
+procedure TfrmRelatorioConPag.edtCliExit(Sender: TObject);
+begin
+  if edtCli.Text = '' Then
+  begin
+    exit;
+  end;
+  DM.cdsGrupoEmpresa.Open;
+  if DM.cdsGrupoEmpresa.Locate('ID_GRUPO_EMPRESA',edtCli.Text,[]) then
+  begin
+    edtCli.Text        := DM.cdsGrupoEmpresaID_GRUPO_EMPRESA.AsString;
+    lblCliente.Caption := DM.cdsGrupoEmpresaNOME_DO_GRUPO.AsString;
+    DBLookupComboBox1.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('          A T E N Ç Ã O  !!!!!!!!!   '+#13+
+                '                                     '+#13+
+                '   Cliente Não Encontrado         '+#13+
+                '                                     ');
+    SpeedButton1Click(Self);
+  end;
+
+end;
+
+procedure TfrmRelatorioConPag.edtCliKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton1Click(self);
+  end;
+end;
+
+procedure TfrmRelatorioConPag.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmRelatorioConPag := nil;
+end;
+
+procedure TfrmRelatorioConPag.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmRelatorioConPag.FormShow(Sender: TObject);
+begin
+  CBMOVChange(Self);
+  CBSTATUSChange(Self);
+end;
+
+procedure TfrmRelatorioConPag.QRPBand7BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames :='';
+  DM.cdsDinamica.CommandText := ' SELECT SUM(CP.VL_PARCELA) FROM TB_CONTAS_PAGAR CP '+
+                                ' JOIN tb_cliente C on (C.id_cliente = CP.id_cliente ) '+
+                                ' JOIN tb_grupo_empresa G on (G.id_grupo_empresa = C.id_grupo_empresa )'+
+                                ' WHERE CP.ID_FORNECEDOR = '+cdsContasPagarID_FORNECEDOR.AsString+
+                                ' AND G.id_grupo_empresa = '+edtCli.Text+
+                                ' AND CP.TP_MOV = '+sMov+
+                                ' AND CP.status =''A''';
+
+
+
+  DM.cdsDinamica.Open;
+  QRLabel23.Caption := ' Total : '+FormatFloat('###,###0.00',DM.cdsDinamica.Fields[0].AsFloat);
+end;
+
+procedure TfrmRelatorioConPag.SomaTotal;
+
+begin
+  Total    := 0;
+  TotPag   := 0;
+  TotGeral := 0;
+  with cdsContasPagar do
+  begin
+    first;
+    while not eof do
+    begin
+      total := total + FieldByName('VL_PARCELA').Value;
+      TotPag:= TotPag + FieldByName('VL_PAGO').Value;
+      TotGeral := (Total-TotPag);
+      Next;
+    end;
+    Label10.Caption:='Total dos Registros  '+(Format('%m', [TotGeral]));
+  end;
+
+end;
+
+procedure TfrmRelatorioConPag.SpeedButton1Click(Sender: TObject);
+begin
+  DM.cdsGrupoEmpresa.Close;
+  DM.cdsGrupoEmpresa.Open;
+  Pesquisa(DM.cdsGrupoEmpresa,['NOME_DO_GRUPO','ID_GRUPO_EMPRESA'],['Nome do Grupo','Código'],[40,4],'','','','','Grupo Empresa','Grupo Empresa');
+  edtCli.Text        := DM.cdsGrupoEmpresaID_GRUPO_EMPRESA.AsString;
+  lblCliente.Caption := DM.cdsGrupoEmpresaNOME_DO_GRUPO.AsString;
+  DBLookupComboBox1.SetFocus;
+end;
+
+procedure TfrmRelatorioConPag.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmRelatorioConPag.SpeedButton4Click(Sender: TObject);
+begin
+  cdsFornecedor.Close;
+end;
+
+procedure TfrmRelatorioConPag.Timer1Timer(Sender: TObject);
+begin
+  L_DTHORA.Caption := 'Data/Hora '+DateToStr(Date)+ ' '+TimeToStr(Time);
+end;
+
+end.

@@ -1,0 +1,252 @@
+object frmRecebeComanda: TfrmRecebeComanda
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  BorderStyle = bsSingle
+  Caption = 'Recebimento de Comandas ( Mesas)'
+  ClientHeight = 354
+  ClientWidth = 731
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 4
+    Top = 13
+    Width = 200
+    Height = 21
+    Caption = 'Pesquisar Mesa /Comanda :'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlue
+    Font.Height = -16
+    Font.Name = 'Segoe UI Semibold'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object edtComanda: TEdit
+    Left = 210
+    Top = 9
+    Width = 159
+    Height = 33
+    Color = clInfoBk
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clGreen
+    Font.Height = -19
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    TextHint = 'Digite as Iniciais'
+    OnChange = edtComandaChange
+  end
+  object DBGrid1: TDBGrid
+    Left = 4
+    Top = 45
+    Width = 720
+    Height = 248
+    DataSource = DM.dsComanda
+    GradientStartColor = clYellow
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGreen
+    Font.Height = -13
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clBlue
+    TitleFont.Height = -13
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'ID_MESA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_COMANDA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_CLIENTE'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_VENDEDOR'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DT_ABERTURA'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'HR_ABERTURA'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DT_FECHAMENTO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'HR_FECHAMENTO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NR_COMANDA'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'STATUS'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_TOTAL'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_ACRES'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_SERVICO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_DESC'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_LIQ'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VALE_BRINDE'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_TIPO_PAGAMENTO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_FORMA_PAGAMENTO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'TEMPO_OCUPADO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_USUARIO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'FORMA_PAGAMENTO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DESCRICAO_PAGAMENTO'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'R_SOCIAL'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VENDEDOR'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOME_MESA'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ST_MESA'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'EMPRESA'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_EMPRESA'
+        Width = 64
+        Visible = True
+      end>
+  end
+  object BitBtn1: TBitBtn
+    Left = 4
+    Top = 296
+    Width = 89
+    Height = 57
+    Caption = '&Confirmar'
+    TabOrder = 2
+  end
+  object BitBtn2: TBitBtn
+    Left = 95
+    Top = 296
+    Width = 89
+    Height = 57
+    Caption = 'Cancela&r'
+    TabOrder = 3
+    OnClick = BitBtn2Click
+  end
+end

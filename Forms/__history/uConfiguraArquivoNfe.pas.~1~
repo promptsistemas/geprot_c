@@ -1,0 +1,182 @@
+unit uConfiguraArquivoNfe;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Samples.Spin,
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.ComCtrls, Vcl.Imaging.jpeg;
+
+type
+  TfrmConfiguraArquivoNFe = class(TForm)
+    Image1: TImage;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    PageControl4: TPageControl;
+    TabSheet3: TTabSheet;
+    lSSLLib: TLabel;
+    lCryptLib: TLabel;
+    lHttpLib: TLabel;
+    lXmlSign: TLabel;
+    gbCertificado: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    sbtnCaminhoCert: TSpeedButton;
+    Label25: TLabel;
+    sbtnGetCert: TSpeedButton;
+    SpeedButton1: TSpeedButton;
+    edtCaminho: TEdit;
+    edtSenha: TEdit;
+    edtNumSerie: TEdit;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button10: TButton;
+    GroupBox1: TGroupBox;
+    Edit1: TEdit;
+    Button5: TButton;
+    cbAssinar: TCheckBox;
+    Button7: TButton;
+    Button9: TButton;
+    cbSSLLib: TComboBox;
+    cbCryptLib: TComboBox;
+    cbHttpLib: TComboBox;
+    cbXmlSignLib: TComboBox;
+    TabSheet4: TTabSheet;
+    GroupBox3: TGroupBox;
+    sbtnPathSalvar: TSpeedButton;
+    Label29: TLabel;
+    Label31: TLabel;
+    Label30: TLabel;
+    Label32: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Label42: TLabel;
+    spPathSchemas: TSpeedButton;
+    edtPathLogs: TEdit;
+    ckSalvar: TCheckBox;
+    cbFormaEmissao: TComboBox;
+    cbxAtualizarXML: TCheckBox;
+    cbxExibirErroSchema: TCheckBox;
+    edtFormatoAlerta: TEdit;
+    cbModeloDF: TComboBox;
+    cbxRetirarAcentos: TCheckBox;
+    cbVersaoDF: TComboBox;
+    edtIdToken: TEdit;
+    edtToken: TEdit;
+    edtPathSchemas: TEdit;
+    TabSheet7: TTabSheet;
+    GroupBox4: TGroupBox;
+    Label6: TLabel;
+    lTimeOut: TLabel;
+    lSSLLib1: TLabel;
+    cbxVisualizar: TCheckBox;
+    cbUF: TComboBox;
+    rgTipoAmb: TRadioGroup;
+    cbxSalvarSOAP: TCheckBox;
+    seTimeOut: TSpinEdit;
+    cbSSLType: TComboBox;
+    gbProxy: TGroupBox;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    edtProxyHost: TEdit;
+    edtProxyPorta: TEdit;
+    edtProxyUser: TEdit;
+    edtProxySenha: TEdit;
+    gbxRetornoEnvio: TGroupBox;
+    Label36: TLabel;
+    Label37: TLabel;
+    Label38: TLabel;
+    cbxAjustarAut: TCheckBox;
+    edtTentativas: TEdit;
+    edtIntervalo: TEdit;
+    edtAguardar: TEdit;
+    TabSheet12: TTabSheet;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    edtEmitCNPJ: TEdit;
+    edtEmitIE: TEdit;
+    edtEmitRazao: TEdit;
+    edtEmitFantasia: TEdit;
+    edtEmitFone: TEdit;
+    edtEmitCEP: TEdit;
+    edtEmitLogradouro: TEdit;
+    edtEmitNumero: TEdit;
+    edtEmitComp: TEdit;
+    edtEmitBairro: TEdit;
+    edtEmitCodCidade: TEdit;
+    edtEmitCidade: TEdit;
+    edtEmitUF: TEdit;
+    TabSheet13: TTabSheet;
+    sbPathNFe: TSpeedButton;
+    Label35: TLabel;
+    Label39: TLabel;
+    sbPathCan: TSpeedButton;
+    Label46: TLabel;
+    sbPathCCe: TSpeedButton;
+    Label40: TLabel;
+    sbPathInu: TSpeedButton;
+    Label41: TLabel;
+    sbPathDPEC: TSpeedButton;
+    Label47: TLabel;
+    sbPathEvento: TSpeedButton;
+    cbxSalvarArqs: TCheckBox;
+    cbxPastaMensal: TCheckBox;
+    cbxAdicionaLiteral: TCheckBox;
+    cbxEmissaoPathNFe: TCheckBox;
+    cbxSalvaPathEvento: TCheckBox;
+    cbxSepararPorCNPJ: TCheckBox;
+    edtPathCCe: TEdit;
+    edtPathNFe: TEdit;
+    edtPathCan: TEdit;
+    edtPathInu: TEdit;
+    edtPathDPEC: TEdit;
+    edtPathEvento: TEdit;
+    cbxSepararPorModelo: TCheckBox;
+    TabSheet2: TTabSheet;
+    Label7: TLabel;
+    sbtnLogoMarca: TSpeedButton;
+    edtLogoMarca: TEdit;
+    rgTipoDanfe: TRadioGroup;
+    TabSheet14: TTabSheet;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
+    edtSmtpHost: TEdit;
+    edtSmtpPort: TEdit;
+    edtSmtpUser: TEdit;
+    edtSmtpPass: TEdit;
+    edtEmailAssunto: TEdit;
+    cbEmailSSL: TCheckBox;
+    mmEmailMsg: TMemo;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConfiguraArquivoNFe: TfrmConfiguraArquivoNFe;
+
+implementation
+
+{$R *.dfm}
+
+end.

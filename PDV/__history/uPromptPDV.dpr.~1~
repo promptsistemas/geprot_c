@@ -1,0 +1,19 @@
+program uPromptPDV;
+
+uses
+  Vcl.Forms,
+  uDM in 'uDM.pas' {DM: TDataModule},
+  U_LIB in 'U_LIB.pas',
+  UD_PESQUISA in 'UD_PESQUISA.pas' {FD_PESQUISA},
+  uPagamentoPdv in 'uPagamentoPdv.pas' {frmPagamentoPdv};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TFD_PESQUISA, FD_PESQUISA);
+  Application.CreateForm(TfrmPagamentoPdv, frmPagamentoPdv);
+  Application.Run;
+end.

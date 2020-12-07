@@ -1,0 +1,206 @@
+unit uSangria;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, DBCtrls, Mask, ExtCtrls,Printers,WinSpool,
+  Vcl.Imaging.jpeg;
+
+type
+  TfrmSangria = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    DBText1: TDBText;
+    DBText2: TDBText;
+    DBText3: TDBText;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    DBText4: TDBText;
+    Label9: TLabel;
+    DBLookupComboBox1: TDBLookupComboBox;
+    DBEdit1: TDBEdit;
+    DBMemo1: TDBMemo;
+    BB_ABRIR: TBitBtn;
+    BitBtn1: TBitBtn;
+    Memo1: TMemo;
+    DBComboBox2: TDBComboBox;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure BB_ABRIRClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+    Procedure ImprimirRecibo;
+    Procedure ImprimirMemo(Memo: TMemo);
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSangria: TfrmSangria;
+
+implementation
+
+uses uDm, uMenuCaixa, uPdv, DB, U_LIB;
+
+{$R *.dfm}
+
+procedure TfrmSangria.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmSangria := nil;
+end;
+
+procedure TfrmSangria.FormShow(Sender: TObject);
+begin
+  DM.cdsPlanoPagamento.Open;
+
+  DM.cdsDinamica.Close;
+  DM.cdsDinamica.IndexFieldNames:='';
+  DM.cdsDinamica.CommandText := ' SELECT  MAX(ID_SANGRIA) FROM TB_SANGRIA';
+  DM.cdsDinamica.Open;
+
+  DM.cdsSangria.Close;
+  DM.cdsSangria.CommandText := ' SELECT  S.ID_SANGRIA, S.ID_USUARIO, S.ID_TIPO_PAGAMENTO, S.ID_LOJA, S.CAIXA, S.DT_SANGRIA, S.HR_SANGRIA,'+
+                               ' S.DESCRICAO, S.VALOR, S.TIPO_MOVIMENTO ,T.DESCRICAO_PAGAMENTO, U.NOME_USUARIO, L.R_SOCIAL AS LOJA FROM TB_SANGRIA S '+
+                               ' JOIN TB_PLANO_PAGAMENTO T ON (T.ID_PLANO_PAGAMENTO = S.ID_TIPO_PAGAMENTO)'+
+                               ' JOIN TB_USUARIO U ON (U.ID_USUARIO = S.ID_USUARIO)'+
+                               ' JOIN TB_LOJAS L ON (L.ID_LOJA = S.ID_LOJA)'+
+                               ' WHERE S.CAIXA = '+frmPdv.L_CAIXA.Caption+
+                               ' AND S.ID_LOJA ='+frmPdv.recInformacoes.lojaCredenciada;
+  DM.cdsSangria.Open;
+
+  DM.cdsSangria.Insert;
+  DM.cdsSangriaID_SANGRIA.AsInteger := DM.cdsDinamica.Fields[0].AsInteger+1;
+  DM.cdsSangriaID_USUARIO.AsInteger := frmpdv.recInformacoes.id_Usuario;
+  DM.cdsSangriaID_LOJA.AsInteger    := StrToInt(frmPdv.recInformacoes.lojaCredenciada);
+  DM.cdsSangriaCAIXA.AsString       := frmPdv.L_CAIXA.Caption;
+  DM.cdsSangriaID_TIPO_PAGAMENTO.AsInteger := DM.cdsPlanoPagamentoID_PLANO_PAGAMENTO.AsInteger;
+  DM.cdsSangriaDT_SANGRIA.AsDateTime := Date;
+  DM.cdsSangriaHR_SANGRIA.AsDateTime := Time;
+  DM.cdsSangriaNOME_USUARIO.AsString := frmPdv.L_USUARIO.Caption;
+  DM.cdsSangriaDESCRICAO_PAGAMENTO.AsString := DM.cdsPlanoPagamentoDESCRICAO_PAGAMENTO.AsString;
+  DBEdit1.SetFocus;
+
+end;
+
+procedure TfrmSangria.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+
+end;
+
+procedure TfrmSangria.BB_ABRIRClick(Sender: TObject);
+begin
+  if DM.cdsSangriaVALOR.IsNull then
+  begin
+    ShowMessage('Favor Informe o Valor ');
+    DBEdit1.SetFocus;
+    Exit;
+  end;
+  if DM.cdsSangria.ApplyUpdates(0) <> 0 then
+  begin
+    ShowMessage('Houve Um Erro Ao Gravar a Sangria. Tente Novamente ou Contate o Suporte!');
+  end
+  else
+  begin
+    if Application.MessageBox('Deseja Imprimir Recibo?','Confirmação',MB_YESNO+MB_ICONQUESTION)= idyes then
+    begin
+      ImprimirRecibo;
+      Close;
+    end
+    else
+    begin
+      Close;
+    end;
+  end;
+
+end;
+
+procedure TfrmSangria.BitBtn1Click(Sender: TObject);
+begin
+  DM.cdsSangria.Cancel;
+  Close;
+end;
+
+procedure TfrmSangria.ImprimirRecibo;
+var
+  Arquivo : TextFile;
+  iCount, iCount2, iPagamentos, iQuantas, iVezes : Integer;
+  Vendas,Suprimentos,Sangrias,Saldo : Double;
+  Especie : String;
+
+begin
+  Memo1.Clear;
+        Especie := DM.cdsSangriaDESCRICAO_PAGAMENTO.AsString;
+        Sangrias := DM.cdsSangriaVALOR.AsFloat;
+    iPagamentos := DM.cdsSangria.RecordCount;
+    iVezes := Trunc(iPagamentos/10000);
+    if Round(iPagamentos) > 0 then
+      iVezes := iVezes +1;
+    DM.cdsSangria.First;
+    for iCount := 1 to iVezes do
+    begin
+      Memo1.Lines.Add(' ');
+      Memo1.Lines.Add('    '+DefineTamanhoString(Label1.Caption,40,0));
+      Memo1.Lines.Add(' ');
+      Memo1.Lines.Add('---------------------------------------------------------');
+      Memo1.Lines.Add('DATA ...: '+DefineTamanhoString(FormatDateTime('DD/MM/YYYY',DM.cdsSangriaDT_SANGRIA.AsDateTime),10,0));
+      Memo1.Lines.Add('Hora ...:'+TimeToStr(Time));
+      Memo1.Lines.Add('CAIXA...: '+DefineTamanhoString(DM.cdsSangriaCAIXA.AsString,3,0));
+      Memo1.Lines.Add('Operador de Caixa..: '+DefineTamanhoString(DM.cdsSangriaNOME_USUARIO.AsString,20,0));
+                                       //Cabeçalho de Clientes
+      Memo1.Lines.Add('---------------------------------------------------------');
+      Memo1.Lines.Add('  RECIBO DE SANGRIA DE CAIXA   ');
+      Memo1.Lines.Add('---------------------------------------------------------');
+      Memo1.Lines.Add('SANGRIA  R$.......:'+DefineTamanhoString(FormatFloat('###,###,##0.00',Sangrias),10,45));
+      Memo1.Lines.Add('ESPECIE  R$.......:'+DefineTamanhoString(DM.cdsSangriaDESCRICAO_PAGAMENTO.AsString,10,45));
+      Memo1.Lines.Add('TP.MOVI  R$.......:'+DefineTamanhoString(DM.cdsSangriaTIPO_MOVIMENTO.AsString,10,45));
+      Memo1.Lines.Add('---------------------------------------------------------');
+      Memo1.Lines.Add('                DESCRIÇÃO                                ');
+      Memo1.Lines.Add('---------------------------------------------------------');
+      Memo1.Lines.Add(''+DefineTamanhoString(DBMemo1.Text,100,0));
+      Memo1.Lines.Add('---------------------------------------------------------');
+      Memo1.Lines.Add('');
+      Memo1.Lines.Add('');
+      Memo1.Lines.Add('    Assinatura do Responsavél                                ');
+      Memo1.Lines.Add('');
+      Memo1.Lines.Add(' ----------------------------------------------              ');
+
+      end;
+  AssignFile(Arquivo,CaminhoImpressora);
+  Rewrite(Arquivo);
+  ImprimirMemo(Memo1);
+  CloseFile(Arquivo);
+end;
+
+procedure TfrmSangria.ImprimirMemo(Memo: TMemo);
+var
+  I: integer;
+  F: TextFile;
+begin
+  { Usa na impressora a mesma fonte do memo }
+  Printer.Canvas.Font.Assign(Memo.Font);
+
+  AssignPrn(F);
+  Rewrite(F);
+  try
+    for I := 0 to Memo.Lines.Count -1 do
+      WriteLn(F, Memo.Lines[I]);
+  finally
+    CloseFile(F);
+  end;
+end;
+
+end.

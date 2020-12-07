@@ -1,0 +1,366 @@
+unit uCadCores;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, DBCtrls, Mask, Buttons, ExtCtrls, Grids, DBGrids,Db,
+  FMTBcd, SqlExpr, DBClient, Provider,ComCtrls ;
+
+type
+  TfrmCadCores = class(TForm)
+    PCUPOM: TPanel;
+    DBEdit1: TDBEdit;
+    Label1: TLabel;
+    DBEdit2: TDBEdit;
+    Label2: TLabel;
+    DBGrid2: TDBGrid;
+    BB_NOVO: TBitBtn;
+    BB_EDITAR: TBitBtn;
+    BB_GRAVAR: TBitBtn;
+    BB_EXCLUIR: TBitBtn;
+    BB_PESQUISAR: TBitBtn;
+    BB_SAIR: TBitBtn;
+    DBNavigator1: TDBNavigator;
+    BB_CANCELAR: TBitBtn;
+    Panel1: TPanel;
+    DBText1: TDBText;
+    Label5: TLabel;
+    Label22: TLabel;
+    SpeedButton3: TSpeedButton;
+    DBEdit3: TDBEdit;
+    DBEdit4: TDBEdit;
+    Label3: TLabel;
+    Label4: TLabel;
+    SpeedButton4: TSpeedButton;
+    procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure DBGrid1TitleClick(Column: TColumn);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BB_NOVOClick(Sender: TObject);
+    procedure BB_EDITARClick(Sender: TObject);
+    procedure BB_CANCELARClick(Sender: TObject);
+    procedure BB_GRAVARClick(Sender: TObject);
+    procedure BB_EXCLUIRClick(Sender: TObject);
+    procedure BB_PESQUISARClick(Sender: TObject);
+    procedure BB_SAIRClick(Sender: TObject);
+    procedure DBGrid2DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure DBEdit2Exit(Sender: TObject);
+    procedure DBEdit4Exit(Sender: TObject);
+    procedure DBEdit3Exit(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure DBEdit3KeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+    Procedure GerenciaBotoes;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadCores: TfrmCadCores;
+  Tipo : String;
+
+implementation
+
+uses U_LIB, UD_PESQUISA, uDm;
+
+{$R *.dfm}
+
+{ TfrmCadRota }
+
+procedure TfrmCadCores.GerenciaBotoes;
+begin
+  BB_NOVO.Enabled := not (DM.cdsCores.State in dsEditModes);
+  BB_GRAVAR.Enabled := NOT BB_NOVO.Enabled;
+  BB_EXCLUIR.Enabled := BB_NOVO.Enabled and not (DM.cdsCores.IsEmpty);
+  BB_CANCELAR.Enabled := BB_GRAVAR.Enabled;
+  BB_EDITAR.Enabled := BB_EXCLUIR.Enabled;
+  BB_SAIR.Enabled := BB_NOVO.Enabled;
+  BB_PESQUISAR.Enabled:= BB_NOVO.Enabled;
+  //BB_EXPORTAR.Enabled:= BB_NOVO.Enabled;
+  PCUPOM.Enabled := not BB_NOVO.Enabled;
+end;
+
+procedure TfrmCadCores.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmCadCores.SpeedButton4Click(Sender: TObject);
+begin
+  DM.cdsFornecedor.Close;
+  DM.cdsFornecedor.CommandText := ' SELECT  F.ID_FORNECEDOR, F.CODIGO_MUNIC, F.DT_CADASTRO, F.NOME, F.TP_LOGRADOURO, F.ENDERECO,'+
+                                  ' F.COMPLEMENTO, F.NUMERO, F.BAIRRO, F.CEP, F.TELFONE, F.FAX, F.CELULAR, F.EMAIL, F.CNPJ, F.INS_EST,'+
+                                  ' F.CONTATO, F.SITE, F.FANTASIA, F.SITUACAO, F.DT_ABERTURA, F.CNAE_PRINCIPAL, F.CNAE_SECUNDARIO, F.ID_CATEGORIA,'+
+                                  ' M.NOME AS CIDADE, M.UF AS UF, M.DDD, C.NOME_CATEGORIA FROM TB_FORNECEDOR F '+
+                                  ' JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = F.CODIGO_MUNIC)'+
+                                  ' LEFT JOIN TB_CATEGORIA  C ON (C.ID_CATEGORIA = F.ID_CATEGORIA)'+
+                                  ' WHERE F.ID_CATEGORIA = 3';
+
+  DM.cdsFornecedor.Open;
+  Pesquisa(DM.cdsFornecedor,['NOME','ID_FORNECEDOR'],['Nome do Fornecedor','Código'],[40,4],'','','','','Fornecedor','Fornecedor');
+
+  DM.cdsCoresID_FORNECEDOR.AsInteger := DM.cdsFornecedorID_FORNECEDOR.AsInteger;
+  DM.cdsCoresTinturaria.AsString     := DM.cdsFornecedorNOME.AsString;
+  DBEdit4.SetFocus;
+
+end;
+
+procedure TfrmCadCores.FormShow(Sender: TObject);
+begin
+  DM.cdsCores.Open;
+  GerenciaBotoes;
+end;
+
+procedure TfrmCadCores.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  If Key = #27 Then
+   BB_CANCELARClick(Self);
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmCadCores.DBEdit2Exit(Sender: TObject);
+begin
+  DBEdit3.SetFocus;
+end;
+
+procedure TfrmCadCores.DBEdit3Exit(Sender: TObject);
+begin
+  if DBEdit3.Text = '' Then
+  begin
+//    BB_CANC.SetFocus;
+    exit;
+  end;
+  DM.cdsFornecedor.Close;
+  DM.cdsFornecedor.CommandText := ' SELECT  F.ID_FORNECEDOR, F.CODIGO_MUNIC, F.DT_CADASTRO, F.NOME, F.TP_LOGRADOURO, F.ENDERECO,'+
+                                  ' F.COMPLEMENTO, F.NUMERO, F.BAIRRO, F.CEP, F.TELFONE, F.FAX, F.CELULAR, F.EMAIL, F.CNPJ, F.INS_EST,'+
+                                  ' F.CONTATO, F.SITE, F.FANTASIA, F.SITUACAO, F.DT_ABERTURA, F.CNAE_PRINCIPAL, F.CNAE_SECUNDARIO, F.ID_CATEGORIA,'+
+                                  ' M.NOME AS CIDADE, M.UF AS UF, M.DDD, C.NOME_CATEGORIA FROM TB_FORNECEDOR F '+
+                                  ' JOIN TB_MUNICIPIOS M ON (M.CODIGO_MUNIC = F.CODIGO_MUNIC)'+
+                                  ' LEFT JOIN TB_CATEGORIA  C ON (C.ID_CATEGORIA = F.ID_CATEGORIA)'+
+                                  ' WHERE F.ID_CATEGORIA = 3';
+
+  DM.cdsFornecedor.Open;
+
+  if DM.cdsFornecedor.Locate('ID_FORNECEDOR',DM.cdsCoresID_FORNECEDOR.AsInteger,[]) then
+  begin
+    DM.cdsCoresID_FORNECEDOR.AsInteger := DM.cdsFornecedorID_FORNECEDOR.AsInteger;
+    DM.cdsCoresTinturaria.AsString     := DM.cdsFornecedorNOME.AsString;
+    DBEdit4.SetFocus;
+  end
+  else
+  begin
+    ShowMessage('          A T E N Ç Ã O  !!!!!!!!!   '+#13+
+                '                                     '+#13+
+                '   Tituraria Não Encontrada          '+#13+
+                '                                     ');
+    SpeedButton4Click(Self);
+  end;
+
+end;
+
+procedure TfrmCadCores.DBEdit3KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton4Click(self);
+  end;
+
+end;
+
+procedure TfrmCadCores.DBEdit4Exit(Sender: TObject);
+begin
+  BB_GRAVARClick(Self);
+end;
+
+procedure TfrmCadCores.DBGrid1TitleClick(Column: TColumn);
+begin
+  (*recupera a cor original da coluna*)
+  if DM.cdsCores.IndexFieldNames <> '' then
+    DBGrid2.Columns[DM.cdsCores.FieldByName
+    (DM.cdsCores.IndexFieldNames).Index].Title.Color :=
+      DBGrid2.FixedColor;
+
+
+  (*se campo não for blob ou memo e se for do tipo data*)
+  if not (Column.Field.DataType in [ftBlob,ftMemo]) then
+    if Column.Field.FieldKind = fkData then
+    begin
+      DM.cdsCores.IndexFieldNames := Column.FieldName; // indexa
+//      Column.Font.Style := [fsBold]; // Tipo da Fonte
+    end;
+end;
+
+procedure TfrmCadCores.DBGrid2DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  TDbGrid(Sender).Canvas.font.Color:= clBlack; //aqui é definida a cor da fonte
+  if gdSelected in State then
+  with (Sender as TDBGrid).Canvas do
+  begin
+    Brush.Color:=$00F0DAC7; //aqui é definida a cor do fundo
+    Font.Style := [fsBold];
+    FillRect(Rect);
+  end;
+
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
+end;
+
+procedure TfrmCadCores.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  if DM.cdsCores.State in [dsEdit,dsInsert] then
+  begin
+    ShowMessage('Favor Salve ou Cancele o Registro Para Sair');
+    Abort;
+  end
+  else
+  begin
+    Action := caFree;
+    frmCadCores := nil;
+  end;
+
+end;
+
+procedure TfrmCadCores.BB_NOVOClick(Sender: TObject);
+begin
+  Tipo := 'Insert';
+  DM.cdsCores.Insert;
+
+  GerenciaBotoes;
+  DBEdit1.SetFocus;
+
+end;
+
+procedure TfrmCadCores.BB_EDITARClick(Sender: TObject);
+begin
+  Tipo := 'Edit';
+  DM.cdsCores.Edit;
+  GerenciaBotoes;
+  DBEdit1.SetFocus;
+end;
+
+procedure TfrmCadCores.BB_CANCELARClick(Sender: TObject);
+begin
+  DM.cdsCores.Cancel;
+  GerenciaBotoes;
+end;
+
+procedure TfrmCadCores.BB_EXCLUIRClick(Sender: TObject);
+begin
+  if Application.MessageBox('Deseja Excluir Este Grupo ?','Confirmação',MB_ICONQUESTION+MB_YESNO ) = idyes then
+  begin
+    DM.cdsCores.Delete;
+    DM.cdsCores.ApplyUpdates(0);
+    GerenciaBotoes;
+  end
+  else
+  begin
+    ShowMessage('Grupo Não Excluído');
+  end;
+    GerenciaBotoes;
+end;
+
+procedure TfrmCadCores.BB_PESQUISARClick(Sender: TObject);
+begin
+  Pesquisa(DM.cdsCores,['DESCRICAO'],['Cores'],
+    [20],'','','','','Cores','Cores');
+end;
+
+procedure TfrmCadCores.BB_SAIRClick(Sender: TObject);
+begin
+  Close;
+//  DM.cdsDinamica.Close;
+//  DM.cdsDinamica.IndexFieldNames:='';
+//  DM.cdsDinamica.CommandText := ' SELECT EXPORTADO FROM TB_GRUPO_PRODUTO WHERE EXPORTADO = ''N''';
+//  DM.cdsDinamica.Open;
+//
+//  if DM.cdsDinamica.IsEmpty then
+//  begin
+//    DM.cdsCores.Close;
+//    Close;
+//  end
+//  else
+//  begin
+//    if Application.MessageBox('Existe(m) Grupo(s) de Produto(s) sem importar, Deseja Importar Grupo(s) de Produto(s) Agora?','Atenção',MB_OK+MB_YESNO)= idyes then
+//    begin
+//      BB_EXPORTARClick(Self);
+//    end
+//    else
+//    begin
+//      DM.cdsCores.Close;
+//      Close;
+//    end;
+//  end;
+
+end;
+
+procedure TfrmCadCores.BB_GRAVARClick(Sender: TObject);
+begin
+  if DBEdit1.Text = '' then
+  begin
+    ShowMessage('Favor Informar Código');
+    DBEdit1.SetFocus;
+    Exit;
+  end;
+  if DBEdit2.Text = '' then
+  begin
+    ShowMessage('Favor Informar Descrição da Cor');
+    DBEdit2.SetFocus;
+    Exit;
+  end;
+  if Tipo = 'Insert' then
+  begin
+    DM.cdsDinamica.Close;
+    DM.cdsDinamica.IndexFieldNames:='';
+    DM.cdsDinamica.CommandText := ' SELECT MAX(ID_CORES) FROM TB_CORES ';
+    DM.cdsDinamica.Open;
+
+    DM.cdsCoresID_CORES.AsInteger := DM.cdsDinamica.Fields[0].AsInteger + 1;
+    if DM.cdsCores.ApplyUpdates(0) <> 0 then
+    begin
+      ShowMessage('O Sistema não conseguiu gravar este Registro. Tente novamente ou contate o Suporte.');
+      BB_GRAVAR.SetFocus;
+    end
+    else
+    begin
+      DM.cdsCores.ApplyUpdates(0);
+      DM.cdsCores.Refresh;
+      GerenCiaBotoes;
+      BB_NOVOClick(Self);
+    end;
+  end;
+
+  if Tipo = 'Edit' then
+  begin
+    if DM.cdsCores.ApplyUpdates(0) <> 0 then
+    begin
+      ShowMessage('O Sistema não conseguiu gravar este Registro. Tente novamente ou contate o Suporte.');
+      BB_GRAVAR.SetFocus;
+    end
+    else
+    begin
+      DM.cdsCores.ApplyUpdates(0);
+      DM.cdsCores.Refresh;
+      GerenCiaBotoes;
+    end;
+  end;
+
+
+
+end;
+
+end.

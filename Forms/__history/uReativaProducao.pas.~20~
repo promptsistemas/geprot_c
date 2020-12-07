@@ -1,0 +1,216 @@
+unit uReativaProducao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.DBCtrls,
+  Vcl.ExtCtrls, Data.FMTBcd, Data.DB, Data.SqlExpr, Datasnap.Provider,
+  Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.Mask;
+
+type
+  TfrmReativaProducao = class(TForm)
+    Panel1: TPanel;
+    Label17: TLabel;
+    SpeedButton3: TSpeedButton;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Label12: TLabel;
+    dsReativaProducao: TDataSource;
+    cdsReativaProducao: TClientDataSet;
+    dspReativaProducao: TDataSetProvider;
+    qReativaProducao: TSQLQuery;
+    qReativaProducaoID_PRODUCAO: TIntegerField;
+    qReativaProducaoID_FORNCEDOR: TIntegerField;
+    qReativaProducaoID_CLIENTE: TIntegerField;
+    qReativaProducaoDT_EMISSAO: TDateField;
+    qReativaProducaoNR_NOTA_FISCAL: TIntegerField;
+    qReativaProducaoQUANT: TFMTBCDField;
+    qReativaProducaoSTATUS: TStringField;
+    qReativaProducaoVL_NOTA: TFMTBCDField;
+    qReativaProducaoVL_POR_FORA: TFMTBCDField;
+    qReativaProducaoVL_TOTAL: TFMTBCDField;
+    qReativaProducaoID_FORN_REM: TIntegerField;
+    qReativaProducaoNR_NF_REMESSA: TIntegerField;
+    qReativaProducaoVL_TOTAL_NF: TFMTBCDField;
+    qReativaProducaoVL_ACUMULADO: TFMTBCDField;
+    qReativaProducaoFORNECEDOR: TStringField;
+    qReativaProducaoCLIENTE: TStringField;
+    qReativaProducaoMALHARIA: TStringField;
+    cdsReativaProducaoID_PRODUCAO: TIntegerField;
+    cdsReativaProducaoID_FORNCEDOR: TIntegerField;
+    cdsReativaProducaoID_CLIENTE: TIntegerField;
+    cdsReativaProducaoDT_EMISSAO: TDateField;
+    cdsReativaProducaoNR_NOTA_FISCAL: TIntegerField;
+    cdsReativaProducaoQUANT: TFMTBCDField;
+    cdsReativaProducaoSTATUS: TStringField;
+    cdsReativaProducaoVL_NOTA: TFMTBCDField;
+    cdsReativaProducaoVL_POR_FORA: TFMTBCDField;
+    cdsReativaProducaoVL_TOTAL: TFMTBCDField;
+    cdsReativaProducaoID_FORN_REM: TIntegerField;
+    cdsReativaProducaoNR_NF_REMESSA: TIntegerField;
+    cdsReativaProducaoVL_TOTAL_NF: TFMTBCDField;
+    cdsReativaProducaoVL_ACUMULADO: TFMTBCDField;
+    cdsReativaProducaoFORNECEDOR: TStringField;
+    cdsReativaProducaoCLIENTE: TStringField;
+    cdsReativaProducaoMALHARIA: TStringField;
+    PageControl2: TPageControl;
+    TabSheet3: TTabSheet;
+    DBGrid1: TDBGrid;
+    dsItemProducao: TDataSource;
+    cdsItemProducao: TClientDataSet;
+    dspItemProducao: TDataSetProvider;
+    qItemProducao: TSQLQuery;
+    qItemProducaoID_ITEM_PRODUCAO: TIntegerField;
+    qItemProducaoID_PRODUCAO: TIntegerField;
+    qItemProducaoID_MATERIA_PRIMA: TIntegerField;
+    qItemProducaoQUANT_FATURADO: TFMTBCDField;
+    qItemProducaoVL_UNIT: TFMTBCDField;
+    qItemProducaoVL_TOTAL: TFMTBCDField;
+    qItemProducaoVL_UNIT_REAL: TFMTBCDField;
+    qItemProducaoVL_TOTAL_REAL: TFMTBCDField;
+    qItemProducaoNOME_MATERIA: TStringField;
+    cdsItemProducaoID_ITEM_PRODUCAO: TIntegerField;
+    cdsItemProducaoID_PRODUCAO: TIntegerField;
+    cdsItemProducaoID_MATERIA_PRIMA: TIntegerField;
+    cdsItemProducaoQUANT_FATURADO: TFMTBCDField;
+    cdsItemProducaoVL_UNIT: TFMTBCDField;
+    cdsItemProducaoVL_TOTAL: TFMTBCDField;
+    cdsItemProducaoVL_UNIT_REAL: TFMTBCDField;
+    cdsItemProducaoVL_TOTAL_REAL: TFMTBCDField;
+    cdsItemProducaoNOME_MATERIA: TStringField;
+    edtPesquisa: TEdit;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
+    DBEdit5: TDBEdit;
+    Label5: TLabel;
+    DBEdit2: TDBEdit;
+    Label3: TLabel;
+    Label10: TLabel;
+    DBEdit10: TDBEdit;
+    Label6: TLabel;
+    DBEdit6: TDBEdit;
+    DBEdit7: TDBEdit;
+    Label7: TLabel;
+    DBEdit9: TDBEdit;
+    Label9: TLabel;
+    DBEdit8: TDBEdit;
+    Label8: TLabel;
+    DBEdit18: TDBEdit;
+    Label20: TLabel;
+    DBEdit3: TDBEdit;
+    Label11: TLabel;
+    DBEdit11: TDBEdit;
+    Label13: TLabel;
+    DBEdit19: TDBEdit;
+    Label21: TLabel;
+    BB_PESQUISAR: TBitBtn;
+    SB_REATIVAR: TSpeedButton;
+    procedure BB_PESQUISARClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure SB_REATIVARClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmReativaProducao: TfrmReativaProducao;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, uDM;
+
+procedure TfrmReativaProducao.BB_PESQUISARClick(Sender: TObject);
+Var
+ sSql : string;
+begin
+
+  sSql := ' SELECT P.ID_PRODUCAO, P.ID_FORNCEDOR, P.ID_CLIENTE, P.DT_EMISSAO, P.NR_NOTA_FISCAL, P.QUANT, '+
+          ' P.STATUS, P.VL_NOTA, P.VL_POR_FORA, P.VL_TOTAL, P.ID_FORN_REM, P.NR_NF_REMESSA, P.VL_TOTAL_NF,'+
+          ' P.VL_ACUMULADO, F.NOME AS FORNECEDOR, C.R_SOCIAL AS CLIENTE, FF.NOME AS MALHARIA'+
+          ' FROM TB_PRODUCAO P '+
+          ' JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = P.ID_FORNCEDOR)'+
+          ' JOIN TB_FORNECEDOR FF ON (FF.ID_FORNECEDOR = P.ID_FORN_REM)'+
+          ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = P.ID_CLIENTE)'+
+          ' WHERE P.status=''F''';
+  if edtPesquisa.Text <> '' then
+  begin
+    cdsReativaProducao.Close;
+    cdsReativaProducao.CommandText := sSql+' AND P.nr_nota_fiscal = '+QuotedStr(edtPesquisa.Text);
+    cdsReativaProducao.Open;
+
+    if cdsReativaProducao.IsEmpty then
+    begin
+      ShowMessage('Nota Fiscal Não Encontrada');
+      cdsReativaProducao.Close;
+      cdsReativaProducao.CommandText:=sSql;
+      cdsReativaProducao.Open;
+
+      Pesquisa(cdsReativaProducao,['NR_NOTA_FISCAL','FORNECEDOR'],['Nº Nota Fiscal','Fornecedor'],[16,40],'','','','','Reativar Nota','Reativar Nota');
+      edtPesquisa.Text := cdsReativaProducaoNR_NOTA_FISCAL.AsString;
+      SB_REATIVAR.Enabled := True;
+    end
+    else
+    begin
+     cdsItemProducao.Close;
+     cdsItemProducao.Params[0].AsInteger := cdsReativaProducaoID_PRODUCAO.AsInteger;
+     cdsItemProducao.Open;
+     SB_REATIVAR.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmReativaProducao.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmReativaProducao := NIL;
+end;
+
+procedure TfrmReativaProducao.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmReativaProducao.FormShow(Sender: TObject);
+begin
+  edtPesquisa.SetFocus;
+end;
+
+procedure TfrmReativaProducao.SB_REATIVARClick(Sender: TObject);
+begin
+  if Application.MessageBox('Deseja Realmente Reativar Nota?','Confirmação',MB_ICONQUESTION+MB_YESNO) = idyes then
+  begin
+    cdsReativaProducao.Edit;
+    cdsReativaProducaoSTATUS.Value := 'A';
+    cdsReativaProducao.ApplyUpdates(0);
+
+    ShowMessage(' Nota Fiscal Reativada!');
+    cdsReativaProducao.Close;
+    edtPesquisa.Clear;
+    edtPesquisa.SetFocus;
+                '
+  end;
+
+end;
+
+procedure TfrmReativaProducao.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

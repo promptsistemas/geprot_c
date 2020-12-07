@@ -1,0 +1,287 @@
+unit uReativaPrgTinturaria;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.DBCtrls,
+  Vcl.ExtCtrls, Data.FMTBcd, Data.DB, Data.SqlExpr, Datasnap.Provider,
+  Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.Mask;
+
+type
+  TfrmReativaPrgTinturaria = class(TForm)
+    Panel1: TPanel;
+    Label17: TLabel;
+    SpeedButton3: TSpeedButton;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Label12: TLabel;
+    dsReativaProgramacao: TDataSource;
+    cdsReativaProgramacao: TClientDataSet;
+    dspReativaProgramacao: TDataSetProvider;
+    qReativaProgramacao: TSQLQuery;
+    PageControl2: TPageControl;
+    TabSheet3: TTabSheet;
+    dsItemProducao: TDataSource;
+    dspItemProducao: TDataSetProvider;
+    qItemProducao: TSQLQuery;
+    edtPesquisa: TEdit;
+    Label1: TLabel;
+    BB_PESQUISAR: TBitBtn;
+    SB_REATIVAR: TSpeedButton;
+    Label2: TLabel;
+    DBEdit1: TDBEdit;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
+    Label21: TLabel;
+    DBEdit19: TDBEdit;
+    DBEdit10: TDBEdit;
+    Label10: TLabel;
+    DBEdit20: TDBEdit;
+    Label22: TLabel;
+    DBEdit2: TDBEdit;
+    Label3: TLabel;
+    DBEdit3: TDBEdit;
+    Label5: TLabel;
+    Label6: TLabel;
+    DBEdit5: TDBEdit;
+    Label11: TLabel;
+    DBEdit11: TDBEdit;
+    DBEdit16: TDBEdit;
+    Label9: TLabel;
+    DBEdit7: TDBEdit;
+    Label7: TLabel;
+    DBEdit8: TDBEdit;
+    Label8: TLabel;
+    DBGrid2: TDBGrid;
+    SpeedButton1: TSpeedButton;
+    cdsItemProducao: TClientDataSet;
+    qReativaProgramacaoID_PRG_TINTURARIA: TIntegerField;
+    qReativaProgramacaoID_FOR_TINTURARIA: TIntegerField;
+    qReativaProgramacaoID_CLIENTE: TIntegerField;
+    qReativaProgramacaoSTATUS: TStringField;
+    qReativaProgramacaoQT_ROLOS: TIntegerField;
+    qReativaProgramacaoDT_EMISSAO: TDateField;
+    qReativaProgramacaoNR_NOTA: TIntegerField;
+    qReativaProgramacaoNR_NOTA_REMESSA: TIntegerField;
+    qReativaProgramacaoVL_NOTA: TFMTBCDField;
+    qReativaProgramacaoNR_NOTA_MALHARIA: TIntegerField;
+    qReativaProgramacaoID_REMESSA: TIntegerField;
+    qReativaProgramacaoID_GRUPO_EMPRESA: TIntegerField;
+    qReativaProgramacaoESTAMPADO: TStringField;
+    qReativaProgramacaoTIPO_ESTAMPA: TStringField;
+    qReativaProgramacaoOBS: TStringField;
+    qReativaProgramacaoID_LOTE: TIntegerField;
+    qReativaProgramacaoQT_PRG_ROLOS: TIntegerField;
+    qReativaProgramacaoQT_PROGRAMADO: TIntegerField;
+    qReativaProgramacaoQT_SALDO_PROGRAMAR: TIntegerField;
+    qReativaProgramacaoID_TRANSPORTADORA: TIntegerField;
+    qReativaProgramacaoCLIENTE: TStringField;
+    qReativaProgramacaoCODIGO_MUNIC: TStringField;
+    qReativaProgramacaoCNPJ_CPF: TStringField;
+    qReativaProgramacaoINSC_RG: TStringField;
+    qReativaProgramacaoENDERECO: TStringField;
+    qReativaProgramacaoCOMPLEMENTO: TStringField;
+    qReativaProgramacaoNUMERO: TStringField;
+    qReativaProgramacaoBAIRRO: TStringField;
+    qReativaProgramacaoCIDADE: TStringField;
+    qReativaProgramacaoUF: TStringField;
+    qReativaProgramacaoTITURARIA: TStringField;
+    qReativaProgramacaoNOME_TRANSPORTADORA: TStringField;
+    cdsReativaProgramacaoID_PRG_TINTURARIA: TIntegerField;
+    cdsReativaProgramacaoID_FOR_TINTURARIA: TIntegerField;
+    cdsReativaProgramacaoID_CLIENTE: TIntegerField;
+    cdsReativaProgramacaoSTATUS: TStringField;
+    cdsReativaProgramacaoQT_ROLOS: TIntegerField;
+    cdsReativaProgramacaoDT_EMISSAO: TDateField;
+    cdsReativaProgramacaoNR_NOTA: TIntegerField;
+    cdsReativaProgramacaoNR_NOTA_REMESSA: TIntegerField;
+    cdsReativaProgramacaoVL_NOTA: TFMTBCDField;
+    cdsReativaProgramacaoNR_NOTA_MALHARIA: TIntegerField;
+    cdsReativaProgramacaoID_REMESSA: TIntegerField;
+    cdsReativaProgramacaoID_GRUPO_EMPRESA: TIntegerField;
+    cdsReativaProgramacaoESTAMPADO: TStringField;
+    cdsReativaProgramacaoTIPO_ESTAMPA: TStringField;
+    cdsReativaProgramacaoOBS: TStringField;
+    cdsReativaProgramacaoID_LOTE: TIntegerField;
+    cdsReativaProgramacaoQT_PRG_ROLOS: TIntegerField;
+    cdsReativaProgramacaoQT_PROGRAMADO: TIntegerField;
+    cdsReativaProgramacaoQT_SALDO_PROGRAMAR: TIntegerField;
+    cdsReativaProgramacaoID_TRANSPORTADORA: TIntegerField;
+    cdsReativaProgramacaoCLIENTE: TStringField;
+    cdsReativaProgramacaoCODIGO_MUNIC: TStringField;
+    cdsReativaProgramacaoCNPJ_CPF: TStringField;
+    cdsReativaProgramacaoINSC_RG: TStringField;
+    cdsReativaProgramacaoENDERECO: TStringField;
+    cdsReativaProgramacaoCOMPLEMENTO: TStringField;
+    cdsReativaProgramacaoNUMERO: TStringField;
+    cdsReativaProgramacaoBAIRRO: TStringField;
+    cdsReativaProgramacaoCIDADE: TStringField;
+    cdsReativaProgramacaoUF: TStringField;
+    cdsReativaProgramacaoTITURARIA: TStringField;
+    cdsReativaProgramacaoNOME_TRANSPORTADORA: TStringField;
+    procedure BB_PESQUISARClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure SB_REATIVARClick(Sender: TObject);
+    procedure edtPesquisaExit(Sender: TObject);
+    procedure edtPesquisaKeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmReativaPrgTinturaria: TfrmReativaPrgTinturaria;
+
+implementation
+
+{$R *.dfm}
+
+uses U_LIB, uDM;
+
+procedure TfrmReativaPrgTinturaria.BB_PESQUISARClick(Sender: TObject);
+Var
+ sSql : string;
+begin
+
+  sSql := ' SELECT RP.ID_REMESSA, RP.ID_FOR_REMESSA, RP.STATUS, RP.QUANT_NF, RP.QUANT_FATURADO, RP.QUANT_SALDO,  '+
+          ' RP.ID_CLIENTE, RP.ID_FORNECEDOR, RP.DT_EMISSAO, RP.NR_NOTA_FISCAL, RP.VL_NOTA, RP.VL_POR_FORA,         '+
+          ' RP.VL_TOTAL_NF, RP.ID_FORN_TINT, RP.NR_NF_REMESSA, RP.TOTAL_ROLOS, RP.NF_QUEBRA, C.R_SOCIAL AS CLIENTE,'+
+          ' F.NOME AS FORNECEDOR, FF.NOME AS NOME_MALHARIA, FT.NOME AS TITURARIA                                   '+
+          ' FROM TB_REMESSA_PRODUCAO RP                                                                            '+
+          ' LEFT OUTER JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = RP.ID_FORNECEDOR)                                '+
+          ' JOIN TB_FORNECEDOR FF ON (FF.ID_FORNECEDOR = RP.ID_FOR_REMESSA)                                        '+
+          ' JOIN TB_FORNECEDOR FT ON (FT.ID_FORNECEDOR = RP.ID_FORN_TINT)                                          '+
+          ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = RP.ID_CLIENTE)                                                    '+
+          ' WHERE RP.NF_QUEBRA = ''N''                                                                             '+
+          ' AND RP.status = ''F''                                                                                  ';
+  if edtPesquisa.Text <> '' then
+  begin
+    cdsReativaRemessa.Close;
+    cdsReativaRemessa.CommandText := sSql+' AND RP.nr_nota_fiscal = '+QuotedStr(edtPesquisa.Text);
+    cdsReativaRemessa.Open;
+
+    if cdsReativaRemessa.IsEmpty then
+    begin
+      ShowMessage('Nota Fiscal Não Encontrada');
+      cdsReativaRemessa.Close;
+      cdsReativaRemessa.CommandText:=sSql;
+      cdsReativaRemessa.Open;
+
+      Pesquisa(cdsReativaRemessa,['NR_NOTA_FISCAL','TITURARIA'],['Nº Nota Fiscal','Tinturaria'],[16,40],'','','','','Reativar Nota','Reativar Nota');
+      edtPesquisa.Text := cdsReativaRemessaNR_NOTA_FISCAL.AsString;
+      cdsItemProducao.Close;
+      cdsItemProducao.Params[0].AsInteger := cdsReativaRemessaID_REMESSA.AsInteger;
+      cdsItemProducao.Open;
+      SB_REATIVAR.Enabled := True;
+    end
+    else
+    begin
+     cdsItemProducao.Close;
+     cdsItemProducao.Params[0].AsInteger := cdsReativaRemessaID_REMESSA.AsInteger;
+     cdsItemProducao.Open;
+     SB_REATIVAR.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmReativaPrgTinturaria.edtPesquisaExit(Sender: TObject);
+begin
+  if edtPesquisa.Text <>'' then
+  begin
+    BB_PESQUISAR.SetFocus;
+  end;
+end;
+
+procedure TfrmReativaPrgTinturaria.edtPesquisaKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end
+  else if Key = #32 then
+  begin
+    Key := #0;
+    SpeedButton1Click(self);
+  end;
+end;
+
+procedure TfrmReativaPrgTinturaria.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmReativaRemessa := NIL;
+end;
+
+procedure TfrmReativaPrgTinturaria.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
+end;
+
+procedure TfrmReativaPrgTinturaria.FormShow(Sender: TObject);
+begin
+  edtPesquisa.SetFocus;
+end;
+
+procedure TfrmReativaPrgTinturaria.SB_REATIVARClick(Sender: TObject);
+begin
+  if Application.MessageBox('Deseja Realmente Reativar Nota?','Confirmação',MB_ICONQUESTION+MB_YESNO) = idyes then
+  begin
+    cdsReativaRemessa.Edit;
+    cdsReativaRemessaSTATUS.Value := 'A';
+    cdsReativaRemessa.ApplyUpdates(0);
+
+    ShowMessage(' Nota Fiscal Reativada!');
+    cdsReativaRemessa.Close;
+    edtPesquisa.Clear;
+    edtPesquisa.SetFocus;
+
+  end;
+
+end;
+
+procedure TfrmReativaPrgTinturaria.SpeedButton1Click(Sender: TObject);
+Var
+ sSql : string;
+begin
+
+  sSql := ' SELECT RP.ID_REMESSA, RP.ID_FOR_REMESSA, RP.STATUS, RP.QUANT_NF, RP.QUANT_FATURADO, RP.QUANT_SALDO,  '+
+          ' RP.ID_CLIENTE, RP.ID_FORNECEDOR, RP.DT_EMISSAO, RP.NR_NOTA_FISCAL, RP.VL_NOTA, RP.VL_POR_FORA,         '+
+          ' RP.VL_TOTAL_NF, RP.ID_FORN_TINT, RP.NR_NF_REMESSA, RP.TOTAL_ROLOS, RP.NF_QUEBRA, C.R_SOCIAL AS CLIENTE,'+
+          ' F.NOME AS FORNECEDOR, FF.NOME AS NOME_MALHARIA, FT.NOME AS TITURARIA                                   '+
+          ' FROM TB_REMESSA_PRODUCAO RP                                                                            '+
+          ' LEFT OUTER JOIN TB_FORNECEDOR F ON (F.ID_FORNECEDOR = RP.ID_FORNECEDOR)                                '+
+          ' JOIN TB_FORNECEDOR FF ON (FF.ID_FORNECEDOR = RP.ID_FOR_REMESSA)                                        '+
+          ' JOIN TB_FORNECEDOR FT ON (FT.ID_FORNECEDOR = RP.ID_FORN_TINT)                                          '+
+          ' JOIN TB_CLIENTE C ON (C.ID_CLIENTE = RP.ID_CLIENTE)                                                    '+
+          ' WHERE RP.NF_QUEBRA = ''N''                                                                             '+
+          ' AND RP.status = ''F''                                                                                  ';
+      cdsReativaRemessa.Close;
+      cdsReativaRemessa.CommandText:=sSql;
+      cdsReativaRemessa.Open;
+
+      Pesquisa(cdsReativaRemessa,['NR_NOTA_FISCAL','TITURARIA'],['Nº Nota Fiscal','Tinturaria'],[16,40],'','','','','Reativar Nota','Reativar Nota');
+      edtPesquisa.Text := cdsReativaRemessaNR_NOTA_FISCAL.AsString;
+      cdsItemProducao.Close;
+      cdsItemProducao.Params[0].AsInteger := cdsReativaRemessaID_REMESSA.AsInteger;
+      cdsItemProducao.Open;
+      SB_REATIVAR.Enabled := True;
+end;
+
+procedure TfrmReativaPrgTinturaria.SpeedButton3Click(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

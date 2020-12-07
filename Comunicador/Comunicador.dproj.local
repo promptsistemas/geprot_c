@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/02/19 04:11:48.000.485,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/02/19 04:13:40.000.958,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/02/24 01:59:13.000.647,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/02/26 02:48:42.000.239,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/02/27 03:36:22.000.428,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/03/05 02:38:57.000.984,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/03/06 00:34:26.000.872,=C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/03/06 00:44:57.000.107,C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Sintegra\Comunicador\Forms\uComunicador.pas</Transaction>
+    <Transaction>2016/03/06 00:44:57.000.107,C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Sintegra\Comunicador\Forms\uComunicador.dfm</Transaction>
+    <Transaction>2016/03/06 00:45:07.000.908,C:\Users\Marcio\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Sintegra\Comunicador\Comunicador.dproj</Transaction>
+    <Transaction>2016/03/06 00:46:41.000.080,=C:\Sintegra\Comunicador\Unit1.pas</Transaction>
+    <Transaction>2016/03/06 00:46:59.000.467,C:\Sintegra\Comunicador\Forms\uDM.pas=C:\Sintegra\Comunicador\Unit1.pas</Transaction>
+    <Transaction>2016/03/06 00:46:59.000.467,C:\Sintegra\Comunicador\Forms\uDM.dfm=C:\Sintegra\Comunicador\Unit1.dfm</Transaction>
+    <Transaction>2016/03/06 01:51:13.000.109,=C:\Sintegra\Comunicador\Forms\CoolTrayIcon.pas</Transaction>
+  </Transactions>
+</BorlandProject>

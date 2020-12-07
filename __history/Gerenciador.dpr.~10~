@@ -1,0 +1,24 @@
+program Gerenciador;
+
+uses
+  Vcl.Forms,
+  uMenu in 'Forms\uMenu.pas' {frmMenu},
+  uDM in 'Forms\uDM.pas' {DM: TDataModule},
+  uCadFor in 'Forms\uCadFor.pas' {frmCadfor},
+  U_LIB in 'Forms\U_LIB.pas',
+  UD_PESQUISA in 'Forms\UD_PESQUISA.pas' {FD_PESQUISA},
+  uCadGrupo in 'Forms\uCadGrupo.pas' {frmCadGrupo},
+  uCadPro in 'Forms\uCadPro.pas' {frmCadPro},
+  uEntradaProduto in 'Forms\uEntradaProduto.pas' {frmEntradaProduto};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'Gerenciador Fiscall';
+  Application.CreateForm(TfrmMenu, frmMenu);
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TFD_PESQUISA, FD_PESQUISA);
+  Application.Run;
+end.

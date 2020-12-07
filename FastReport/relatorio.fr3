@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="5.6.1" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="42939,0518161806" ReportOptions.Description.Text="" ReportOptions.LastChange="42939,1337867593" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="frxDBDataset1" DataSetName="frxDBDataset1"/>
+    <item DataSet="frxDBDataset2" DataSetName="frxDBDataset2"/>
+  </Datasets>
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+    <TfrxPageHeader Name="PageHeader1" FillType="ftBrush" Fill.BackColor="-16777216" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.BottomLine.Style="fsDash" Height="22,67718" Left="0" Top="113,3859" Width="718,1107">
+      <TfrxMemoView Name="Memo1" Left="3,77953" Top="0" Width="64,25201" Height="18,89765" Font.Charset="0" Font.Color="0" Font.Height="-15" Font.Name="Segoe UI Semibold" Font.Style="1" ParentFont="False" Text="CODIGO"/>
+      <TfrxMemoView Name="Memo4" Left="374,17347" Top="0" Width="71,81107" Height="18,89765" Font.Charset="0" Font.Color="0" Font.Height="-15" Font.Name="Segoe UI Semibold" Font.Style="1" ParentFont="False" Text="ESTOQUE"/>
+      <TfrxMemoView Name="Memo5" Left="487,55937" Top="0" Width="71,81107" Height="18,89765" Font.Charset="0" Font.Color="0" Font.Height="-15" Font.Name="Segoe UI Semibold" Font.Style="1" ParentFont="False" Text="VL.CUSTO"/>
+      <TfrxMemoView Name="Memo6" Left="608,50433" Top="0" Width="71,81107" Height="18,89765" Font.Charset="0" Font.Color="0" Font.Height="-15" Font.Name="Segoe UI Semibold" Font.Style="1" ParentFont="False" Text="VL.TOTAL"/>
+      <TfrxMemoView Name="Memo2" Left="79,37013" Top="0" Width="120,94496" Height="18,89765" Font.Charset="0" Font.Color="0" Font.Height="-15" Font.Name="Segoe UI Semibold" Font.Style="1" ParentFont="False" Text="DESCRIÇÃO"/>
+      <TfrxMemoView Name="Memo3" Left="309,92146" Top="0" Width="30,23624" Height="18,89765" Font.Charset="0" Font.Color="0" Font.Height="-15" Font.Name="Segoe UI Semibold" Font.Style="1" ParentFont="False" Text="UN"/>
+    </TfrxPageHeader>
+    <TfrxPageFooter Name="PageFooter1" FillType="ftBrush" Fill.BackColor="-16777216" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="22,67718" Left="0" Top="275,90569" Width="718,1107">
+      <TfrxMemoView Name="Date1" Left="11,33859" Top="1,44094" Width="272,12616" Height="18,89765" Text="Data Impressão [Date]"/>
+      <TfrxMemoView Name="TotalPages" Left="400,63018" Top="3,77953" Width="253,22851" Height="18,89765" Text="Total de Paginas [Page] de [TotalPages#]"/>
+    </TfrxPageFooter>
+    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="18,89765" Left="0" Top="196,53556" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" RowCount="0">
+      <TfrxMemoView Name="frxDBDataset1CODIGO" Left="3,77953" Top="0" Width="56,69295" Height="18,89765" DataField="CODIGO" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;CODIGO&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1DESCRICAO" Left="64,92919" Top="0" Width="238,11017031" Height="18,89765" DataField="DESCRICAO" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;DESCRICAO&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1UNIDADE" Left="309,92146" Top="0" Width="37,7953" Height="18,89765" DataField="UNIDADE" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Text="[frxDBDataset1.&#34;UNIDADE&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1ESTOQUE" Left="374,17347" Top="0" Width="60,47248" Height="18,89765" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Highlight.Font.Charset="1" Highlight.Font.Color="255" Highlight.Font.Height="-13" Highlight.Font.Name="Arial" Highlight.Font.Style="0" Highlight.Condition="&#60;frxDBDataset1.&#34;ESTOQUE&#34;&#62;&#60;50" Highlight.FillType="ftBrush" Highlight.Fill.ForeColor="255" Text="[frxDBDataset1.&#34;ESTOQUE&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1VL_CUSTO" Left="487,55937" Top="0" Width="60,47248" Height="18,89765" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" DisplayFormat.FormatStr="%2.2m" DisplayFormat.Kind="fkNumeric" Text="[frxDBDataset1.&#34;VL_CUSTO&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1TOTAL1" Left="608,50433" Top="0" Width="98,26778" Height="18,89765" DataField="TOTAL" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" DisplayFormat.FormatStr="%2.2m" DisplayFormat.Kind="fkNumeric" Text="[frxDBDataset1.&#34;TOTAL&#34;]"/>
+    </TfrxMasterData>
+    <TfrxReportTitle Name="ReportTitle1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.BottomLine.Color="128" Height="71,81107" Left="0" Top="18,89765" Width="718,1107">
+      <TfrxMemoView Name="Memo7" Left="3,77953" Top="7,55906" Width="321,26005" Height="18,89765" Font.Charset="0" Font.Color="0" Font.Height="-16" Font.Name="Arial Narrow" Font.Style="1" ParentFont="False" Text="RELATÓRIO DE INVENTARIO"/>
+      <TfrxMemoView Name="frxDBDataset2CNPJ" Left="366,61441" Top="37,7953" Width="113,3859" Height="18,89765" DataField="CNPJ" DataSet="frxDBDataset2" DataSetName="frxDBDataset2" Text="[frxDBDataset2.&#34;CNPJ&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset2R_SOCIAL" Left="7,55906" Top="37,7953" Width="279,68522" Height="18,89765" DataField="R_SOCIAL" DataSet="frxDBDataset2" DataSetName="frxDBDataset2" Text="[frxDBDataset2.&#34;R_SOCIAL&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset2TELEFONE" Left="574,48856" Top="37,7953" Width="94,48825" Height="18,89765" DataField="TELEFONE" DataSet="frxDBDataset2" DataSetName="frxDBDataset2" Text="[frxDBDataset2.&#34;TELEFONE&#34;]"/>
+      <TfrxMemoView Name="Date" Left="525,35467" Top="0" Width="79,37013" Height="18,89765" Text="[Date]"/>
+      <TfrxMemoView Name="Time" Left="612,28386" Top="0" Width="79,37013" Height="18,89765" Text="[Time]"/>
+    </TfrxReportTitle>
+  </TfrxReportPage>
+</TfrxReport>

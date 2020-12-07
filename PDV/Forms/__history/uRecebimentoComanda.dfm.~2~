@@ -1,0 +1,203 @@
+object frmRecebeComanda: TfrmRecebeComanda
+  Left = 0
+  Top = 0
+  Caption = 'Recebimento de Comandas ( Mesas)'
+  ClientHeight = 328
+  ClientWidth = 721
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 8
+    Top = 8
+    Width = 81
+    Height = 13
+    Caption = 'Pesquisar Mesa :'
+  end
+  object edtComanda: TEdit
+    Left = 8
+    Top = 24
+    Width = 689
+    Height = 21
+    TabOrder = 0
+    OnChange = edtComandaChange
+  end
+  object DBGrid1: TDBGrid
+    Left = 8
+    Top = 51
+    Width = 689
+    Height = 238
+    DataSource = DM.dsComanda
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ReadOnly = True
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'ID_MESA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_COMANDA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_CLIENTE'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_VENDEDOR'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DT_ABERTURA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'HR_ABERTURA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DT_FECHAMENTO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'HR_FECHAMENTO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NR_COMANDA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'STATUS'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_TOTAL'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_ACRES'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_SERVICO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_DESC'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_LIQ'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VALE_BRINDE'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_TIPO_PAGAMENTO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_FORMA_PAGAMENTO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'TEMPO_OCUPADO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_USUARIO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'FORMA_PAGAMENTO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DESCRICAO_PAGAMENTO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'R_SOCIAL'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VENDEDOR'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOME_MESA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ST_MESA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'EMPRESA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_EMPRESA'
+        Visible = True
+      end>
+  end
+  object BitBtn1: TBitBtn
+    Left = 8
+    Top = 296
+    Width = 75
+    Height = 25
+    Caption = '&Confirmar'
+    TabOrder = 2
+  end
+  object BitBtn2: TBitBtn
+    Left = 89
+    Top = 296
+    Width = 75
+    Height = 25
+    Caption = 'Cancela&r'
+    TabOrder = 3
+  end
+end

@@ -1,0 +1,223 @@
+object frmCadGrupo: TfrmCadGrupo
+  Left = 404
+  Top = 175
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Cadastro de Grupo de Produto'
+  ClientHeight = 296
+  ClientWidth = 654
+  Color = clWindow
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object dspGrupoProdutoDto: TDataSetProvider
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 144
+    Top = 176
+  end
+  object cdsGrupoProdutoDto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspGrupoProdutoDto'
+    Left = 176
+    Top = 176
+    object cdsGrupoProdutoDtoGRUPOPRODUTODTO_ID: TFMTBCDField
+      FieldName = 'GRUPOPRODUTODTO_ID'
+      Required = True
+      Precision = 15
+      Size = 0
+    end
+    object cdsGrupoProdutoDtoCODREFER: TStringField
+      FieldName = 'CODREFER'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoCODRETAG: TStringField
+      FieldName = 'CODRETAG'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoCONTREST: TStringField
+      FieldName = 'CONTREST'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoDESCMAXI: TFloatField
+      FieldName = 'DESCMAXI'
+    end
+    object cdsGrupoProdutoDtoDIGPRECO: TStringField
+      FieldName = 'DIGPRECO'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoDIGQUANT: TStringField
+      FieldName = 'DIGQUANT'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoDIGVALOR: TStringField
+      FieldName = 'DIGVALOR'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoGUID: TStringField
+      FieldName = 'GUID'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoGUIDREFE: TStringField
+      FieldName = 'GUIDREFE'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoID: TStringField
+      FieldName = 'ID'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoNOMEGRUP: TStringField
+      FieldName = 'NOMEGRUP'
+      Size = 256
+    end
+    object cdsGrupoProdutoDtoPLANOPAG: TFloatField
+      FieldName = 'PLANOPAG'
+    end
+  end
+  object dsGrupoProdutoDto: TDataSource
+    DataSet = cdsGrupoProdutoDto
+    Left = 208
+    Top = 176
+  end
+  object dspValidacaoDTO: TDataSetProvider
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 144
+    Top = 216
+  end
+  object cdsValidacaoDTO: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspValidacaoDTO'
+    Left = 176
+    Top = 216
+    object cdsValidacaoDTOVALIDACAODTO_ID: TFMTBCDField
+      FieldName = 'VALIDACAODTO_ID'
+      Required = True
+      Precision = 15
+      Size = 0
+    end
+    object cdsValidacaoDTOCODLOJA: TFloatField
+      FieldName = 'CODLOJA'
+    end
+    object cdsValidacaoDTOID: TStringField
+      FieldName = 'ID'
+      Size = 256
+    end
+  end
+  object dsValidacaoDTO: TDataSource
+    DataSet = cdsValidacaoDTO
+    Left = 208
+    Top = 216
+  end
+  object dspInsertGrupoProdutoDTO: TDataSetProvider
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 144
+    Top = 248
+  end
+  object cdsInsertGrupoProdutoDTO: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspInsertGrupoProdutoDTO'
+    Left = 174
+    Top = 248
+  end
+  object dsInsertGrupoProdutoDTO: TDataSource
+    DataSet = cdsInsertGrupoProdutoDTO
+    Left = 206
+    Top = 248
+  end
+  object qGrupoProdutoDto: TSQLDataSet
+    CommandText = 'select * from GRUPOPRODUTODTO'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = DM.conexao
+    Left = 112
+    Top = 176
+    object qGrupoProdutoDtoGRUPOPRODUTODTO_ID: TLargeintField
+      FieldName = 'GRUPOPRODUTODTO_ID'
+      Required = True
+    end
+    object qGrupoProdutoDtoCODREFER: TStringField
+      FieldName = 'CODREFER'
+      Size = 256
+    end
+    object qGrupoProdutoDtoCODRETAG: TStringField
+      FieldName = 'CODRETAG'
+      Size = 256
+    end
+    object qGrupoProdutoDtoCONTREST: TStringField
+      FieldName = 'CONTREST'
+      Size = 256
+    end
+    object qGrupoProdutoDtoDESCMAXI: TFloatField
+      FieldName = 'DESCMAXI'
+    end
+    object qGrupoProdutoDtoDIGPRECO: TStringField
+      FieldName = 'DIGPRECO'
+      Size = 256
+    end
+    object qGrupoProdutoDtoDIGQUANT: TStringField
+      FieldName = 'DIGQUANT'
+      Size = 256
+    end
+    object qGrupoProdutoDtoDIGVALOR: TStringField
+      FieldName = 'DIGVALOR'
+      Size = 256
+    end
+    object qGrupoProdutoDtoGUID: TStringField
+      FieldName = 'GUID'
+      Size = 256
+    end
+    object qGrupoProdutoDtoGUIDREFE: TStringField
+      FieldName = 'GUIDREFE'
+      Size = 256
+    end
+    object qGrupoProdutoDtoID: TStringField
+      FieldName = 'ID'
+      Size = 256
+    end
+    object qGrupoProdutoDtoNOMEGRUP: TStringField
+      FieldName = 'NOMEGRUP'
+      Size = 256
+    end
+    object qGrupoProdutoDtoPLANOPAG: TFloatField
+      FieldName = 'PLANOPAG'
+    end
+  end
+  object sqlValidacaoDTO: TSQLDataSet
+    CommandText = 'SELECT'#13#10'*'#13#10'FROM VALIDACAODTO'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = DM.conexao
+    Left = 112
+    Top = 216
+    object sqlValidacaoDTOVALIDACAODTO_ID: TLargeintField
+      FieldName = 'VALIDACAODTO_ID'
+      Required = True
+    end
+    object sqlValidacaoDTOCODLOJA: TFloatField
+      FieldName = 'CODLOJA'
+    end
+    object sqlValidacaoDTOID: TStringField
+      FieldName = 'ID'
+      Size = 256
+    end
+  end
+  object spInsertGrupoProdutoDTO: TSQLStoredProc
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = DM.conexao
+    StoredProcName = 'INSERT_PRODTO_DINCASH'
+    Left = 112
+    Top = 248
+  end
+end

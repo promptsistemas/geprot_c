@@ -1,0 +1,922 @@
+object frmPagamentoPdv: TfrmPagamentoPdv
+  Left = 350
+  Top = 114
+  BorderIcons = []
+  BorderStyle = bsSingle
+  Caption = 'Recebimento'
+  ClientHeight = 419
+  ClientWidth = 544
+  Color = clCream
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 78
+    Top = 100
+    Width = 158
+    Height = 13
+    Caption = 'Selecione Forma de Recebimento'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlue
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label8: TLabel
+    Left = 78
+    Top = 199
+    Width = 100
+    Height = 13
+    Caption = 'Formas Recebimento'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlue
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label11: TLabel
+    Left = 335
+    Top = 205
+    Width = 116
+    Height = 23
+    Caption = 'Valor Pago :'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object L_VALOR_PAGO: TLabel
+    Left = 461
+    Top = 205
+    Width = 42
+    Height = 23
+    Caption = '0,00'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGreen
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label12: TLabel
+    Left = 335
+    Top = 238
+    Width = 103
+    Height = 23
+    Caption = 'Diferen'#231'a :'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object L_VALOR_DIFERENCA: TLabel
+    Left = 461
+    Top = 238
+    Width = 42
+    Height = 23
+    Caption = '0,00'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 2
+    Top = 342
+    Width = 52
+    Height = 13
+    Caption = 'Parcelados'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlue
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object BB_CANCELAR: TBitBtn
+    Left = 330
+    Top = 268
+    Width = 209
+    Height = 38
+    Caption = '  [ Esc ]  &Cancelar Recebimento'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlue
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    Glyph.Data = {
+      F6060000424DF606000000000000360000002800000018000000180000000100
+      180000000000C0060000120B0000120B00000000000000000000FF00FFFF00FF
+      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0035960035960035960035
+      96003596003596FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF005CED0052DC0048CC
+      0044BF0045B80041B0003AA4003596002E7B00235BFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0063FC005CF600
+      5AEF166EE74C93E678B0EB8CBBED8BBAED72AAE64186D70D58BF00399F002E7F
+      002662FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0062
+      FF005DFF1F7FFC95C6FBF0F7FEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE3
+      EFFC7AADE71159BC003391002560FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      FF00FF0065FF0368FF75B5FFF2F8FFFFFFFFFFFFFFCCE1FACCE1FAB1D1F8C0D9
+      F8CCE0FACCE0FAFFFFFFFFFFFFE0EDFB518FD7003A9D002664FF00FFFF00FFFF
+      00FFFF00FFFF00FF036AFF036AFF90C5FFFFFFFFFFFFFFD8E7FC9CC6F8095CE5
+      0352E10251E0014FE0014EDE0B5BE1B1D1F8FFFFFFFFFFFFFFFFFF5792D80035
+      96002764FF00FFFF00FFFF00FFFF00FF0166FF62ABFFFFFFFFFFFFFFD9E9FC40
+      8EF4065AE60557E50455E3085AE30352E10251E0014FE0014FDE5396EED7E6FB
+      FFFFFFEFF6FB1B63BD00348FFF00FFFF00FFFF00FF066CFF1277FFDEEFFFFFFF
+      FFD9EAFC3889F40A5FEA085DE9095DE90559E60457E30556E20353E20251E002
+      50E0014EDE468EEDD7E6FBFFFFFFA3C5E90040A7003993FF00FFFF00FF036AFF
+      5EA9FFFFFFFFFFFFFF73B1FA0D66EF87B8F7FCFEFF74ACF4075CE70659E60C5F
+      E60C5EE587B6F3E0EDFC0250E1014FE08EBCF4FFFFFFFCFCFC286FC7003EACFF
+      00FF0D73FF0B72FFB5D8FFFFFFFFFEFFFF116DF30F6AF23184F4BFDAFBFFFFFF
+      4D95F2095DE9075CE795C0F6FFFFFF8AB8F40353E20252E11365E5D7E6FBFFFF
+      FF78ABE20046C10039930D73FF1C7FFFEDF6FFFFFFFFB4D8FE1470F41570F310
+      6CF22077F2B5D5FBF2F8FE4F97F360A0F3FFFFFF91BDF60E62E60456E50354E3
+      0353E2BBD8FAFFFFFFBAD5F30155D4004ECB0E74FF3891FFFBFCFFFFFFFF69AD
+      FE1675F71B78F61370F6116DF3227AF4B2D4FBF3F8FEE7F2FE63A1F30C63E907
+      5BE7065AE60557E50455E37EB2F3FFFFFFE3EFFC0562E60058E71378FF55A4FF
+      FEFFFFFFFFFF65ABFE1878FB1676F81E7AF71774F6126EF49FCAFBFFFFFFFBFE
+      FF4A93F30C65ED095FEA085CE9065AE60558E66FA9F3FFFFFFEDF6FF0667F000
+      5CED1A7DFF68AFFFFFFFFFFFFFFF7BB8FF1B7BFC1979FB1877FA1C79F870B0FB
+      F0F7FFA3CCFBB8D8FCF0F7FE5097F40E67ED0A62EB095EEA075CE788BBF6FFFF
+      FFE1F0FF0568F4005DF21D7FFF6CB1FFF8FCFFFFFFFFCCE5FF1C7EFC1C7DFC2B
+      87FC9ECBFEFFFFFF76B4FB1472F61F79F6BCDAFCFFFFFF79B2F80C65EE0B63ED
+      0A60EBC6DEFBFFFFFFB7DAFF0163F8005EF43D95FF5AA7FFE9F4FFFFFFFFFFFF
+      FF2D8AFF1D7FFE89C1FEFFFFFFA0CCFE1877FA1676F81674F7237DF7C4DEFCFF
+      FFFF0F69F00D67EE2A7FF3FFFFFFFFFFFF73B5FF005BFC005EF4FF00FF3E96FF
+      CEE6FFFFFFFFFFFFFFB0D7FF1E80FF4298FE86C0FF2B88FC1B7AFB1978FA1777
+      FA1674F82D84F891C2FB116DF3116BF3B2D4FCFFFFFFFBFEFF2283FF005FFFFF
+      00FFFF00FF4298FF97C9FFFEFFFFFFFFFFFFFFFF75B6FF1E80FF1E80FF1D7FFF
+      1C7DFE1C7DFC1A79FB1878FA1676F81673F71673F4BBDDFFFFFFFFFFFFFF97C9
+      FF0065FF0065FFFF00FFFF00FFFF00FF54A4FFE1F0FFFFFFFFFFFFFFFFFFFF8F
+      C4FF1F81FF1E80FF1E80FF1D7EFE1C7DFE1B7AFC1879FA1B79FAA6CFFEFFFFFF
+      FFFFFFE7F3FF177BFF0065FFFF00FFFF00FFFF00FFFF00FF5CA7FF8CC2FFF8FC
+      FFFFFFFFFFFFFFFFFFFFF8FCFF79B8FF3C95FF2D8BFF2D8AFE4197FE8AC1FEFF
+      FFFFFFFFFFFFFFFFFBFEFF499DFF0065FF036AFFFF00FFFF00FFFF00FFFF00FF
+      FF00FF5BA6FF9ACBFFF2F8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFD1E7FF459AFF0268FF066CFFFF00FFFF00FFFF
+      00FFFF00FFFF00FFFF00FFFF00FF5EA9FF78B8FFD0E7FFF8FCFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE7F3FF8AC1FF1F81FF056BFF096FFFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF7FBBFF5AA6FF87
+      C0FFBBDDFFDAEDFFE7F3FFE7F3FFDEEFFFC7E2FF96C7FF52A1FF1C7FFF0E74FF
+      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FF7DBAFF5AA6FF5AA6FF60AAFF60AAFF52A1FF3E96FF2C8AFF19
+      7DFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
+    ParentFont = False
+    TabOrder = 0
+    OnClick = BB_CANCELARClick
+  end
+  object GroupBox1: TGroupBox
+    Left = 1
+    Top = -1
+    Width = 540
+    Height = 100
+    Caption = 'Dados do Or'#231'amento'
+    Enabled = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    object Label2: TLabel
+      Left = 3
+      Top = 17
+      Width = 28
+      Height = 13
+      Caption = 'Data'
+    end
+    object Label3: TLabel
+      Left = 98
+      Top = 17
+      Width = 80
+      Height = 13
+      Caption = 'N'#186' Or'#231'amento'
+    end
+    object Label4: TLabel
+      Left = 210
+      Top = 17
+      Width = 40
+      Height = 13
+      Caption = 'Cliente'
+    end
+    object Label6: TLabel
+      Left = 2
+      Top = 60
+      Width = 95
+      Height = 13
+      Caption = 'Valor Or'#231'amento'
+    end
+    object DBEdit1: TDBEdit
+      Left = 3
+      Top = 30
+      Width = 93
+      Height = 19
+      Ctl3D = False
+      DataField = 'DT_VENDA'
+      DataSource = DM.dsPdvLocal
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object DBEdit2: TDBEdit
+      Left = 210
+      Top = 30
+      Width = 311
+      Height = 19
+      Ctl3D = False
+      DataField = 'R_SOCIAL'
+      DataSource = DM.dsPdvLocal
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object DBEdit3: TDBEdit
+      Left = 98
+      Top = 30
+      Width = 111
+      Height = 19
+      Ctl3D = False
+      DataField = 'ID_PDV'
+      DataSource = DM.dsPdvLocal
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 2
+    end
+    object DBEdit5: TDBEdit
+      Left = 2
+      Top = 73
+      Width = 111
+      Height = 19
+      Ctl3D = False
+      DataField = 'VL_LIQ'
+      DataSource = DM.dsPdvLocal
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 3
+    end
+  end
+  object GB_ESPECIE: TGroupBox
+    Left = 335
+    Top = 107
+    Width = 206
+    Height = 92
+    Caption = 'Especie'
+    Color = clCream
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    Visible = False
+    object Label7: TLabel
+      Left = 27
+      Top = 17
+      Width = 153
+      Height = 13
+      Caption = 'Informe Valor Recebido Em'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object DBText1: TDBText
+      Left = 24
+      Top = 36
+      Width = 148
+      Height = 17
+      DataField = 'DESCRICAO_PAGAMENTO'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object DBEdit6: TDBEdit
+      Left = 19
+      Top = 70
+      Width = 121
+      Height = 19
+      Ctl3D = False
+      DataField = 'VL_PAGAMENTO'
+      DataSource = DM.dsPagamentoPdv
+      ParentCtl3D = False
+      TabOrder = 0
+      Visible = False
+      OnExit = DBEdit6Exit
+      OnKeyDown = FormKeyDown
+      OnKeyPress = DBEdit6KeyPress
+    end
+    object Edit6: TEdit
+      Left = 19
+      Top = 59
+      Width = 121
+      Height = 19
+      Ctl3D = False
+      ParentCtl3D = False
+      TabOrder = 1
+      OnExit = Edit6Exit
+      OnKeyDown = Edit6KeyDown
+      OnKeyPress = Edit6KeyPress
+    end
+  end
+  object DBGrid1: TDBGrid
+    Left = 6
+    Top = 114
+    Width = 323
+    Height = 85
+    Ctl3D = False
+    DataSource = dsTipoPagamento
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+    ParentCtl3D = False
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 3
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clBlue
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    OnKeyDown = FormKeyDown
+    OnKeyPress = DBGrid1KeyPress
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'ID_TIPO_PAGAMENTO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DESCRICAO_PAGAMENTO'
+        Visible = True
+      end>
+  end
+  object DBGrid2: TDBGrid
+    Left = 3
+    Top = 216
+    Width = 319
+    Height = 117
+    Ctl3D = False
+    DataSource = DM.dsPagamentoPdv
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+    ParentCtl3D = False
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 4
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clBlue
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'DESCRICAO_PAGAMENTO'
+        Title.Caption = 'Tipo'
+        Width = 171
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_PAGAMENTO'
+        Title.Caption = 'Valor'
+        Visible = True
+      end>
+  end
+  object BB_CF: TBitBtn
+    Left = 330
+    Top = 306
+    Width = 209
+    Height = 33
+    Caption = 'C.F'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    Glyph.Data = {
+      F6000000424DF600000000000000760000002800000010000000100000000100
+      04000000000080000000130B0000130B00001000000000000000000000000000
+      800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333303
+      33333333333333C033333333333333CC0333000000CCCCCCC0330FFFF0CCCCCC
+      CC030FFFF0CCCCCCCCC00F00F0CCCCCCCC030FFFF0CCCCCCC0330F00FFFFF0CC
+      03330FFFFFFFF0C033330F00F000000333330FFFF0FF033333330F08F0F03333
+      33330FFFF0033333333300000033333333333333333333333333}
+    ParentFont = False
+    TabOrder = 5
+    OnClick = BB_CFClick
+  end
+  object GB_FORMA_PAGAMENTO: TGroupBox
+    Left = 335
+    Top = 104
+    Width = 206
+    Height = 101
+    Caption = 'Forma Pagamento'
+    TabOrder = 6
+    Visible = False
+    object Label5: TLabel
+      Left = 3
+      Top = 27
+      Width = 87
+      Height = 13
+      Caption = 'Forma Pagamento'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object DBLookupComboBox1: TDBLookupComboBox
+      Left = 3
+      Top = 43
+      Width = 193
+      Height = 21
+      KeyField = 'ID_FORMA_PAGAMENTO'
+      ListField = 'DESCRICAO_PAGAMENTO'
+      ListFieldIndex = -1
+      ListSource = DM.dsFormaPagamento
+      TabOrder = 0
+      OnExit = DBLookupComboBox1Exit
+      OnKeyDown = FormKeyDown
+      OnKeyPress = DBLookupComboBox1KeyPress
+    end
+  end
+  object DBGrid3: TDBGrid
+    Left = 2
+    Top = 356
+    Width = 539
+    Height = 109
+    Ctl3D = False
+    DataSource = dsContasReceber
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+    ParentCtl3D = False
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 7
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clBlue
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'DT_EMISSAO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DT_VENCIMENTO'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'QT_DIAS'
+        Width = 41
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'QT_PARCELA'
+        Width = 55
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NR_PARCELA'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NR_DOC'
+        Width = 78
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_PARCELA'
+        Width = 72
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VL_COMPRA'
+        Width = 68
+        Visible = True
+      end>
+  end
+  object P_TROCO: TPanel
+    Left = 0
+    Top = -7
+    Width = 541
+    Height = 89
+    Color = 15400959
+    TabOrder = 8
+    Visible = False
+    object L_TROCO: TLabel
+      Left = 60
+      Top = 131
+      Width = 48
+      Height = 45
+      Caption = '00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -37
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 35
+      Top = 16
+      Width = 496
+      Height = 32
+      Caption = 'O B I G A D O, E    V O L T E    S E M P R E !!!'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -24
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 2000
+    OnTimer = Timer1Timer
+    Left = 288
+    Top = 216
+  end
+  object Timer2: TTimer
+    Enabled = False
+    OnTimer = Timer2Timer
+    Left = 479
+    Top = 186
+  end
+  object qTipoPagamento: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT'
+      'TP.id_tipo_pagamento,'
+      'TP.descricao_pagamento'
+      'FROM tb_tipo_pagamento TP'
+      'WHERE TP.descricao_pagamento <>'#39#39)
+    SQLConnection = DM.SqlConexao
+    Left = 32
+    Top = 96
+    object qTipoPagamentoID_TIPO_PAGAMENTO: TIntegerField
+      FieldName = 'ID_TIPO_PAGAMENTO'
+      Required = True
+    end
+    object qTipoPagamentoDESCRICAO_PAGAMENTO: TStringField
+      FieldName = 'DESCRICAO_PAGAMENTO'
+      Size = 40
+    end
+  end
+  object dspTipoPagamento: TDataSetProvider
+    DataSet = qTipoPagamento
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText]
+    Left = 64
+    Top = 96
+  end
+  object cdsTipoPagamento: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspTipoPagamento'
+    Left = 96
+    Top = 96
+    object cdsTipoPagamentoID_TIPO_PAGAMENTO: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID_TIPO_PAGAMENTO'
+      Required = True
+    end
+    object cdsTipoPagamentoDESCRICAO_PAGAMENTO: TStringField
+      DisplayLabel = 'Forma de Recebimento'
+      FieldName = 'DESCRICAO_PAGAMENTO'
+      Size = 40
+    end
+  end
+  object dsTipoPagamento: TDataSource
+    DataSet = cdsTipoPagamento
+    Left = 128
+    Top = 96
+  end
+  object qContasReceber: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_CLIENTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DT_EMI'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_PEDIDO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'SELECT'
+      '  CR.ID_CONTAS_RECEBER,'
+      '  CR.ID_PEDIDO,'
+      '  CR.ID_CLIENTE,'
+      '  CR.ID_TIPO_PAGAMENTO,'
+      '  CR.ID_FORMA_PAGAMENTO,'
+      '  CR.ID_VENDEDOR,'
+      '  CR.ID_USUARIO,'
+      '  CR.DT_EMISSAO,'
+      '  CR.DT_VENCIMENTO,'
+      '  CR.DT_PAGAMENTO,'
+      '  CR.QT_DIAS,'
+      '  CR.QT_PARCELA,'
+      '  CR.NR_DOC,'
+      '  CR.VL_COMPRA,'
+      '  CR.VL_PARCELA,'
+      '  CR.NR_PARCELA,'
+      '  CR.STATUS,'
+      '  CR.REF_DEBITO,'
+      '  CR.NR_BANCO,'
+      '  C.R_SOCIAL AS CLIENTE,'
+      '  V.NOME AS VENEDOR,'
+      '  FP.DESCRICAO_PAGAMENTO AS FORMA_PAGAMENTO'
+      'FROM TB_CONTAS_RECEBER CR'
+      'LEFT OUTER JOIN TB_CLIENTE  C ON  (C.ID_CLIENTE = CR.ID_CLIENTE)'
+      
+        'LEFT OUTER JOIN TB_VENDEDOR V ON (V.ID_VENDEDOR = CR.ID_VENDEDOR' +
+        ')'
+      'LEFT OUTER JOIN TB_USUARIO L ON (L.ID_USUARIO = CR.ID_USUARIO)'
+      
+        'LEFT OUTER JOIN TB_TIPO_PAGAMENTO TP ON (TP.ID_TIPO_PAGAMENTO = ' +
+        'CR.ID_TIPO_PAGAMENTO)'
+      
+        'LEFT OUTER JOIN TB_FORMA_PAGAMENTO FP ON (FP.ID_FORMA_PAGAMENTO ' +
+        '= CR.ID_FORMA_PAGAMENTO)'
+      'WHERE CR.ID_CLIENTE = :ID_CLIENTE'
+      'AND CR.DT_EMISSAO   = :DT_EMI'
+      'AND CR.ID_PEDIDO    = :ID_PEDIDO'
+      'ORDER BY CR.DT_VENCIMENTO')
+    SQLConnection = DM.SqlConexao
+    Left = 120
+    Top = 304
+    object qContasReceberID_CONTAS_RECEBER: TIntegerField
+      FieldName = 'ID_CONTAS_RECEBER'
+      ProviderFlags = []
+    end
+    object qContasReceberID_PEDIDO: TIntegerField
+      FieldName = 'ID_PEDIDO'
+    end
+    object qContasReceberID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Required = True
+    end
+    object qContasReceberID_TIPO_PAGAMENTO: TIntegerField
+      FieldName = 'ID_TIPO_PAGAMENTO'
+      Required = True
+    end
+    object qContasReceberID_VENDEDOR: TIntegerField
+      FieldName = 'ID_VENDEDOR'
+    end
+    object qContasReceberID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+      Required = True
+    end
+    object qContasReceberDT_EMISSAO: TDateField
+      FieldName = 'DT_EMISSAO'
+    end
+    object qContasReceberDT_VENCIMENTO: TDateField
+      FieldName = 'DT_VENCIMENTO'
+    end
+    object qContasReceberDT_PAGAMENTO: TDateField
+      FieldName = 'DT_PAGAMENTO'
+    end
+    object qContasReceberQT_DIAS: TIntegerField
+      FieldName = 'QT_DIAS'
+    end
+    object qContasReceberQT_PARCELA: TIntegerField
+      FieldName = 'QT_PARCELA'
+    end
+    object qContasReceberNR_DOC: TStringField
+      FieldName = 'NR_DOC'
+      Size = 15
+    end
+    object qContasReceberVL_COMPRA: TFMTBCDField
+      FieldName = 'VL_COMPRA'
+      Precision = 18
+      Size = 2
+    end
+    object qContasReceberVL_PARCELA: TFMTBCDField
+      FieldName = 'VL_PARCELA'
+      Precision = 18
+      Size = 2
+    end
+    object qContasReceberNR_PARCELA: TStringField
+      FieldName = 'NR_PARCELA'
+      Size = 10
+    end
+    object qContasReceberSTATUS: TStringField
+      FieldName = 'STATUS'
+      FixedChar = True
+      Size = 1
+    end
+    object qContasReceberREF_DEBITO: TStringField
+      FieldName = 'REF_DEBITO'
+      Size = 30
+    end
+    object qContasReceberNR_BANCO: TStringField
+      FieldName = 'NR_BANCO'
+      Size = 3
+    end
+    object qContasReceberCLIENTE: TStringField
+      FieldName = 'CLIENTE'
+      ProviderFlags = []
+      Size = 50
+    end
+    object qContasReceberVENEDOR: TStringField
+      FieldName = 'VENEDOR'
+      ProviderFlags = []
+      Size = 50
+    end
+    object qContasReceberID_FORMA_PAGAMENTO: TIntegerField
+      FieldName = 'ID_FORMA_PAGAMENTO'
+    end
+    object qContasReceberFORMA_PAGAMENTO: TStringField
+      FieldName = 'FORMA_PAGAMENTO'
+      ProviderFlags = []
+      Size = 40
+    end
+  end
+  object dspContasReceber: TDataSetProvider
+    DataSet = qContasReceber
+    Options = [poIncFieldProps, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    OnGetTableName = dspContasReceberGetTableName
+    Left = 150
+    Top = 305
+  end
+  object cdsContasReceber: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_CLIENTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DT_EMI'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_PEDIDO'
+        ParamType = ptInput
+      end>
+    ProviderName = 'dspContasReceber'
+    Left = 184
+    Top = 304
+    object cdsContasReceberID_CONTAS_RECEBER: TIntegerField
+      FieldName = 'ID_CONTAS_RECEBER'
+      ProviderFlags = []
+    end
+    object cdsContasReceberID_PEDIDO: TIntegerField
+      FieldName = 'ID_PEDIDO'
+    end
+    object cdsContasReceberID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Required = True
+    end
+    object cdsContasReceberID_TIPO_PAGAMENTO: TIntegerField
+      FieldName = 'ID_TIPO_PAGAMENTO'
+      Required = True
+    end
+    object cdsContasReceberID_VENDEDOR: TIntegerField
+      FieldName = 'ID_VENDEDOR'
+    end
+    object cdsContasReceberID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+      Required = True
+    end
+    object cdsContasReceberDT_EMISSAO: TDateField
+      DisplayLabel = 'Data Emiss'#227'o'
+      FieldName = 'DT_EMISSAO'
+      EditMask = '##/##/####'
+    end
+    object cdsContasReceberDT_VENCIMENTO: TDateField
+      DisplayLabel = 'Data Vencimento'
+      FieldName = 'DT_VENCIMENTO'
+      EditMask = '##/##/####'
+    end
+    object cdsContasReceberDT_PAGAMENTO: TDateField
+      FieldName = 'DT_PAGAMENTO'
+    end
+    object cdsContasReceberQT_DIAS: TIntegerField
+      DisplayLabel = 'Qt Dias'
+      FieldName = 'QT_DIAS'
+    end
+    object cdsContasReceberQT_PARCELA: TIntegerField
+      DisplayLabel = 'Qt Parcelas'
+      FieldName = 'QT_PARCELA'
+    end
+    object cdsContasReceberNR_DOC: TStringField
+      DisplayLabel = 'N'#186' Doc'
+      FieldName = 'NR_DOC'
+      Size = 15
+    end
+    object cdsContasReceberVL_COMPRA: TFMTBCDField
+      DisplayLabel = 'Valor Compra'
+      FieldName = 'VL_COMPRA'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsContasReceberVL_PARCELA: TFMTBCDField
+      DisplayLabel = 'Valor Parcelas'
+      FieldName = 'VL_PARCELA'
+      DisplayFormat = '###,###0.00'
+      EditFormat = '###,###0.00'
+      Precision = 18
+      Size = 2
+    end
+    object cdsContasReceberNR_PARCELA: TStringField
+      DisplayLabel = 'N'#186' Parcela'
+      FieldName = 'NR_PARCELA'
+      Size = 10
+    end
+    object cdsContasReceberSTATUS: TStringField
+      FieldName = 'STATUS'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsContasReceberREF_DEBITO: TStringField
+      FieldName = 'REF_DEBITO'
+      Size = 30
+    end
+    object cdsContasReceberNR_BANCO: TStringField
+      FieldName = 'NR_BANCO'
+      Size = 3
+    end
+    object cdsContasReceberCLIENTE: TStringField
+      FieldName = 'CLIENTE'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsContasReceberVENEDOR: TStringField
+      FieldName = 'VENEDOR'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsContasReceberID_FORMA_PAGAMENTO: TIntegerField
+      FieldName = 'ID_FORMA_PAGAMENTO'
+    end
+    object cdsContasReceberFORMA_PAGAMENTO: TStringField
+      FieldName = 'FORMA_PAGAMENTO'
+      ProviderFlags = []
+      Size = 40
+    end
+  end
+  object dsContasReceber: TDataSource
+    DataSet = cdsContasReceber
+    Left = 216
+    Top = 304
+  end
+end
